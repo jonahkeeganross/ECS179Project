@@ -14,7 +14,13 @@ const DEFAULT_JUMP_VELOCITY = -400
 const DEFAULT_MOVE_VELOCITY = 300
 
 var movement_speed = DEFAULT_MOVE_VELOCITY
-var jump_velocity = DEFAULT_JUMP_VELOCITY
+
+
+var right_cmd : Command
+var left_cmd : Command
+var up_cmd : Command
+var down_cmd : Command
+
 
 
 var facing:Facing = Facing.RIGHT
@@ -49,16 +55,16 @@ func _ready() -> void:
 	summoning = false
 
 	
-	change_facing(facing)
+	#change_facing(facing)
 
 
 func move(value: float) -> void:
 	_horizontal_input = value
 
-
-func change_facing(new_facing:Facing) -> void:
-	facing = new_facing
-	emit_signal("CharacterDirectionChange", facing)
+#
+#func change_facing(new_facing:Facing) -> void:
+	#facing = new_facing
+	#emit_signal("CharacterDirectionChange", facing)
 
 
 #This function is meant to be called in the AnimationController after the each relevant anmiation has concluded.
@@ -71,7 +77,7 @@ func command_callback(_name:String) -> void:
 
 
 func _physics_process(delta: float) -> void: 
-	_apply_gravity(delta)
+	#_apply_gravity(delta)
 	_apply_movement(delta)
 
 
@@ -79,5 +85,6 @@ func _apply_movement(_delta: float):
 	move_and_slide()
 
 
-func _apply_gravity(delta : float) -> void:
-	velocity.y = minf(TERMINAL_VELOCITY, velocity.y + gravity * delta)
+#func _apply_gravity(delta : float) -> void:
+	#
+	#velocity.y = minf(TERMINAL_VELOCITY, velocity.y + gravity * delta)

@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://dvv2hjnsm3aoa"]
+[gd_scene load_steps=15 format=4 uid="uid://dvv2hjnsm3aoa"]
 
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/Tilesets/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Script" uid="uid://b587w7w3v17d6" path="res://Scripts/player.gd" id="2_8fven"]
 [ext_resource type="Texture2D" uid="uid://b5q6acgditvss" path="res://Assets/icon.svg" id="3_pds1l"]
+[ext_resource type="Script" uid="uid://c87geakc2kbi" path="res://Scripts/camera_controller.gd" id="4_8fven"]
+[ext_resource type="Script" uid="uid://n006wbdkk7yk" path="res://Scripts/HUD.gd" id="5_pds1l"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_epypp"]
 
@@ -3222,12 +3224,19 @@ sources/2 = SubResource("TileSetAtlasSource_0hol4")
 size = Vector2(61, 59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
+size = Vector2(64, 62)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tx0tn"]
 bg_color = Color(0.30007377, 0.7055571, 0.19665858, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjtap"]
 bg_color = Color(0.7155259, 0.25165454, 0.1472848, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fven"]
+bg_color = Color(0.8069555, 0.53231496, 0.1956537, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pds1l"]
+bg_color = Color(0.6469988, 0.093378656, 0.8060419, 1)
 
 [node name="Node2D" type="Node2D"]
 
@@ -3253,15 +3262,15 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_pds1l")
 
 [node name="Label" type="Label" parent="World/CharacterBody2D"]
-offset_right = 40.0
+offset_right = 61.0
 offset_bottom = 23.0
 
 [node name="AnimationTree" type="AnimationTree" parent="World/CharacterBody2D"]
 
 [node name="Area2D" type="Area2D" parent="World/CharacterBody2D"]
+position = Vector2(32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/CharacterBody2D/Area2D"]
-position = Vector2(29, 30)
 shape = SubResource("RectangleShape2D_0hol4")
 
 [node name="HealthBar" type="ProgressBar" parent="World/CharacterBody2D"]
@@ -3271,4 +3280,43 @@ offset_right = 95.0
 offset_bottom = -6.0
 theme_override_styles/background = SubResource("StyleBoxFlat_tx0tn")
 theme_override_styles/fill = SubResource("StyleBoxFlat_wjtap")
+show_percentage = false
+
+[node name="MainCamera" type="Camera2D" parent="World" node_paths=PackedStringArray("subject")]
+position = Vector2(33, 31)
+script = ExtResource("4_8fven")
+subject = NodePath("../CharacterBody2D")
+metadata/_custom_type_script = "uid://c87geakc2kbi"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="World/MainCamera"]
+
+[node name="HUD" type="Control" parent="World/MainCamera/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("5_pds1l")
+
+[node name="StaminaBar" type="ProgressBar" parent="World/MainCamera/CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 50.0
+offset_right = 193.0
+offset_bottom = 70.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_8fven")
+value = 100.0
+show_percentage = false
+
+[node name="ProgressBar" type="ProgressBar" parent="World/MainCamera/CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 19.0
+offset_right = 487.0
+offset_bottom = 37.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_pds1l")
+value = 100.0
 show_percentage = false
