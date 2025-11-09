@@ -1,6 +1,7 @@
 [gd_scene load_steps=35 format=4 uid="uid://dvv2hjnsm3aoa"]
 
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/Tilesets/tilesheet_complete.png" id="1_ctg82"]
+[ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="1_ymu4p"]
 [ext_resource type="Script" uid="uid://b587w7w3v17d6" path="res://Scripts/player.gd" id="2_8fven"]
 [ext_resource type="Script" uid="uid://c87geakc2kbi" path="res://Scripts/camera_controller.gd" id="4_8fven"]
@@ -3759,6 +3760,8 @@ shape = SubResource("RectangleShape2D_epypp")
 [node name="Sprite2D" type="Sprite2D" parent="World/Player"]
 position = Vector2(32, 32)
 scale = Vector2(0.5, 0.5)
+position = Vector2(32.000008, 31)
+scale = Vector2(1.9800001, 1.7)
 texture = ExtResource("4_pfs72")
 hframes = 6
 

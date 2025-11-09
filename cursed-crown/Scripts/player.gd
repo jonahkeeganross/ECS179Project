@@ -11,6 +11,7 @@ var dash_cmd:Command
 var _damaged:bool = false
 var _dead:bool = false
 var _last_pressed:int = Direction.RIGHT
+#var _last_pressed:int = Direction.RIGHT
 
 @onready var animation_tree:AnimationTree = $AnimationTree
 
@@ -21,6 +22,7 @@ var _last_pressed:int = Direction.RIGHT
 func _ready():
 	
 	animation_tree.active = true
+	#animation_tree.active = true
 	bind_player_input_commands()
 	command_callback("undeath")
 
