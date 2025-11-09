@@ -3337,7 +3337,6 @@ sources/0 = SubResource("TileSetAtlasSource_55a7v")
 size = Vector2(61, 59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hol4"]
-size = Vector2(64, 62)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tx0tn"]
 bg_color = Color(0.30007377, 0.7055571, 0.19665858, 1)

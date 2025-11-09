@@ -2,8 +2,9 @@ class_name MoveDownCommand
 extends Command
 
 
-
 func execute(character: Character) -> Status:
-	var input = 1 * character.movement_speed
-	character.velocity.y = input
+	var input = character.movement_speed
+	character.velocity.x = input
+	character.sprite.flip_h = false
+	character.change_facing(Character.Facing.RIGHT)
 	return Status.DONE
