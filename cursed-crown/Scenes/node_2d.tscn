@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_hh5uf"]
 [ext_resource type="Script" uid="uid://b587w7w3v17d6" path="res://Scripts/player.gd" id="2_6whob"]
 [ext_resource type="Texture2D" uid="uid://b5q6acgditvss" path="res://Assets/icon.svg" id="3_u7krg"]
-[ext_resource type="Script" uid="uid://c87geakc2kbi" path="res://Scripts/camera_controller.gd" id="4_6whob"]
+[ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="4_6whob"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_epypp"]
 
@@ -3277,6 +3277,5 @@ show_percentage = false
 [node name="MainCameraController" type="Camera2D" parent="World" node_paths=PackedStringArray("subject")]
 script = ExtResource("4_6whob")
 subject = NodePath("../CharacterBody2D")
-metadata/_custom_type_script = "uid://c87geakc2kbi"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="World/MainCameraController"]

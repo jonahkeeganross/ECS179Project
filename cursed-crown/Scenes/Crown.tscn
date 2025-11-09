@@ -1,6 +1,5 @@
 [gd_scene load_steps=35 format=4 uid="uid://dvv2hjnsm3aoa"]
 
-[ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/Tilesets/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="1_ymu4p"]
 [ext_resource type="Script" uid="uid://b587w7w3v17d6" path="res://Scripts/player.gd" id="2_8fven"]
@@ -3758,8 +3757,6 @@ position = Vector2(33.5, 31.5)
 shape = SubResource("RectangleShape2D_epypp")
 
 [node name="Sprite2D" type="Sprite2D" parent="World/Player"]
-position = Vector2(32, 32)
-scale = Vector2(0.5, 0.5)
 position = Vector2(32.000008, 31)
 scale = Vector2(1.9800001, 1.7)
 texture = ExtResource("4_pfs72")
@@ -3801,7 +3798,6 @@ metadata/_custom_type_script = "uid://c87geakc2kbi"
 [node name="CanvasLayer" type="CanvasLayer" parent="World/MainCamera"]
 
 [node name="HUD" type="Control" parent="World/MainCamera/CanvasLayer"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
