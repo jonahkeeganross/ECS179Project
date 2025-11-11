@@ -1,72 +1,86 @@
 class_name Player
-extends Character 
+extends Character
 
-@export var health:int = 100
-enum Direction {
-	LEFT,
-	RIGHT
-}
+@export var health: int = 100
 
-var dash_cmd:Command
-var _damaged:bool = false
-var _dead:bool = false
-#var _last_pressed:int = Direction.RIGHT
+enum Direction { LEFT, RIGHT }
 
-@onready var animation_tree:AnimationTree = $AnimationTree
-
-
-
+var dash_cmd: Command
+var _dead: bool = false
+var _facing_dir: int = Direction.RIGHT
 
 
 func _ready():
-	
-	#animation_tree.active = true
 	bind_player_input_commands()
-	command_callback("undeath")
-
+	_play_animation("idle")
 
 
 func _physics_process(delta: float):
 	if _dead:
 		return
 
-	var move_rl_input = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-	var move_ud_input = Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
-	#Stage1 - handle jump input and commands here.
+	var move_rl_input := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	var move_ud_input := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
 
+	var is_moving_h: bool = abs(move_rl_input) > 0.1
+	var is_moving_v: bool = abs(move_ud_input) > 0.1
 
 	
-	if move_rl_input > 0.1:
-		right_cmd.execute(self)
-	elif move_rl_input < -0.1:
-		left_cmd.execute(self)
-	else	:
+	if is_moving_h:
+		if move_rl_input > 0:
+			_facing_dir = Direction.RIGHT
+			sprite.flip_h = false
+			right_cmd.execute(self)
+		else:
+			_facing_dir = Direction.LEFT
+			sprite.flip_h = true
+			left_cmd.execute(self)
+
+		_play_animation("walk")
+	else:
 		self.velocity.x = 0
-	if move_ud_input > 0.1:
-		up_cmd.execute(self)
-	elif move_ud_input < -0.1:
-		down_cmd.execute(self)
+
+
+	if is_moving_v:
+		if move_ud_input > 0:
+			up_cmd.execute(self)
+		else:
+			down_cmd.execute(self)
+
+		# keep walking animation even when moving vertically
+		_play_animation("walk")
+
 	else:
 		self.velocity.y = 0
+
+	# idle when still
+	if not is_moving_h and not is_moving_v:
+		_play_animation("idle")
+
+	# dash
 	if Input.is_action_just_pressed("dash"):
 		dash_cmd.execute(self)
-	
+		
+
 	super(delta)
-	
-	_manage_animation_tree_state()
 
 
-func take_damage(damage:int) -> void:
+func take_damage(damage: int) -> void:
 	health -= damage
-	$HealthBar.value = health # Updates Health bar
-	_damaged = true
-	if 0 >= health:
-		_play($Audio/defeat)
+	$HealthBar.value = health
+
+	if health <= 0:
 		_dead = true
-		animation_tree.active = false
-		animation_player.play("death")
+		_play_animation("death")
 	else:
-		_play($Audio/hurt)
+		_play_animation("hurt")
+
+
+func resurrect() -> void:
+	_dead = false
+	health = 100
+	$HealthBar.value = health
+	_play_animation("revival")
 
 
 func bind_player_input_commands():
@@ -77,32 +91,6 @@ func bind_player_input_commands():
 	down_cmd = MoveDownCommand.new()
 
 
-func unbind_player_input_commands():
-	print("UNbound bby")
-	#right_cmd = IdleCommand.new()
-	#left_cmd = IdleCommand.new()
-	##dash = IdleCommand.new()
-	#up_cmd = IdleCommand.new()
-	#jump_cmd = IdleCommand.new()
-
-
-func resurrect() -> void:
-	_dead = false
-	health = 100
-	$HealthBar.value = health # Updates Health bar
-	
-
-
-func command_callback(cmd_name:String) -> void:
-	if "attack" == cmd_name:
-		print("ATTACK AUDIO")
-	
-
-#Logic to support the state machine in the AnimationTree
-func _manage_animation_tree_state() -> void:
-	health = 100
-	#print("KK")
-
-func _play(player:AudioStreamPlayer2D) -> void:
-	if !player.playing:
-		player.play()
+func _play_animation(anim_name: String) -> void:
+	if animation_player.current_animation != anim_name:
+		animation_player.play(anim_name)
