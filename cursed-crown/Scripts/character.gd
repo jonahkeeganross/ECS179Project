@@ -22,7 +22,7 @@ var up_cmd : Command
 var down_cmd : Command
 
 
-
+var type:CharacterSpec.spec
 var facing:Facing = Facing.RIGHT
 var attacking : bool: 
 	set(value): 

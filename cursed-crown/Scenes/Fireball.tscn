@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://e5t3em8gg4ly"]
+
+[ext_resource type="Script" uid="uid://b3fts1sd5ogal" path="res://Scripts/DamageManager/Projectiles/fireball.gd" id="1_o53bx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dju2h"]
+radius = 10.198039
+
+[node name="Fireball" type="Node2D"]
+script = ExtResource("1_o53bx")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visibility_layer = 31
+shape = SubResource("CircleShape2D_dju2h")
+debug_color = Color(0.8888389, 0.30520257, 0.32070455, 0.41960785)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+
+[node name="DelayTimer" type="Timer" parent="Area2D"]
+
+[node name="AliveTimer" type="Timer" parent="Area2D"]

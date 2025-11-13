@@ -13,7 +13,7 @@ var _facing_dir: int = Direction.RIGHT
 func _ready():
 	bind_player_input_commands()
 	_play_animation("idle")
-
+	self.type = CharacterSpec.spec.PLAYER # Set classification as player for damage engine
 
 func _physics_process(delta: float):
 	if _dead:
