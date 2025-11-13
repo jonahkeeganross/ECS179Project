@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkhkuy8nt46mh"]
+
+[ext_resource type="Script" uid="uid://b2h3lq6wb3qob" path="res://Scripts/DamageManager/Projectiles/lazer.gd" id="1_soxky"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfk2d"]
+size = Vector2(416, 6)
+
+[node name="Laser" type="Node2D"]
+script = ExtResource("1_soxky")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_cfk2d")
+debug_color = Color(0.654902, 0.07450981, 0.2784314, 0.41960785)
+
+[node name="DelayTimer" type="Timer" parent="Area2D"]
+
+[node name="AliveTimer" type="Timer" parent="Area2D"]
