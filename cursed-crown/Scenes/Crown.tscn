@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://dvv2hjnsm3aoa"]
+[gd_scene load_steps=73 format=4 uid="uid://dvv2hjnsm3aoa"]
 
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="1_ymu4p"]
@@ -20,9 +20,29 @@
 [ext_resource type="PackedScene" uid="uid://dkhkuy8nt46mh" path="res://Scenes/Laser.tscn" id="17_j6g3n"]
 [ext_resource type="TileSet" uid="uid://coi41otns33ly" path="res://Assets/tileset/outside/outside-tileset.tres" id="19_vlthb"]
 [ext_resource type="Texture2D" uid="uid://ccuhe5r87t7es" path="res://Assets/tileset/dungeon props/chest/chest_open_1.png" id="20_ct527"]
+[ext_resource type="Texture2D" uid="uid://b8r6vphte4vbp" path="res://Assets/tileset/dungeon props/torch/torch_1.png" id="20_vlthb"]
 [ext_resource type="Texture2D" uid="uid://blvixum1d8rts" path="res://Assets/tileset/dungeon props/chest/chest_open_2.png" id="21_7iri4"]
+[ext_resource type="Texture2D" uid="uid://c8rog7ty8cef5" path="res://Assets/tileset/dungeon props/torch/torch_2.png" id="21_ct527"]
+[ext_resource type="Texture2D" uid="uid://bnj0i2xkcwi5l" path="res://Assets/tileset/dungeon props/torch/torch_3.png" id="22_7iri4"]
 [ext_resource type="Texture2D" uid="uid://dr5q1cyewmuj2" path="res://Assets/tileset/dungeon props/chest/chest_open_3.png" id="22_jo1nd"]
+[ext_resource type="Texture2D" uid="uid://clksg5j5kxfao" path="res://Assets/tileset/dungeon props/torch/torch_4.png" id="23_jo1nd"]
 [ext_resource type="Texture2D" uid="uid://cdly12mpj07kr" path="res://Assets/tileset/dungeon props/chest/chest_open_4.png" id="23_rfpp5"]
+[ext_resource type="Texture2D" uid="uid://ckcbqv3u7ox8k" path="res://Assets/tileset/dungeon props/torch/side_torch_1.png" id="24_bthw1"]
+[ext_resource type="Texture2D" uid="uid://cqsh2emuaetwc" path="res://Assets/tileset/dungeon props/torch/side_torch_2.png" id="25_4idfj"]
+[ext_resource type="Texture2D" uid="uid://jspu5rjbtugy" path="res://Assets/tileset/dungeon props/torch/side_torch_3.png" id="26_7b6vx"]
+[ext_resource type="Texture2D" uid="uid://cgbrqq6vg6ti1" path="res://Assets/tileset/dungeon props/torch/side_torch_4.png" id="27_mw32v"]
+[ext_resource type="Texture2D" uid="uid://bjk5y0lisfo1v" path="res://Assets/tileset/dungeon props/torch/candlestick_2_1.png" id="28_1pu1a"]
+[ext_resource type="Texture2D" uid="uid://xe8s074o01v5" path="res://Assets/tileset/dungeon props/torch/candlestick_2_2.png" id="29_wwthk"]
+[ext_resource type="Texture2D" uid="uid://duwqy8bqv5apn" path="res://Assets/tileset/dungeon props/torch/candlestick_2_3.png" id="30_aw57m"]
+[ext_resource type="Texture2D" uid="uid://ia0gdnwl3bx7" path="res://Assets/tileset/dungeon props/torch/candlestick_2_4.png" id="31_48ada"]
+[ext_resource type="Texture2D" uid="uid://ct13vt6wr3nf2" path="res://Assets/tileset/dungeon props/flag/flag_1.png" id="36_hy581"]
+[ext_resource type="Texture2D" uid="uid://dh58e1gd4v8ep" path="res://Assets/tileset/dungeon props/flag/flag_2.png" id="37_gre53"]
+[ext_resource type="Texture2D" uid="uid://2rib8ry3k3e0" path="res://Assets/tileset/dungeon props/flag/flag_3.png" id="38_xl3ij"]
+[ext_resource type="Texture2D" uid="uid://dbs6jq2bpvmdn" path="res://Assets/tileset/dungeon props/flag/flag_4.png" id="39_yhubd"]
+[ext_resource type="Texture2D" uid="uid://d4hyrt34cs3it" path="res://Assets/tileset/dungeon props/peaks/peaks_3.png" id="40_7gl1n"]
+[ext_resource type="Texture2D" uid="uid://gu42bv5sowuf" path="res://Assets/tileset/dungeon props/peaks/peaks_4.png" id="41_nty7n"]
+[ext_resource type="Texture2D" uid="uid://om5byogwe17m" path="res://Assets/tileset/dungeon props/peaks/peaks_2.png" id="42_2gv1e"]
+[ext_resource type="Texture2D" uid="uid://c3agnqt8aaear" path="res://Assets/tileset/dungeon props/peaks/peaks_1.png" id="43_w6mf8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_55a7v"]
 texture = ExtResource("1_ymu4p")
@@ -141,8 +161,6 @@ texture = ExtResource("1_ymu4p")
 7:9/0 = 0
 8:9/0 = 0
 9:9/0 = 0
-
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_epypp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0hol4"]
 texture = ExtResource("1_ctg82")
@@ -3354,7 +3372,6 @@ texture = ExtResource("1_ctg82")
 
 [sub_resource type="TileSet" id="TileSet_0e48y"]
 physics_layer_0/collision_layer = 1
-sources/1 = SubResource("TileSetScenesCollectionSource_epypp")
 sources/2 = SubResource("TileSetAtlasSource_0hol4")
 sources/0 = SubResource("TileSetAtlasSource_55a7v")
 
@@ -3763,10 +3780,70 @@ bg_color = Color(0.8069555, 0.53231496, 0.1956537, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pds1l"]
 bg_color = Color(0.6469988, 0.093378656, 0.8060419, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8nof"]
-size = Vector2(15, 16)
+[sub_resource type="SpriteFrames" id="SpriteFrames_rfpp5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_vlthb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ct527")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_7iri4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_jo1nd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_1gyp3"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_8b7ta"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_bthw1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_4idfj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_7b6vx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_mw32v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1junq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_1pu1a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_wwthk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_aw57m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_48ada")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ghw1"]
+size = Vector2(9, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jvupn"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -3782,12 +3859,55 @@ animations = [{
 "texture": ExtResource("23_rfpp5")
 }],
 "loop": false,
-"name": &"default",
+"name": &"open",
 "speed": 7.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5e5gc"]
-size = Vector2(14, 12)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vtt4i"]
+size = Vector2(16, 11)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i5a83"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_hy581")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_gre53")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_xl3ij")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_yhubd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hhr2u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_7gl1n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_nty7n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_2gv1e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_w6mf8")
+}],
+"loop": false,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6m7xx"]
+size = Vector2(16, 17)
 
 [node name="Node2D" type="Node2D"]
 
@@ -3925,71 +4045,63 @@ laser = ExtResource("17_j6g3n")
 [node name="Outside" type="TileMapLayer" parent="World"]
 tile_set = ExtResource("19_vlthb")
 
-[node name="TorchNormal" type="Area2D" parent="World"]
+[node name="Torch" type="Node2D" parent="World"]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TorchNormal"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_i8nof")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/TorchNormal"]
-sprite_frames = SubResource("SpriteFrames_1gyp3")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Torch"]
+position = Vector2(13, -3)
+sprite_frames = SubResource("SpriteFrames_rfpp5")
 autoplay = "default"
-frame_progress = 1.0
+frame_progress = 0.97593236
 
-[node name="TorchSide" type="Area2D" parent="World"]
+[node name="TorchSide" type="Node2D" parent="World"]
 visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TorchSide"]
-position = Vector2(-5, 0.5)
-shape = SubResource("RectangleShape2D_i8nof")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/TorchSide"]
-sprite_frames = SubResource("SpriteFrames_1gyp3")
+sprite_frames = SubResource("SpriteFrames_8b7ta")
 autoplay = "default"
-frame_progress = 1.0
+frame_progress = 0.81295544
 
 [node name="Candlestick" type="Area2D" parent="World"]
 visible = false
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Candlestick"]
+sprite_frames = SubResource("SpriteFrames_1junq")
+autoplay = "default"
+frame_progress = 0.21818481
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Candlestick"]
 position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_i8nof")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Candlestick"]
-sprite_frames = SubResource("SpriteFrames_1gyp3")
-autoplay = "default"
-frame_progress = 1.0
-
-[node name="PeakTrap" type="Area2D" parent="World"]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PeakTrap"]
-shape = SubResource("RectangleShape2D_i8nof")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/PeakTrap"]
-sprite_frames = SubResource("SpriteFrames_1gyp3")
-
-[node name="Flag" type="Area2D" parent="World"]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Flag"]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_5e5gc")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Flag"]
-sprite_frames = SubResource("SpriteFrames_1gyp3")
-autoplay = "default"
-frame_progress = 1.0
+shape = SubResource("RectangleShape2D_2ghw1")
 
 [node name="Chest" type="Area2D" parent="World"]
 visible = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chest"]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_5e5gc")
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Chest"]
-position = Vector2(0, 1)
-sprite_frames = SubResource("SpriteFrames_1gyp3")
+position = Vector2(-24, -2)
+sprite_frames = SubResource("SpriteFrames_jvupn")
+animation = &"open"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chest"]
+position = Vector2(-24, -1.5)
+shape = SubResource("RectangleShape2D_vtt4i")
+
+[node name="Flag" type="Node2D" parent="World"]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Flag"]
+sprite_frames = SubResource("SpriteFrames_i5a83")
+autoplay = "default"
+frame_progress = 0.06131871
+
+[node name="PeakTrap" type="Area2D" parent="World"]
+visible = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/PeakTrap"]
+sprite_frames = SubResource("SpriteFrames_hhr2u")
+frame = 3
 frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PeakTrap"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_6m7xx")
