@@ -1,12 +1,12 @@
-[gd_scene load_steps=40 format=4 uid="uid://dvv2hjnsm3aoa"]
+[gd_scene load_steps=48 format=4 uid="uid://dvv2hjnsm3aoa"]
 
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="1_ymu4p"]
 [ext_resource type="Script" uid="uid://b587w7w3v17d6" path="res://Scripts/player.gd" id="2_8fven"]
-[ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="4_8fven"]
+[ext_resource type="Script" uid="uid://c87geakc2kbi" path="res://Scripts/camera_controller.gd" id="4_8fven"]
 [ext_resource type="Texture2D" uid="uid://be8q0mtord6gy" path="res://Assets/soilder/Soldier/Soldier-Idle.png" id="4_pfs72"]
 [ext_resource type="Texture2D" uid="uid://bqw4xiymna8dp" path="res://Assets/soilder/Soldier/Soldier-Walk.png" id="5_g0mtc"]
-[ext_resource type="Script" path="res://Scripts/HUD.gd" id="5_pds1l"]
+[ext_resource type="Script" uid="uid://n006wbdkk7yk" path="res://Scripts/HUD.gd" id="5_pds1l"]
 [ext_resource type="Texture2D" uid="uid://cp4b6b16qfm3a" path="res://Assets/soilder/Soldier/Soldier-Death.png" id="6_e834v"]
 [ext_resource type="Texture2D" uid="uid://cfprv3ch12kue" path="res://Assets/soilder/Soldier/Soldier-Hurt.png" id="7_j6g3n"]
 [ext_resource type="Texture2D" uid="uid://dani1raj7s05t" path="res://Assets/soilder/Soldier/Soldier-Attack01.png" id="8_p6028"]
@@ -18,6 +18,11 @@
 [ext_resource type="Script" uid="uid://cr0m2wm1kd216" path="res://Scripts/DamageManager/projectile_manager.gd" id="16_e834v"]
 [ext_resource type="Script" uid="uid://x2j4816p8fcq" path="res://Scripts/test_emitter2.gd" id="16_p6028"]
 [ext_resource type="PackedScene" uid="uid://dkhkuy8nt46mh" path="res://Scenes/Laser.tscn" id="17_j6g3n"]
+[ext_resource type="TileSet" uid="uid://coi41otns33ly" path="res://Assets/tileset/outside/outside-tileset.tres" id="19_vlthb"]
+[ext_resource type="Texture2D" uid="uid://ccuhe5r87t7es" path="res://Assets/tileset/dungeon props/chest/chest_open_1.png" id="20_ct527"]
+[ext_resource type="Texture2D" uid="uid://blvixum1d8rts" path="res://Assets/tileset/dungeon props/chest/chest_open_2.png" id="21_7iri4"]
+[ext_resource type="Texture2D" uid="uid://dr5q1cyewmuj2" path="res://Assets/tileset/dungeon props/chest/chest_open_3.png" id="22_jo1nd"]
+[ext_resource type="Texture2D" uid="uid://cdly12mpj07kr" path="res://Assets/tileset/dungeon props/chest/chest_open_4.png" id="23_rfpp5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_55a7v"]
 texture = ExtResource("1_ymu4p")
@@ -125,23 +130,14 @@ texture = ExtResource("1_ymu4p")
 7:7/0 = 0
 8:7/0 = 0
 9:7/0 = 0
-0:8/0 = 0
-1:8/0 = 0
-2:8/0 = 0
-3:8/0 = 0
 4:8/0 = 0
-5:8/0 = 0
 6:8/0 = 0
 7:8/0 = 0
 8:8/0 = 0
 9:8/0 = 0
 0:9/0 = 0
 1:9/0 = 0
-2:9/0 = 0
 3:9/0 = 0
-4:9/0 = 0
-5:9/0 = 0
-6:9/0 = 0
 7:9/0 = 0
 8:9/0 = 0
 9:9/0 = 0
@@ -3767,6 +3763,32 @@ bg_color = Color(0.8069555, 0.53231496, 0.1956537, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pds1l"]
 bg_color = Color(0.6469988, 0.093378656, 0.8060419, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8nof"]
+size = Vector2(15, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1gyp3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_ct527")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_7iri4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_jo1nd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_rfpp5")
+}],
+"loop": false,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5e5gc"]
+size = Vector2(14, 12)
+
 [node name="Node2D" type="Node2D"]
 
 [node name="World" type="Node" parent="."]
@@ -3899,3 +3921,75 @@ unique_name_in_owner = true
 script = ExtResource("16_e834v")
 fireball = ExtResource("15_g0mtc")
 laser = ExtResource("17_j6g3n")
+
+[node name="Outside" type="TileMapLayer" parent="World"]
+tile_set = ExtResource("19_vlthb")
+
+[node name="TorchNormal" type="Area2D" parent="World"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TorchNormal"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_i8nof")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/TorchNormal"]
+sprite_frames = SubResource("SpriteFrames_1gyp3")
+autoplay = "default"
+frame_progress = 1.0
+
+[node name="TorchSide" type="Area2D" parent="World"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TorchSide"]
+position = Vector2(-5, 0.5)
+shape = SubResource("RectangleShape2D_i8nof")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/TorchSide"]
+sprite_frames = SubResource("SpriteFrames_1gyp3")
+autoplay = "default"
+frame_progress = 1.0
+
+[node name="Candlestick" type="Area2D" parent="World"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Candlestick"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_i8nof")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Candlestick"]
+sprite_frames = SubResource("SpriteFrames_1gyp3")
+autoplay = "default"
+frame_progress = 1.0
+
+[node name="PeakTrap" type="Area2D" parent="World"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/PeakTrap"]
+shape = SubResource("RectangleShape2D_i8nof")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/PeakTrap"]
+sprite_frames = SubResource("SpriteFrames_1gyp3")
+
+[node name="Flag" type="Area2D" parent="World"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Flag"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_5e5gc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Flag"]
+sprite_frames = SubResource("SpriteFrames_1gyp3")
+autoplay = "default"
+frame_progress = 1.0
+
+[node name="Chest" type="Area2D" parent="World"]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Chest"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_5e5gc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World/Chest"]
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_1gyp3")
+frame_progress = 1.0
