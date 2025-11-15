@@ -1,7 +1,10 @@
 class_name Player
 extends Character
 
+
+
 @export var health: int = 100
+@onready var animation:AnimationPlayer = $AnimationPlayer
 
 enum Direction { LEFT, RIGHT }
 
@@ -12,8 +15,10 @@ var _facing_dir: int = Direction.RIGHT
 
 func _ready():
 	bind_player_input_commands()
+	animation.process_mode = Node.PROCESS_MODE_ALWAYS
 	_play_animation("idle")
 	self.type = CharacterSpec.spec.PLAYER # Set classification as player for damage engine
+	
 
 func _physics_process(delta: float):
 	if _dead:

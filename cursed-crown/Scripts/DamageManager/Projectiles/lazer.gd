@@ -7,6 +7,7 @@ var alive_time = 0
 @onready var _alive_timer:Timer = $Area2D/AliveTimer
 @onready var _delay_timer:Timer  = $Area2D/DelayTimer
 @onready var _coll_shape:CollisionShape2D = $Area2D/CollisionShape2D
+@onready var _display_sprite:Sprite2D = $Area2D/Sprite2D
 
 
 var rect_shape: RectangleShape2D

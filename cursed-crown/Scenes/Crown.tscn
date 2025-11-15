@@ -1,23 +1,26 @@
-[gd_scene load_steps=40 format=4 uid="uid://dvv2hjnsm3aoa"]
+[gd_scene load_steps=47 format=4 uid="uid://dvv2hjnsm3aoa"]
 
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="1_ymu4p"]
 [ext_resource type="Script" uid="uid://b587w7w3v17d6" path="res://Scripts/player.gd" id="2_8fven"]
-[ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="4_8fven"]
+[ext_resource type="Script" uid="uid://c87geakc2kbi" path="res://Scripts/camera_controller.gd" id="4_8fven"]
 [ext_resource type="Texture2D" uid="uid://be8q0mtord6gy" path="res://Assets/soilder/Soldier/Soldier-Idle.png" id="4_pfs72"]
 [ext_resource type="Texture2D" uid="uid://bqw4xiymna8dp" path="res://Assets/soilder/Soldier/Soldier-Walk.png" id="5_g0mtc"]
-[ext_resource type="Script" path="res://Scripts/HUD.gd" id="5_pds1l"]
+[ext_resource type="Script" uid="uid://n006wbdkk7yk" path="res://Scripts/HUD.gd" id="5_pds1l"]
 [ext_resource type="Texture2D" uid="uid://cp4b6b16qfm3a" path="res://Assets/soilder/Soldier/Soldier-Death.png" id="6_e834v"]
 [ext_resource type="Texture2D" uid="uid://cfprv3ch12kue" path="res://Assets/soilder/Soldier/Soldier-Hurt.png" id="7_j6g3n"]
 [ext_resource type="Texture2D" uid="uid://dani1raj7s05t" path="res://Assets/soilder/Soldier/Soldier-Attack01.png" id="8_p6028"]
 [ext_resource type="Texture2D" uid="uid://wxlfwwm3kqd1" path="res://Assets/soilder/Soldier/Soldier-Attack02.png" id="9_0n3e1"]
 [ext_resource type="Texture2D" uid="uid://cqc5o12aq11lx" path="res://Assets/soilder/Soldier/Soldier-Attack03.png" id="10_qklwc"]
 [ext_resource type="Texture2D" uid="uid://7wniig2yo54" path="res://Assets/soilder/Soldier/revival.png" id="11_ydvyc"]
+[ext_resource type="Script" uid="uid://1g73rtj0v6sq" path="res://Scripts/dialogue_manager.gd" id="14_0n3e1"]
 [ext_resource type="Script" uid="uid://djtu6eaumqgh8" path="res://Scripts/test_emitter.gd" id="14_pfs72"]
 [ext_resource type="PackedScene" uid="uid://e5t3em8gg4ly" path="res://Scenes/Fireball.tscn" id="15_g0mtc"]
+[ext_resource type="Script" uid="uid://bh1dancwsgxdg" path="res://Scripts/dialogue_controller.gd" id="15_qklwc"]
 [ext_resource type="Script" uid="uid://cr0m2wm1kd216" path="res://Scripts/DamageManager/projectile_manager.gd" id="16_e834v"]
 [ext_resource type="Script" uid="uid://x2j4816p8fcq" path="res://Scripts/test_emitter2.gd" id="16_p6028"]
 [ext_resource type="PackedScene" uid="uid://dkhkuy8nt46mh" path="res://Scenes/Laser.tscn" id="17_j6g3n"]
+[ext_resource type="Script" uid="uid://dx46u8i4bn2uq" path="res://Scripts/Cutscene/test_prompt.gd" id="21_ydvyc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_55a7v"]
 texture = ExtResource("1_ymu4p")
@@ -3767,6 +3770,19 @@ bg_color = Color(0.8069555, 0.53231496, 0.1956537, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pds1l"]
 bg_color = Color(0.6469988, 0.093378656, 0.8060419, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydvyc"]
+bg_color = Color(0.32941177, 0.21568628, 0.2509804, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qklwc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qklwc"]
+resource_local_to_scene = true
+font_size = 23
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qklwc"]
+size = Vector2(30, 27)
+
 [node name="Node2D" type="Node2D"]
 
 [node name="World" type="Node" parent="."]
@@ -3870,6 +3886,120 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_pds1l")
 value = 100.0
 show_percentage = false
 
+[node name="DialogueBox" type="Container" parent="World/MainCamera/CanvasLayer"]
+offset_right = 1147.0
+offset_bottom = 259.0
+script = ExtResource("14_0n3e1")
+
+[node name="DialogueControl" type="Control" parent="World/MainCamera/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -647.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+script = ExtResource("15_qklwc")
+start_pos = Vector2(0, 800)
+shown_pos = Vector2(0, 400)
+
+[node name="Background" type="Panel" parent="World/MainCamera/CanvasLayer/DialogueControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 408.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ydvyc")
+
+[node name="MarginContainer" type="MarginContainer" parent="World/MainCamera/CanvasLayer/DialogueControl/Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="World/MainCamera/CanvasLayer/DialogueControl/Background/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="World/MainCamera/CanvasLayer/DialogueControl/Background/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="World/MainCamera/CanvasLayer/DialogueControl/Background/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qklwc")
+
+[node name="Text" type="Label" parent="World/MainCamera/CanvasLayer/DialogueControl/Background/MarginContainer/Panel/MarginContainer/Panel"]
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Arrival entered an if drawing request. How daughters not promotion few knowledge contented. Yet winter law behind number stairs garret excuse. Minuter we natural conduct gravity if pointed oh no. Am immediate unwilling of attempted admitting disposing it. Handsome opinions on am at it ladyship.
+
+Dwelling and speedily ignorant any steepest. Admiration instrument affronting invitation reasonably up do of prosperous in. Shy saw declared age debating ecstatic man. Call in so want pure rank am dear were. Remarkably to continuing in surrounded diminution on. In unfeeling existence objection immediate repulsive on he in. Imprudence comparison uncommonly me he difficulty diminution resolution. Likewise proposal differed scarcely dwelling as on raillery. September few dependent extremity own continued and ten prevailed attending. Early to weeks we could."
+label_settings = SubResource("LabelSettings_qklwc")
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 2
+
+[node name="ArrowNext" type="TextureRect" parent="World/MainCamera/CanvasLayer/DialogueControl/Background/MarginContainer/Panel"]
+layout_mode = 0
+offset_left = 1089.0
+offset_top = 11.0
+offset_right = 1129.0
+offset_bottom = 51.0
+
+[node name="Label" type="Label" parent="World/MainCamera/CanvasLayer/DialogueControl/Background/MarginContainer/Panel/ArrowNext"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "V"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StaminaBar" type="ProgressBar" parent="World/MainCamera/CanvasLayer/DialogueControl"]
+visible = false
+layout_mode = 0
+offset_left = 24.0
+offset_top = -505.0
+offset_right = 193.0
+offset_bottom = -485.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_8fven")
+value = 100.0
+show_percentage = false
+
 [node name="TestEmit" type="Marker2D" parent="World" node_paths=PackedStringArray("projectile_spawn")]
 position = Vector2(-76, -147)
 script = ExtResource("14_pfs72")
@@ -3899,3 +4029,12 @@ unique_name_in_owner = true
 script = ExtResource("16_e834v")
 fireball = ExtResource("15_g0mtc")
 laser = ExtResource("17_j6g3n")
+
+[node name="TestDialogue" type="Node2D" parent="World"]
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("21_ydvyc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-73, -371.5)
+shape = SubResource("RectangleShape2D_qklwc")
