@@ -15,6 +15,14 @@ var slow_modif =  0.3 # How slow it should be
 var _dialogue_open:bool = false
 var _text_queue: Array[String]
 
+# Typewriter effect variables
+var _current_text: String = ""
+var _display_text: String = ""
+var _text_index: int = 0
+var _is_typing: bool = false
+var _typewriter_speed: float = 0.05 # Time between each character
+var _typewriter_timer: float = 0.0
+
 func  _ready() -> void:
 	pos = arrow_next.position
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -29,17 +37,35 @@ func  _ready() -> void:
 func _process(delta: float) -> void:
 	time_elapsed += delta
 	arrow_next.position.y = pos.y + sin(time_elapsed / slow_modif) * mult
-	
+
+	# Handle typewriter effect
+	if _is_typing:
+		_typewriter_timer += delta
+		if _typewriter_timer >= _typewriter_speed:
+			_typewriter_timer = 0.0
+			_text_index += 1
+			if _text_index <= _current_text.length():
+				text.text = _current_text.substr(0, _text_index)
+			else:
+				_is_typing = false
+				arrow_next.visible = true
+
 	if not _dialogue_open:
 		if _text_queue.size() > 0:
 			show_dialogue_box()
 			display_next_dialogue()
-			
-	#else:
-		
+
 	if Input.is_action_just_released("dialogue_next"):
 		if _dialogue_open:
-			display_next_dialogue()
+			# If still typing, skip to full text
+			if _is_typing:
+				_is_typing = false
+				_text_index = _current_text.length()
+				text.text = _current_text
+				arrow_next.visible = true
+			else:
+				# Otherwise, move to next dialogue
+				display_next_dialogue()
 			print("skipping")
 		#display_dialogue()
 		
@@ -56,8 +82,14 @@ func display_next_dialogue() -> void:
 	if _text_queue.size() == 0:
 		hide_dialogue_box()
 		return
-	var _cur_text:String = _text_queue.pop_front()
-	text.text = _cur_text
+
+	# Start typewriter effect
+	_current_text = _text_queue.pop_front()
+	_text_index = 0
+	_typewriter_timer = 0.0
+	_is_typing = true
+	arrow_next.visible = false
+	text.text = ""
 	print("kk")
 
 
