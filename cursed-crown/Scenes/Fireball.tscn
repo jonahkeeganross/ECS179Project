@@ -19,6 +19,8 @@ debug_color = Color(0.8888389, 0.30520257, 0.32070455, 0.41960785)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
 
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+
 [node name="DelayTimer" type="Timer" parent="Area2D"]
 
 [node name="AliveTimer" type="Timer" parent="Area2D"]

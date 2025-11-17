@@ -1,7 +1,7 @@
 class_name HUD
 extends Control
 
-#
+
 @onready var stamina_bar: ProgressBar = $StaminaBar
 @onready var progress_bar: ProgressBar = $ProgressBar
 
@@ -11,7 +11,8 @@ func _ready() -> void:
 	#EventBus.show_boss_health.connect(show_health)
 	#EventBus.hide_boss_health.connect(hide_health)
 	#EventBus.set_health_sig.connect(change_health)
-	#stamina_bar.visible = true
+	#stamina_bar.visible = false
+	#print(stamina_bar.value)
 	#progress_bar.visible = true
 	
 	show_health()
