@@ -11,9 +11,11 @@ enum Direction { LEFT, RIGHT }
 var dash_cmd: Command
 var _dead: bool = false
 var _facing_dir: int = Direction.RIGHT
+var current_area : Area2D = null
 
 
 func _ready():
+	add_to_group("Player")
 	bind_player_input_commands()
 	animation.process_mode = Node.PROCESS_MODE_ALWAYS
 	_play_animation("idle")
