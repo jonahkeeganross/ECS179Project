@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbn7dua3isgh1"]
+
+[ext_resource type="Script" uid="uid://bvbm3a1fsuo5y" path="res://Scripts/door.gd" id="1_7mbvs"]
+[ext_resource type="Texture2D" uid="uid://duhh6uec31nxk" path="res://Assets/tileset/dungeon props/Layer 3.png" id="2_1fk65"]
+[ext_resource type="Texture2D" uid="uid://ynfqwduiwjyv" path="res://Assets/tileset/dungeon props/Doors.png" id="3_bgsld"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g50tm"]
+size = Vector2(32, 16)
+
+[node name="Door" type="StaticBody2D"]
+script = ExtResource("1_7mbvs")
+
+[node name="Door_Open" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_1fk65")
+
+[node name="Door_Closed" type="Sprite2D" parent="."]
+texture = ExtResource("3_bgsld")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_g50tm")
