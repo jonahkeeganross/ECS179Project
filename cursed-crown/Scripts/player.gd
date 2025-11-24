@@ -2,7 +2,6 @@ class_name Player
 extends Character
 
 
-
 @export var health: int = 100
 @onready var animation:AnimationPlayer = $AnimationPlayer
 

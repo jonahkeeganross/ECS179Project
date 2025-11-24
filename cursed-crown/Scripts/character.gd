@@ -51,7 +51,6 @@ var _horizontal_input : float
 
 
 func _ready() -> void:
-	add_to_group("Enemies")
 	attacking = false
 	summoning = false
 

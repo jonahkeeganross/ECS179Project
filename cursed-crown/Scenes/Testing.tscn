@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://jtjks1iy4nrx"]
+[gd_scene load_steps=44 format=4 uid="uid://jtjks1iy4nrx"]
 
 [ext_resource type="PackedScene" uid="uid://dbn7dua3isgh1" path="res://Scenes/Door.tscn" id="1_62ywn"]
 [ext_resource type="Script" uid="uid://bf8hs3l6dnoj5" path="res://Scripts/TestingRoomController.gd" id="1_b1e3n"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" uid="uid://bh1dancwsgxdg" path="res://Scripts/dialogue_controller.gd" id="17_62ywn"]
 [ext_resource type="PackedScene" uid="uid://bju8bt6iv6dyw" path="res://Scenes/Skeleton.tscn" id="19_b1e3n"]
 [ext_resource type="PackedScene" uid="uid://cut8xugsri52a" path="res://Scenes/vampire.tscn" id="20_s5sam"]
+[ext_resource type="Script" uid="uid://bwqxx1bhfflgx" path="res://Scripts/skeleton.gd" id="21_mt3rn"]
 [ext_resource type="Script" uid="uid://cyl6s6lmj4t1r" path="res://Scripts/Room.gd" id="22_s5sam"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oq3go"]
@@ -3464,12 +3465,13 @@ size = Vector2(576, 576)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mt3rn"]
 size = Vector2(575, 576)
 
-[node name="Testing" type="Node2D" node_paths=PackedStringArray("room1", "room2", "door1", "door2")]
+[node name="Testing" type="Node2D" node_paths=PackedStringArray("room1", "room2", "door1", "door2", "skeleton")]
 script = ExtResource("1_b1e3n")
 room1 = NodePath("Room1")
 room2 = NodePath("Room2")
 door1 = NodePath("Door1")
 door2 = NodePath("Door2")
+skeleton = NodePath("Skeleton")
 
 [node name="Door1" parent="." instance=ExtResource("1_62ywn")]
 z_index = 1
@@ -3654,6 +3656,7 @@ show_percentage = false
 [node name="Skeleton" parent="." instance=ExtResource("19_b1e3n")]
 position = Vector2(-87, -648)
 collision_layer = 17
+script = ExtResource("21_mt3rn")
 
 [node name="Vampire" parent="." instance=ExtResource("20_s5sam")]
 position = Vector2(140, -649)
