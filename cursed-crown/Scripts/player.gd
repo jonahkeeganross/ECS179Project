@@ -1,25 +1,23 @@
 class_name Player
 extends Character
 
-
 @export var health: int = 100
-@onready var animation:AnimationPlayer = $AnimationPlayer
 
-enum Direction { LEFT, RIGHT }
+enum FacingDir { LEFT, RIGHT, UP, DOWN }
 
 var dash_cmd: Command
 var _dead: bool = false
-var _facing_dir: int = Direction.RIGHT
-var current_area : Area2D = null
+var _facing_dir: int = FacingDir.RIGHT
+var current_area: Area2D = null
 
 
 func _ready():
 	add_to_group("Player")
 	bind_player_input_commands()
-	animation.process_mode = Node.PROCESS_MODE_ALWAYS
+	animation_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	_play_animation("idle")
-	self.type = CharacterSpec.spec.PLAYER # Set classification as player for damage engine
-	
+	self.type = CharacterSpec.spec.PLAYER
+
 
 func _physics_process(delta: float):
 	if _dead:
@@ -30,43 +28,61 @@ func _physics_process(delta: float):
 
 	var is_moving_h: bool = abs(move_rl_input) > 0.1
 	var is_moving_v: bool = abs(move_ud_input) > 0.1
+	var is_diagonal: bool = is_moving_h and is_moving_v
 
 	
 	if is_moving_h:
-		if move_rl_input > 0:
-			_facing_dir = Direction.RIGHT
+		if move_rl_input > 0.0:
+			_facing_dir = FacingDir.RIGHT
 			sprite.flip_h = false
 			right_cmd.execute(self)
 		else:
-			_facing_dir = Direction.LEFT
+			_facing_dir = FacingDir.LEFT
 			sprite.flip_h = true
 			left_cmd.execute(self)
-
-		_play_animation("walk")
 	else:
-		self.velocity.x = 0
+		self.velocity.x = 0.0
 
 
 	if is_moving_v:
-		if move_ud_input > 0:
+		if not is_diagonal:
+			if move_ud_input > 0.0:
+				_facing_dir = FacingDir.UP
+			else:
+				_facing_dir = FacingDir.DOWN
+
+		if move_ud_input > 0.0:
 			up_cmd.execute(self)
 		else:
 			down_cmd.execute(self)
-
-		# keep walking animation even when moving vertically
-		_play_animation("walk")
-
 	else:
-		self.velocity.y = 0
+		self.velocity.y = 0.0
 
-	# idle when still
-	if not is_moving_h and not is_moving_v:
-		_play_animation("idle")
 
-	# dash
+	
+	if is_moving_h or is_moving_v:
+		
+		match _facing_dir:
+			FacingDir.UP:
+				_play_animation("walk_up")
+			FacingDir.DOWN:
+				_play_animation("walk_down")
+			FacingDir.LEFT, FacingDir.RIGHT:
+				
+				_play_animation("walk")
+	else:
+		# Idle
+		match _facing_dir:
+			FacingDir.UP:
+				_play_animation("idle_up")
+			FacingDir.DOWN:
+				_play_animation("idle_down")
+			FacingDir.LEFT, FacingDir.RIGHT:
+				_play_animation("idle")
+
+
 	if Input.is_action_just_pressed("dash"):
 		dash_cmd.execute(self)
-		
 
 	super(delta)
 
