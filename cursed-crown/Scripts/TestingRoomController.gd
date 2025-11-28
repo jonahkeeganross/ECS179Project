@@ -32,7 +32,6 @@ func _process(delta) -> void:
 	
 func count_enemies(room : Area2D) -> bool:
 	var bodies = room.get_overlapping_bodies()
-	print(get_tree().get_nodes_in_group("Enemies"))
 	var total_bodies = 0
 	for body in bodies:
 		if body in get_tree().get_nodes_in_group("Enemies"):
@@ -52,7 +51,7 @@ func start_skeleton() -> void:
 		var distance = (skeleton.global_position - player.global_position).length()
 
 		# Track toward the character until within range
-		if distance > 100:
+		if distance > 25:
 			if skeleton_direction_x > 0:
 				skeleton.is_moving_h = true
 				skeleton.move_rl_input = -1
@@ -66,9 +65,11 @@ func start_skeleton() -> void:
 			elif skeleton_direction_y < 0:
 				skeleton.is_moving_v = true
 				skeleton.move_ud_input = -1
-		elif distance < 100:
+		elif distance < 25:
 			skeleton.is_moving_h = false
 			skeleton.is_moving_v = false
+			skeleton.attacking = true
+			
 			
 		# Attack when in range of character
 	

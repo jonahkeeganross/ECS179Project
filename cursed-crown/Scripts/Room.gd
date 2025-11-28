@@ -1,3 +1,4 @@
+class_name Room
 extends Area2D
 
 @export var room_name: String = "null"
