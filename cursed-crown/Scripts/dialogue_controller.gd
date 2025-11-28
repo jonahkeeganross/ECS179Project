@@ -20,7 +20,7 @@ var _current_text: String = ""
 var _display_text: String = ""
 var _text_index: int = 0
 var _is_typing: bool = false
-var _typewriter_speed: float = 0.05 # Time between each character
+var _typewriter_speed: float = 0.001 # Time between each character
 var _typewriter_timer: float = 0.0
 
 func  _ready() -> void:
