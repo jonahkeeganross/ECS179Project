@@ -1,10 +1,11 @@
-[gd_scene load_steps=92 format=3 uid="uid://bomosdxmu542w"]
+[gd_scene load_steps=93 format=3 uid="uid://bomosdxmu542w"]
 
 [ext_resource type="Script" uid="uid://b587w7w3v17d6" path="res://Scripts/player.gd" id="1_megsn"]
 [ext_resource type="Texture2D" uid="uid://dlvc3lw4kc7c0" path="res://Assets/soilder/Soldier/attack01_front.png" id="2_5v66d"]
+[ext_resource type="PackedScene" uid="uid://bwfc47ll0f5lx" path="res://Scenes/Arrow.tscn" id="2_x63xi"]
 [ext_resource type="Texture2D" uid="uid://be8q0mtord6gy" path="res://Assets/soilder/Soldier/Soldier-Idle.png" id="2_yoq75"]
 [ext_resource type="Texture2D" uid="uid://dani1raj7s05t" path="res://Assets/soilder/Soldier/Soldier-Attack01.png" id="3_ksbbd"]
-[ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scenes/hurt_box.gd" id="3_x63xi"]
+[ext_resource type="Script" path="res://Scenes/hurt_box.gd" id="3_x63xi"]
 [ext_resource type="Texture2D" uid="uid://cqc5o12aq11lx" path="res://Assets/soilder/Soldier/Soldier-Attack03.png" id="5_miouo"]
 [ext_resource type="Texture2D" uid="uid://bd3vmsfygo3g2" path="res://Assets/soilder/Soldier/attack01_up.png" id="6_i2e8t"]
 [ext_resource type="Texture2D" uid="uid://cp4b6b16qfm3a" path="res://Assets/soilder/Soldier/Soldier-Death.png" id="6_o3h8g"]
@@ -20,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://dl6ryoyfuj8fr" path="res://Assets/soilder/Soldier/idle_up.png" id="16_lyrkg"]
 [ext_resource type="Texture2D" uid="uid://bpqpu6pqx388s" path="res://Assets/soilder/Soldier/walk_down.png" id="19_c43xd"]
 [ext_resource type="Texture2D" uid="uid://c6ftqrma837fp" path="res://Assets/soilder/Soldier/walk_up.png" id="20_avx33"]
-[ext_resource type="Script" uid="uid://cm3efw3g1fq3r" path="res://Scenes/hitbox.gd" id="21_rxg2u"]
+[ext_resource type="Script" path="res://Scenes/hitbox.gd" id="21_rxg2u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
 size = Vector2(21, 14)
@@ -503,6 +504,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [9]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.74),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_shoot_arrow"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_p4pck"]
 resource_name = "attack03_down"
@@ -544,6 +559,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [9]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.74),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_shoot_arrow"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_hu2xd"]
 resource_name = "attack03_up"
@@ -584,6 +613,20 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.74),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_shoot_arrow"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_jo1nd"]
@@ -1193,9 +1236,9 @@ states/Walk/position = Vector2(355.18024, 137.331)
 states/attack01_down/node = SubResource("AnimationNodeAnimation_oo0fq")
 states/attack01_down/position = Vector2(789.18, 330.74994)
 states/attack01_up/node = SubResource("AnimationNodeAnimation_kccva")
-states/attack01_up/position = Vector2(607.68, 331.49994)
+states/attack01_up/position = Vector2(607.18, 330.87494)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_q4ads"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_n12xk"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_cxuvp"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_mh0xd"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_5bb04"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_3rfk4"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_mu56t"), "Idle", "Attack2", SubResource("AnimationNodeStateMachineTransition_c43xd"), "Idle", "Attack3", SubResource("AnimationNodeStateMachineTransition_avx33"), "Walk", "Attack2", SubResource("AnimationNodeStateMachineTransition_rxg2u"), "Walk", "Attack3", SubResource("AnimationNodeStateMachineTransition_xixlo"), "Attack2", "Idle", SubResource("AnimationNodeStateMachineTransition_bfbt0"), "Attack2", "Walk", SubResource("AnimationNodeStateMachineTransition_wosd6"), "Attack3", "Idle", SubResource("AnimationNodeStateMachineTransition_hkrn1"), "Attack3", "Walk", SubResource("AnimationNodeStateMachineTransition_wpo1r")]
-graph_offset = Vector2(-381.46524, -270.8028)
+graph_offset = Vector2(145.5749, 115.44743)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5v66d"]
 radius = 31.000002
@@ -1203,17 +1246,16 @@ height = 106.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_megsn")
+arrow_scene = ExtResource("2_x63xi")
 
 [node name="IDK" type="CollisionShape2D" parent="."]
-position = Vector2(32.5, 37)
 shape = SubResource("RectangleShape2D_epypp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(32.000008, 31)
+position = Vector2(0, 1.9073486e-06)
 scale = Vector2(1.9800001, 1.7)
 texture = ExtResource("2_yoq75")
 hframes = 6
-metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="."]
 offset_right = 61.0
@@ -1224,7 +1266,7 @@ position = Vector2(32, 32)
 script = ExtResource("3_x63xi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0.5, -1)
+position = Vector2(-32, -32)
 shape = SubResource("RectangleShape2D_0hol4")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
@@ -1296,7 +1338,6 @@ parameters/Walk/blend_position = Vector2(0, 0)
 script = ExtResource("21_rxg2u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmashAttackHB"]
-position = Vector2(31, 35)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_5v66d")
 disabled = true
