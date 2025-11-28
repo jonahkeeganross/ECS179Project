@@ -3,6 +3,9 @@ extends Character
 
 @export var health: int = 100
 
+@export var arrow_scene: PackedScene
+
+
 @onready var animation_tree:AnimationTree  = $AnimationTree
 
 enum FacingDir { LEFT, RIGHT, UP, DOWN }
@@ -160,6 +163,7 @@ func update_animation_parameters():
 		animation_tree["parameters/conditions/attack2"] = true	
 	elif (Input.is_action_just_pressed("attack3") ):
 		animation_tree["parameters/conditions/attack3"] = true	
+		#_shoot_arrow()
 	else:
 		animation_tree["parameters/conditions/attack"] = false	
 		animation_tree["parameters/conditions/attack2"] = false	
@@ -176,3 +180,61 @@ func update_animation_parameters():
 func _play_animation(anim_name: String) -> void:
 	if animation_player.current_animation != anim_name:
 		animation_player.play(anim_name)
+
+
+func _shoot_arrow() -> void:
+	if arrow_scene == null:
+		print("No arrow_scene assigned!")
+		return
+
+	var arrow := arrow_scene.instantiate()
+
+	var shoot_dir := _get_cardinal_direction()
+	arrow.direction = shoot_dir
+
+	# rotate arrow to face direction
+	arrow.rotation = shoot_dir.angle()
+
+	var spawn_offset := Vector2.ZERO
+	if shoot_dir == Vector2.RIGHT:
+		spawn_offset = Vector2(8, -2)
+	elif shoot_dir == Vector2.LEFT:
+		spawn_offset = Vector2(-8, -2)
+	elif shoot_dir == Vector2.UP:
+		spawn_offset = Vector2(0, -8)
+	elif shoot_dir == Vector2.DOWN:
+		spawn_offset = Vector2(0, 4)
+
+	arrow.global_position = global_position + spawn_offset
+
+	get_parent().add_child(arrow)
+
+	
+func _get_cardinal_direction() -> Vector2:
+	# If there's no movement, fall back to facing dir
+	if direction == Vector2.ZERO:
+		match _facing_dir:
+			FacingDir.UP:
+				return Vector2.UP
+			FacingDir.DOWN:
+				return Vector2.DOWN
+			FacingDir.LEFT:
+				return Vector2.LEFT
+			FacingDir.RIGHT:
+				return Vector2.RIGHT
+
+	var d := direction.normalized()
+
+	# whether vertical or horizontal is dominating
+	if abs(d.y) >= abs(d.x):
+		# Vertical dominates
+		if d.y < 0.0:
+			return Vector2.UP
+		else:
+			return Vector2.DOWN
+	else:
+		# Horizontal dominates
+		if d.x > 0.0:
+			return Vector2.RIGHT
+		else:
+			return Vector2.LEFT

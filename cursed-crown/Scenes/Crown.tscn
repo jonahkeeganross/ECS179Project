@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://bldw7mvhbe4lh" path="res://Assets/tileset/outside/Tileset/sand.png" id="12_6m7xx"]
 [ext_resource type="Texture2D" uid="uid://v16blarn1v0k" path="res://Assets/tileset/dungeon props/side_torch_strip.png" id="12_5014w"]
 [ext_resource type="Texture2D" uid="uid://bo100qg10mrmn" path="res://Assets/tileset/outside/Props/Bridge - wood.png" id="13_ko8uh"]
-[ext_resource type="Script" uid="uid://1g73rtj0v6sq" path="res://Scripts/dialogue_manager.gd" id="14_0n3e1"]
+[ext_resource type="Script" path="res://Scripts/dialogue_manager.gd" id="14_0n3e1"]
 [ext_resource type="Texture2D" uid="uid://kevj3wrgsp1f" path="res://Assets/tileset/outside/Props/Bush.png" id="14_kgtt4"]
 [ext_resource type="Script" uid="uid://djtu6eaumqgh8" path="res://Scripts/test_emitter.gd" id="14_pfs72"]
 [ext_resource type="Texture2D" uid="uid://cyft2spkxex4h" path="res://Assets/tileset/outside/Props/Flower.png" id="15_a4m7m"]
