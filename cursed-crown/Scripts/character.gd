@@ -20,6 +20,7 @@ var right_cmd : Command
 var left_cmd : Command
 var up_cmd : Command
 var down_cmd : Command
+var attack_cmd : Command
 
 
 var type:CharacterSpec.spec
