@@ -10,7 +10,8 @@ func _ready() -> void:
 	print("DONE")
 	#EventBus.show_boss_health.connect(show_health)
 	#EventBus.hide_boss_health.connect(hide_health)
-	#EventBus.set_health_sig.connect(change_health)
+	
+	#EventBus.set_health_sig.connect(chane_health)
 	#stamina_bar.visible = false
 	#print(stamina_bar.value)
 	#progress_bar.visible = true
@@ -28,7 +29,9 @@ func hide_health() -> void:
 	#health_bar.visible = false
 	print("HIDING HEALTH")
 		
-		
+func change_stamina(new_stamina: int) -> void:
+	stamina_bar.value = new_stamina	
+	
 func change_health(new_health: int) -> void:
 	#health_bar.value = new_health
 	print("SHOWING HEALTH")

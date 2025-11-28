@@ -3,9 +3,12 @@ extends Character
 
 @export var health: int = 100
 
+@onready var animation_tree:AnimationTree  = $AnimationTree
+
 enum FacingDir { LEFT, RIGHT, UP, DOWN }
 
 var dash_cmd: Command
+var direction: Vector2 = Vector2.ZERO
 var _dead: bool = false
 var _facing_dir: int = FacingDir.RIGHT
 var current_area: Area2D = null
@@ -22,10 +25,14 @@ func _ready():
 func _physics_process(delta: float):
 	if _dead:
 		return
-
+	if Input.get_vector("move_left", "move_right", "move_up", "move_down") != Vector2.ZERO:
+		direction = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
 	var move_rl_input := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	var move_ud_input := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
-
+	
+	var attack_pressed := Input.is_action_just_pressed("attack")
+	
+	
 	var is_moving_h: bool = abs(move_rl_input) > 0.1
 	var is_moving_v: bool = abs(move_ud_input) > 0.1
 	var is_diagonal: bool = is_moving_h and is_moving_v
@@ -58,32 +65,49 @@ func _physics_process(delta: float):
 	else:
 		self.velocity.y = 0.0
 
-
-	
-	if is_moving_h or is_moving_v:
-		
-		match _facing_dir:
-			FacingDir.UP:
-				_play_animation("walk_up")
-			FacingDir.DOWN:
-				_play_animation("walk_down")
-			FacingDir.LEFT, FacingDir.RIGHT:
-				
-				_play_animation("walk")
-	else:
-		# Idle
-		match _facing_dir:
-			FacingDir.UP:
-				_play_animation("idle_up")
-			FacingDir.DOWN:
-				_play_animation("idle_down")
-			FacingDir.LEFT, FacingDir.RIGHT:
-				_play_animation("idle")
-
-
+	update_animation_parameters()
+	#
+	#if not attack_pressed:
+		#
+		#if is_moving_h or is_moving_v:
+			#
+			#match _facing_dir:
+				#FacingDir.UP:
+					#_play_animation("walk_up")
+				#FacingDir.DOWN:
+					#_play_animation("walk_down")
+				#FacingDir.LEFT, FacingDir.RIGHT:
+					#
+					#_play_animation("walk")
+		#else:
+			## Idle
+			#match _facing_dir:
+				#FacingDir.UP:
+					#_play_animation("idle_up")
+				#FacingDir.DOWN:
+					#_play_animation("idle_down")
+				#FacingDir.LEFT, FacingDir.RIGHT:
+					#_play_animation("idle")
+	#else:
+		#print(_facing_dir)
+		#match _facing_dir:
+			#FacingDir.UP:
+				#print("ATTACKINGU")
+				#_play_animation("attack01_up")
+			#FacingDir.DOWN:
+				#print("ATTACKINGD")
+				#_play_animation("attack01_down")
+			#FacingDir.LEFT, FacingDir.RIGHT:
+				#print("ATTACKINGLR")
+				#_play_animation("attack01")
+	#
 	if Input.is_action_just_pressed("dash"):
 		dash_cmd.execute(self)
-
+		
+	
+	#if attack_pressed:
+		
+		
 	super(delta)
 
 
@@ -93,16 +117,16 @@ func take_damage(damage: int) -> void:
 
 	if health <= 0:
 		_dead = true
-		_play_animation("death")
-	else:
-		_play_animation("hurt")
+		#_play_animation("death")
+	#else:
+		#_play_animation("hurt")
 
 
 func resurrect() -> void:
 	_dead = false
 	health = 100
 	$HealthBar.value = health
-	_play_animation("revival")
+	#_play_animation("revival")
 
 
 func bind_player_input_commands():
@@ -112,6 +136,42 @@ func bind_player_input_commands():
 	up_cmd = MoveUpCommand.new()
 	down_cmd = MoveDownCommand.new()
 
+func update_animation_parameters():
+	#print("TEST")
+	animation_tree.active = true
+	#if is_instance_valid(animation_tree):
+		#print("VALID TREE")
+	if velocity == Vector2.ZERO:	
+		#print("SHould be idle")
+		animation_tree["parameters/conditions/idle"] = true	
+		animation_tree["parameters/conditions/walk"] = false	
+		
+	else:
+		animation_tree["parameters/conditions/idle"] = false	
+		animation_tree["parameters/conditions/walk"] = true	
+	#print(direction)
+	if (Input.is_action_just_pressed("attack") 
+		and animation_tree["parameters/conditions/attack2"] == false
+		and animation_tree["parameters/conditions/attack3"] == false):
+		#animation_tree["parameters/conditions/idle"] = false	
+		#animation_tree["parameters/conditions/walk"] = false	
+		animation_tree["parameters/conditions/attack"] = true	
+	elif (Input.is_action_just_pressed("attack2") ):
+		animation_tree["parameters/conditions/attack2"] = true	
+	elif (Input.is_action_just_pressed("attack3") ):
+		animation_tree["parameters/conditions/attack3"] = true	
+	else:
+		animation_tree["parameters/conditions/attack"] = false	
+		animation_tree["parameters/conditions/attack2"] = false	
+		animation_tree["parameters/conditions/attack3"] = false	
+	
+	
+		
+	animation_tree["parameters/Idle/blend_position"] = direction
+	animation_tree["parameters/Attack/blend_position"] = direction
+	animation_tree["parameters/Walk/blend_position"] = direction
+	animation_tree["parameters/Attack2/blend_position"] = direction
+	animation_tree["parameters/Attack3/blend_position"] = direction
 
 func _play_animation(anim_name: String) -> void:
 	if animation_player.current_animation != anim_name:
