@@ -1,4 +1,4 @@
-class_name Skeleton
+class_name Vampire
 extends Character
 
 @export var player : Player
@@ -19,8 +19,8 @@ var _dead:bool = false
 
 func _ready() -> void:
 	add_to_group("Enemies")
-	bind_skeleton_commands()
-	movement_speed = 75
+	bind_vampire_commands()
+	movement_speed = 50
 
 
 func _process(_delta):
@@ -53,7 +53,7 @@ func _physics_process(delta: float):
 	super(delta)
 
 
-func bind_skeleton_commands():
+func bind_vampire_commands():
 	right_cmd = MoveRightCommand.new()
 	left_cmd = MoveLeftCommand.new()
 	up_cmd = MoveUpCommand.new()
