@@ -279,3 +279,9 @@ autoplay = "idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-12, 29.5)
 shape = SubResource("RectangleShape2D_clg8n")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 0.1
+target_desired_distance = 0.1
+avoidance_enabled = true
+radius = 50.0

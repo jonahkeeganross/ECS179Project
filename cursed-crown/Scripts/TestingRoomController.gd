@@ -6,11 +6,14 @@ extends Node2D
 @export var door1 : StaticBody2D
 @export var door2 : StaticBody2D
 @export var skeleton : Character
+@export var vampire : Character
 
 @onready var player = get_node("Player")
 
 var doors : Array[StaticBody2D] = []
 var original_position
+var enable_skeleton : bool = false
+var enable_vampire : bool = false
 
 
 func _ready() -> void:
@@ -29,6 +32,30 @@ func _process(delta) -> void:
 		for door in doors:
 			door.closed()
 			start_skeleton()
+			start_vampire()
+			
+
+func _physics_process(delta: float) -> void:
+	if enable_skeleton:
+		var distance = (skeleton.global_position - player.global_position).length()
+
+		# Track toward the character until within range and do physical attack
+		if distance > 50:
+			skeleton.is_moving = true
+		else:
+			skeleton.is_moving = false
+			skeleton.attacking = true
+	
+	if enable_vampire:
+		var distance = (skeleton.global_position - player.global_position).length()
+
+		# Track toward the character until within range and do ranged attack
+		if distance > 125:
+			vampire.is_moving = true
+		else:
+			vampire.is_moving = false
+			vampire.attacking = true
+
 	
 func count_enemies(room : Area2D) -> bool:
 	var bodies = room.get_overlapping_bodies()
@@ -43,37 +70,9 @@ func count_enemies(room : Area2D) -> bool:
 	
 
 func start_skeleton() -> void:
-	original_position = skeleton.global_position
-	while skeleton.health > 0:
-		# Calculate which side of the player that the boss is on as well as absolute distance
-		var skeleton_direction_x = skeleton.global_position.x - player.global_position.x
-		var skeleton_direction_y = skeleton.global_position.y - player.global_position.y
-		var distance = (skeleton.global_position - player.global_position).length()
-
-		# Track toward the character until within range
-		if distance > 25:
-			if skeleton_direction_x > 0:
-				skeleton.is_moving_h = true
-				skeleton.move_rl_input = -1
-			elif skeleton_direction_x < 0:
-				skeleton.is_moving_h = true
-				skeleton.move_rl_input = 1
-				
-			if skeleton_direction_y > 0:
-				skeleton.is_moving_v = true
-				skeleton.move_ud_input = 1
-			elif skeleton_direction_y < 0:
-				skeleton.is_moving_v = true
-				skeleton.move_ud_input = -1
-		elif distance < 25:
-			skeleton.is_moving_h = false
-			skeleton.is_moving_v = false
-			skeleton.attacking = true
-			
-			
-		# Attack when in range of character
+	enable_skeleton = true
 	
-		await get_tree().create_timer(1.0).timeout
-		
-	return
+func start_vampire() -> void:
+	enable_vampire = true
+	
 	
