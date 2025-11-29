@@ -45,6 +45,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			skeleton.is_moving = false
 			skeleton.attacking = true
+			# skeleton attack goes here
 	
 	if enable_vampire:
 		var distance = (skeleton.global_position - player.global_position).length()
@@ -55,6 +56,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			vampire.is_moving = false
 			vampire.attacking = true
+			# vampire attack goes here
 
 	
 func count_enemies(room : Area2D) -> bool:
