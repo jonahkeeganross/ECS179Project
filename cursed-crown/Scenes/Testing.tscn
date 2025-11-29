@@ -1,6 +1,6 @@
 [gd_scene load_steps=44 format=4 uid="uid://jtjks1iy4nrx"]
 
-[ext_resource type="PackedScene" uid="uid://dbn7dua3isgh1" path="res://Scenes/Door.tscn" id="1_62ywn"]
+[ext_resource type="PackedScene" uid="uid://dbn7dua3isgh1" path="res://Scenes/DoorH.tscn" id="1_62ywn"]
 [ext_resource type="Script" uid="uid://bf8hs3l6dnoj5" path="res://Scripts/TestingRoomController.gd" id="1_b1e3n"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="1_vhqah"]
 [ext_resource type="Texture2D" uid="uid://ccuhe5r87t7es" path="res://Assets/tileset/dungeon props/chest/chest_open_1.png" id="2_wdaas"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bju8bt6iv6dyw"]
+[gd_scene load_steps=17 format=3 uid="uid://bju8bt6iv6dyw"]
 
 [ext_resource type="Script" uid="uid://bwqxx1bhfflgx" path="res://Scripts/skeleton.gd" id="1_yek4v"]
 [ext_resource type="Texture2D" uid="uid://df32f1jbqpg1y" path="res://Assets/skeleton/enemies-skeleton2_idle.png" id="2_ks230"]
@@ -260,6 +260,12 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_clg8n"]
 size = Vector2(24, 29)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yek4v"]
+bg_color = Color(0.7954563, 0.1439021, 0.3739534, 0.9529412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2bjux"]
+bg_color = Color(0.2521279, 0.49308515, 0.22031984, 1)
+
 [node name="Skeleton" type="CharacterBody2D"]
 script = ExtResource("1_yek4v")
 metadata/_custom_type_script = "uid://dxjwjosnicb5y"
@@ -285,3 +291,13 @@ path_desired_distance = 0.1
 target_desired_distance = 0.1
 avoidance_enabled = true
 radius = 50.0
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -25.0
+offset_top = 11.0
+offset_right = -1.0
+offset_bottom = 14.0
+theme_override_styles/background = SubResource("StyleBoxFlat_yek4v")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2bjux")
+value = 100.0
+show_percentage = false
