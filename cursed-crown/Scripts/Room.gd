@@ -12,4 +12,4 @@ func _ready():
 func _on_body_entered(body):
 	if body.is_in_group("Player"):
 		body.current_area = self
-		print("Player entered:", room_name)
+		#print("Player entered:", room_name)

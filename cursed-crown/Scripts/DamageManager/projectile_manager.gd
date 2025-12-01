@@ -5,7 +5,10 @@ class_name ProjectileManager
 @export var fireball:PackedScene
 @export var laser:PackedScene
 
-func spawn_fireball(pos:Vector2, projectInfo: ProjectileInfo):
+func _ready() -> void:
+	BUS.connect("spawn_fireball", Callable(self, "spawn_fireball"))
+
+func spawn_fireball(pos:Vector2, projectInfo: Array[ProjectileInfo]):
 	var new_projectile = fireball.instantiate() as FireBall
 	add_child(new_projectile)
 	new_projectile.initialize(pos, projectInfo)

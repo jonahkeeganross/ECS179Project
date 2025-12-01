@@ -11,11 +11,12 @@ var delay:float = 0
 var pierce:int = 1
 var rot:float = 1
 var rot_vel:float = 1
-
+var target:Node2D = null
 
 
 func _init(type:CharacterSpec.spec,  damage:int, lifetime: float, delay:float,
-		  speed: float, acceleration: float, rot: float, rot_vel: float, pierce:int = 1 ) -> void:
+		  speed: float, acceleration: float, rot: float, 
+		  rot_vel: float, target:Node2D = null , pierce:int = 1 ) -> void:
 	self.type = type	
 	self.damage =damage 
 	self.lifetime = lifetime
@@ -26,4 +27,4 @@ func _init(type:CharacterSpec.spec,  damage:int, lifetime: float, delay:float,
 	self.rot = rot
 	self.rot_vel = rot_vel
 	self.pierce = pierce
-	
+	self.target = target

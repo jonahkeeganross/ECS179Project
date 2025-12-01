@@ -14,7 +14,8 @@ func _ready():
 	for point in skeleton_spawn_points:
 		spawn_skeleton(point)
 	for point in vampire_spawn_points:
-		spawn_vampire(point)
+		print("WHATEVERS")
+		#spawn_vampire(point)
 
 
 func spawn_skeleton(pos: Vector2):

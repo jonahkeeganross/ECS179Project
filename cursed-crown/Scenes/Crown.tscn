@@ -1,11 +1,11 @@
 [gd_scene load_steps=84 format=4 uid="uid://dvv2hjnsm3aoa"]
 
 [ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scenes/FirstLevelRoomController.gd" id="1_65fbj"]
-[ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
+[ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/Tilesets/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="1_ymu4p"]
 [ext_resource type="Texture2D" uid="uid://coij7ger2puva" path="res://Assets/tileset/dungeon props/torch_strip.png" id="3_my8h3"]
 [ext_resource type="Texture2D" uid="uid://b2j8veffelu45" path="res://Assets/tileset/dungeon props/chest_open_strip.png" id="4_4a42m"]
-[ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="4_8fven"]
+[ext_resource type="Script" uid="uid://c87geakc2kbi" path="res://Scripts/camera_controller.gd" id="4_8fven"]
 [ext_resource type="Script" uid="uid://n006wbdkk7yk" path="res://Scripts/HUD.gd" id="5_pds1l"]
 [ext_resource type="Texture2D" uid="uid://cck856h4dxevv" path="res://Assets/tileset/dungeon props/candlestick_strip.png" id="9_0sn70"]
 [ext_resource type="Texture2D" uid="uid://b1se7ndqn340y" path="res://Assets/tileset/dungeon props/coin_strip.png" id="10_oxf7q"]
@@ -4217,3 +4217,7 @@ skeleton_scene = ExtResource("50_hy581")
 vampire_scene = ExtResource("51_gre53")
 skeleton_spawn_points = Array[Vector2]([Vector2(1055, -267), Vector2(-166, -779), Vector2(679, -853), Vector2(-15, -993), Vector2(-165, -991), Vector2(555, -437), Vector2(365, -435), Vector2(38, -774), Vector2(808, -861), Vector2(-1098, -601), Vector2(-702, -529), Vector2(-537, -487), Vector2(92, -1351), Vector2(218, -1340), Vector2(-991, -589), Vector2(1175, -267)])
 vampire_spawn_points = Array[Vector2]([Vector2(775, -768)])
+
+[node name="Vampire" parent="." node_paths=PackedStringArray("player") instance=ExtResource("51_gre53")]
+position = Vector2(-202, -149)
+player = NodePath("../Player")
