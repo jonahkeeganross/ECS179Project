@@ -59,13 +59,13 @@ func _process(delta) -> void:
 		if body in get_tree().get_nodes_in_group("Enemies"):
 			current_room_enemies.append(body)
 	
-	print(current_room)
+	#print(current_room)
 	
 	if count_enemies(current_room):
 		for door in doors:
 			door.open()
 	else:
-		print("Cur room enemies", current_room_enemies)
+		#print("Cur room enemies", current_room_enemies)
 		for door in doors:
 			door.closed()
 		for body in current_room_enemies:
@@ -107,7 +107,7 @@ func count_enemies(room : Area2D) -> bool:
 	for body in bodies:
 		if body in get_tree().get_nodes_in_group("Enemies"):
 			total_bodies += 1
-	print(total_bodies)
+	#print(total_bodies)
 	if total_bodies == 0:
 		return true
 	return false
