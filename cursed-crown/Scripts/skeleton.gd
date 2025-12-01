@@ -1,8 +1,6 @@
 class_name Skeleton
 extends Character
 
-@export var player : Player
-
 var health:int = 100
 var target : Character
 var cmd_list : Array[Command]
@@ -11,14 +9,16 @@ var move_rl_input: float
 var move_ud_input: float
 var is_moving: bool = false
 var _facing_dir
-
 var _dead:bool = false
+var player = GameState.player
+var enabled: bool
 
 #@onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 func _ready() -> void:
 	add_to_group("Enemies")
+	add_to_group("Skeleton")
 	bind_skeleton_commands()
 	movement_speed = 75
 
@@ -39,7 +39,7 @@ func _process(_delta):
 func _physics_process(delta: float):
 	if _dead:
 		return
-		
+				
 	if is_moving:
 		$NavigationAgent2D.target_position = player.global_position
 		var next_path_point = $NavigationAgent2D.get_next_path_position()

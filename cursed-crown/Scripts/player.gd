@@ -18,6 +18,8 @@ var current_area: Area2D = null
 
 
 func _ready():
+	GameState.player = self
+	
 	add_to_group("Player")
 	bind_player_input_commands()
 	animation_player.process_mode = Node.PROCESS_MODE_ALWAYS
