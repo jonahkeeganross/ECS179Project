@@ -85,6 +85,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 }
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.96666664),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_fireball_bite"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_14t6r"]
 resource_name = "death"
@@ -268,11 +282,12 @@ bg_color = Color(0.7954563, 0.1439021, 0.3739534, 0.9529412)
 bg_color = Color(0.2521279, 0.49308515, 0.22031984, 1)
 
 [node name="Vampire" type="CharacterBody2D"]
+position = Vector2(0, -1)
 script = ExtResource("1_te72b")
 metadata/_custom_type_script = "uid://dxjwjosnicb5y"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-44, 18.999998)
+position = Vector2(4.7500076, -8.750006)
 scale = Vector2(1.7968749, 1.890625)
 texture = ExtResource("2_2tffl")
 hframes = 6
@@ -284,7 +299,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-49, 28.5)
+position = Vector2(-0.25, 0.75)
 shape = SubResource("RectangleShape2D_adrl2")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -294,11 +309,12 @@ avoidance_enabled = true
 radius = 50.0
 
 [node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = -61.0
-offset_top = 9.0
-offset_right = -37.0
-offset_bottom = 12.0
+offset_left = -10.25
+offset_top = -21.75
+offset_right = 13.75
+offset_bottom = -18.75
 theme_override_styles/background = SubResource("StyleBoxFlat_te72b")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2tffl")
 value = 100.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true

@@ -12,7 +12,7 @@ var cooldown:float = 3
 func _process(delta: float) -> void:
 	total_time += delta
 	if total_time > cooldown:
-		_emit2()
+		#_emit2()
 		total_time = 0
 	
 func _emit():
@@ -40,7 +40,7 @@ func _emit2():
 			CharacterSpec.spec.ENEMY, 
 			10, # damage
 			7, # Lifetime
-			0, # Spawn delay
+			0.1, # Spawn delay
 			20, # Speed
 			70, # Acceleration
 			i * 36, # Initial Rotation
