@@ -1,8 +1,6 @@
 class_name Vampire
 extends Character
 
-@export var player : Player
-
 var health:int = 100
 var target : Character
 var cmd_list : Array[Command]
@@ -11,14 +9,16 @@ var move_rl_input: float
 var move_ud_input: float
 var is_moving: bool = false
 var _facing_dir
-
 var _dead:bool = false
+var player = GameState.player
+var enabled: bool
 
 #@onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 func _ready() -> void:
 	add_to_group("Enemies")
+	add_to_group("Vampire")
 	bind_vampire_commands()
 	movement_speed = 50
 

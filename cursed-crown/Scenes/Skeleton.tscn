@@ -271,7 +271,7 @@ script = ExtResource("1_yek4v")
 metadata/_custom_type_script = "uid://dxjwjosnicb5y"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-10.999998, 19)
+position = Vector2(0.9999972, -10.749996)
 scale = Vector2(1.6874999, 1.8906252)
 texture = ExtResource("2_ks230")
 hframes = 6
@@ -283,7 +283,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-12, 29.5)
+position = Vector2(-3.8146973e-06, -0.24999619)
 shape = SubResource("RectangleShape2D_clg8n")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -293,10 +293,10 @@ avoidance_enabled = true
 radius = 50.0
 
 [node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = -25.0
-offset_top = 11.0
-offset_right = -1.0
-offset_bottom = 14.0
+offset_left = -13.000004
+offset_top = -18.749996
+offset_right = 10.999996
+offset_bottom = -15.749996
 theme_override_styles/background = SubResource("StyleBoxFlat_yek4v")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2bjux")
 value = 100.0
