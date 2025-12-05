@@ -6,6 +6,7 @@
 radius = 10.198039
 
 [node name="VoidBall" type="Node2D"]
+rotation = -0.035584178
 script = ExtResource("1_xwh0d")
 
 [node name="Area2D" type="Area2D" parent="."]

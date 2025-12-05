@@ -1,4 +1,4 @@
-class_name CameraController
+class_name CameraController2
 extends Camera2D
 
 @export var floating_offset:Vector2 = Vector2.ZERO
@@ -6,7 +6,7 @@ extends Camera2D
 var MAX_HEALTH = 100
 var cur_pos: Vector2 = Vector2(0,0)
 var _health = 100
-var _mult = 4
+var _mult = 2.5
 var _leash_length  = 100
 
 
