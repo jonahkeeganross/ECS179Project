@@ -1,7 +1,9 @@
-class_name FirstLevelRoomController
+class_name RoomController
 extends Node2D
 
 @export var enemy_spawner : Node2D
+@export var is_tutorial: bool
+
 
 @onready var player = get_node("Player")
 
@@ -26,10 +28,24 @@ func _process(delta) -> void:
 	for body in bodies:
 		if body in get_tree().get_nodes_in_group("Enemies"):
 			current_room_enemies.append(body)
+			
+				
+	
+	print(current_room_enemies)
 		
 	if count_enemies(current_room):
-		for door in get_tree().get_nodes_in_group("door"):
-			door.open()
+		if not is_tutorial:
+			for door in get_tree().get_nodes_in_group("door"):
+				door.open()
+		elif is_tutorial:
+			var door_dialogue = get_node("DoorDialogue")
+			door_dialogue.activate = true
+			
+			var altars = get_tree().get_nodes_in_group("Altar")
+			if altars[0].opened:
+				door_dialogue.activate = false
+				for door in get_tree().get_nodes_in_group("door"):
+					door.open()
 	else:
 		for door in get_tree().get_nodes_in_group("door"):
 			door.closed()
@@ -50,6 +66,7 @@ func _physics_process(delta: float) -> void:
 			# Track toward the character until within range and do physical attack
 			if distance > 75:
 				skeleton.is_moving = true
+				skeleton.attacking = false
 			else:
 				skeleton.is_moving = false
 				skeleton.attacking = true

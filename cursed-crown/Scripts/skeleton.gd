@@ -19,6 +19,7 @@ var _dead:bool = false
 var player = GameState.player
 var enabled: bool
 var _knockback_velocity: Vector2
+var cur_time = 1
 
 
 #@onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
@@ -34,6 +35,8 @@ func _ready() -> void:
 	
 func _process(_delta):
 	if _dead:
+		remove_from_group("Enemies")
+		$CollisionShape2D.disabled = true
 		if !animation_player.is_playing():
 			sprite.visible = false
 		return
@@ -54,11 +57,21 @@ func _physics_process(delta: float):
 				
 		State.IDLE, State.CHASE, State.ATTACK:		
 			if is_moving:
+				var facing_dir = global_position.x - player.global_position.x
+				if facing_dir < 0:
+					facing = Facing.LEFT
+				else: facing = Facing.RIGHT
+				
 				$NavigationAgent2D.target_position = player.global_position
 				var next_path_point = $NavigationAgent2D.get_next_path_position()
 				var direction = (next_path_point - global_position).normalized()
 				velocity = direction * movement_speed
 				move_and_slide()
+			if attacking:
+				if cur_time > 2:
+					animation_player.play("attack")
+					cur_time = 0
+				cur_time += delta
 			else:
 				self.velocity = Vector2(0, 0)
 				$NavigationAgent2D.set_velocity(Vector2.ZERO)

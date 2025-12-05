@@ -3506,7 +3506,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vtt4i"]
-size = Vector2(16, 11)
+size = Vector2(16, 14)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i5a83"]
 animations = [{
@@ -3825,21 +3825,34 @@ voidball = ExtResource("21_m4ysf")
 
 [node name="TestDialogue" type="Node2D" parent="."]
 
-[node name="Outside" type="TileMapLayer" parent="."]
-tile_set = ExtResource("19_vlthb")
-
 [node name="Chest" type="Area2D" parent="."]
-position = Vector2(100, 0)
+z_index = 2
+position = Vector2(-691, 71)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chest"]
-position = Vector2(-862, -67)
+position = Vector2(3, 4)
 sprite_frames = SubResource("SpriteFrames_jvupn")
 animation = &"open"
 frame = 3
 frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chest"]
-position = Vector2(-862, -66.5)
+position = Vector2(3, 4)
+shape = SubResource("RectangleShape2D_vtt4i")
+
+[node name="Chest2" type="Area2D" parent="."]
+z_index = 2
+position = Vector2(435, -562)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chest2"]
+position = Vector2(3, 4)
+sprite_frames = SubResource("SpriteFrames_jvupn")
+animation = &"open"
+frame = 3
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chest2"]
+position = Vector2(3, 4)
 shape = SubResource("RectangleShape2D_vtt4i")
 
 [node name="Flag" type="Node2D" parent="."]

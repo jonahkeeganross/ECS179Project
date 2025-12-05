@@ -19,8 +19,8 @@ var _dead: bool = false
 var _facing_dir: int = FacingDir.RIGHT
 var current_area: Area2D = null
 
-const max_stamina = 100
-var stamina:float = 100
+const max_stamina = 500
+var stamina:float = 500
 
 var state:ActionState = ActionState.IDLE
 var time_since_stamina_use:float = 0
