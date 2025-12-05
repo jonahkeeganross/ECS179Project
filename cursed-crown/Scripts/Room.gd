@@ -5,6 +5,7 @@ extends Area2D
 
 
 func _ready():
+	add_to_group("room")
 	room_name = name
 	connect("body_entered", Callable(self, "_on_body_entered"))
 

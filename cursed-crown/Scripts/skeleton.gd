@@ -46,9 +46,10 @@ func _physics_process(delta: float):
 		var direction = (next_path_point - global_position).normalized()
 		velocity = direction * movement_speed
 		move_and_slide()
-
 	else:
 		self.velocity = Vector2(0, 0)
+		$NavigationAgent2D.set_velocity(Vector2.ZERO)
+		$NavigationAgent2D.target_position = global_position
 
 	super(delta)
 

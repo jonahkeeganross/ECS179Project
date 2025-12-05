@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bwfc47ll0f5lx" path="res://Scenes/Arrow.tscn" id="2_x63xi"]
 [ext_resource type="Texture2D" uid="uid://be8q0mtord6gy" path="res://Assets/soilder/Soldier/Soldier-Idle.png" id="2_yoq75"]
 [ext_resource type="Texture2D" uid="uid://dani1raj7s05t" path="res://Assets/soilder/Soldier/Soldier-Attack01.png" id="3_ksbbd"]
-[ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scenes/hurt_box.gd" id="3_x63xi"]
+[ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scenes/hurt_box.gd" id="4_x63xi"]
 [ext_resource type="Texture2D" uid="uid://cqc5o12aq11lx" path="res://Assets/soilder/Soldier/Soldier-Attack03.png" id="5_miouo"]
 [ext_resource type="Texture2D" uid="uid://bd3vmsfygo3g2" path="res://Assets/soilder/Soldier/attack01_up.png" id="6_i2e8t"]
 [ext_resource type="Texture2D" uid="uid://cp4b6b16qfm3a" path="res://Assets/soilder/Soldier/Soldier-Death.png" id="6_o3h8g"]
@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://dl6ryoyfuj8fr" path="res://Assets/soilder/Soldier/idle_up.png" id="16_lyrkg"]
 [ext_resource type="Texture2D" uid="uid://bpqpu6pqx388s" path="res://Assets/soilder/Soldier/walk_down.png" id="19_c43xd"]
 [ext_resource type="Texture2D" uid="uid://c6ftqrma837fp" path="res://Assets/soilder/Soldier/walk_up.png" id="20_avx33"]
-[ext_resource type="Script" uid="uid://cm3efw3g1fq3r" path="res://Scenes/hitbox.gd" id="21_rxg2u"]
+[ext_resource type="Script" uid="uid://cm3efw3g1fq3r" path="res://Scenes/hitbox.gd" id="22_i2e8t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
 size = Vector2(21, 14)
@@ -1263,7 +1263,7 @@ offset_bottom = 24.0
 
 [node name="HurtBox" type="Area2D" parent="."]
 position = Vector2(32, 32)
-script = ExtResource("3_x63xi")
+script = ExtResource("4_x63xi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(-32, -32)
@@ -1286,7 +1286,7 @@ libraries = {
 autoplay = "idle"
 
 [node name="UpAttackHB" type="Area2D" parent="."]
-script = ExtResource("21_rxg2u")
+script = ExtResource("22_i2e8t")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="UpAttackHB"]
 visible = false
@@ -1296,14 +1296,14 @@ disabled = true
 
 [node name="Test" type="Area2D" parent="."]
 visible = false
-script = ExtResource("21_rxg2u")
+script = ExtResource("22_i2e8t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Test"]
 shape = SubResource("RectangleShape2D_oo0fq")
 disabled = true
 
 [node name="SideAttack" type="Area2D" parent="."]
-script = ExtResource("21_rxg2u")
+script = ExtResource("22_i2e8t")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SideAttack"]
 visible = false
@@ -1312,7 +1312,7 @@ polygon = PackedVector2Array(0, 0, 4, -17, 26, -16, 38, -6, 32, 14, 11, 22, -15,
 disabled = true
 
 [node name="DownAttackHB" type="Area2D" parent="."]
-script = ExtResource("21_rxg2u")
+script = ExtResource("22_i2e8t")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DownAttackHB"]
 visible = false
@@ -1335,7 +1335,7 @@ parameters/Idle/blend_position = Vector2(0.18827713, 0.009821415)
 parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="SmashAttackHB" type="Area2D" parent="."]
-script = ExtResource("21_rxg2u")
+script = ExtResource("22_i2e8t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmashAttackHB"]
 rotation = 1.5707964

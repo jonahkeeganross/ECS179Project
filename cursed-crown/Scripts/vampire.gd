@@ -1,8 +1,6 @@
 class_name Vampire
 extends Character
 
-@export var player:Player
-
 var health:int = 100
 var target : Character
 var cmd_list : Array[Command]
@@ -10,11 +8,15 @@ var cmd_list : Array[Command]
 var move_rl_input: float
 var move_ud_input: float
 var is_moving: bool = false
-#var player:Node2D = GameState.player
+var is_attacking: bool = false
+var player:Node2D = GameState.player
 var enabled: bool
 var _facing_dir = Facing.RIGHT
 var _dead:bool = false
 var _test_dt = 0
+var attack_speed = 2
+var cur_time = 1
+
 
 #@onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
 
@@ -27,10 +29,6 @@ func _ready() -> void:
 
 
 func _process(_delta):
-	_test_dt += _delta
-	if _test_dt > 3:
-		animation_player.play("attack")
-		_test_dt = 0
 	if _dead:
 		if !animation_player.is_playing():
 			sprite.visible = false
@@ -41,6 +39,13 @@ func _process(_delta):
 	elif Facing.RIGHT == facing:
 		scale.y = 1.0
 		#rotation_degrees = -180.0
+	
+	if is_attacking:
+		if cur_time > 2:
+			spawn_fireball_bite()
+			cur_time = 0
+		cur_time += _delta
+
 
 
 func _physics_process(delta: float):
@@ -53,7 +58,7 @@ func _physics_process(delta: float):
 		var direction = (next_path_point - global_position).normalized()
 		velocity = direction * movement_speed
 		move_and_slide()
-
+		
 	else:
 		self.velocity = Vector2(0, 0)
 
