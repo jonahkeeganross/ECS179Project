@@ -460,7 +460,7 @@ texture = ExtResource("2_q33qw")
 3:0/0/z_index = 3
 3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 4:0/0 = 0
-4:0/0/z_index = 3
+4:0/0/z_index = 5
 5:0/0 = 0
 6:0/0 = 0
 7:0/0 = 0
@@ -7581,7 +7581,7 @@ tile_set = SubResource("TileSet_0e48y")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("14_ftnvu")]
-z_index = 1
+z_index = 4
 collision_mask = 7
 
 [node name="MainCamera" type="Camera2D" parent="." node_paths=PackedStringArray("top_camera_boundary", "bottom_camera_boundary", "subject")]
@@ -7901,10 +7901,11 @@ position = Vector2(-7, -198)
 collision_layer = 5
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Bridge1Blockers"]
+position = Vector2(-2, 0)
 shape = SubResource("SegmentShape2D_7gc2c")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Bridge1Blockers"]
-position = Vector2(44, 0)
+position = Vector2(46, 0)
 shape = SubResource("SegmentShape2D_7gc2c")
 
 [node name="Bridge2" type="Area2D" parent="."]
@@ -7920,10 +7921,11 @@ position = Vector2(56, -877)
 collision_layer = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bridge2Blockers"]
+position = Vector2(-3, 0)
 shape = SubResource("SegmentShape2D_b7tp4")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Bridge2Blockers"]
-position = Vector2(45, 0)
+position = Vector2(47, 0)
 shape = SubResource("SegmentShape2D_b7tp4")
 
 [node name="EnemySpawner" type="Node2D" parent="."]

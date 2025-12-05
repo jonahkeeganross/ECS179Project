@@ -343,6 +343,7 @@ bg_color = Color(0.2521279, 0.49308515, 0.22031984, 1)
 size = Vector2(22, 29)
 
 [node name="Skeleton" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_yek4v")
 metadata/_custom_type_script = "uid://dxjwjosnicb5y"
 
@@ -377,6 +378,7 @@ theme_override_styles/background = SubResource("StyleBoxFlat_yek4v")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2bjux")
 value = 100.0
 show_percentage = false
+metadata/_edit_use_anchors_ = true
 
 [node name="HurtBox" type="Area2D" parent="."]
 script = ExtResource("7_2bjux")
