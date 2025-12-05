@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=4 uid="uid://dvv2hjnsm3aoa"]
+[gd_scene load_steps=88 format=4 uid="uid://dvv2hjnsm3aoa"]
 
 [ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scripts/FirstLevelRoomController.gd" id="1_65fbj"]
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
@@ -28,9 +28,11 @@
 [ext_resource type="Texture2D" uid="uid://dbs6jq2bpvmdn" path="res://Assets/tileset/dungeon props/flag/flag_4.png" id="39_yhubd"]
 [ext_resource type="Texture2D" uid="uid://d4hyrt34cs3it" path="res://Assets/tileset/dungeon props/peaks/peaks_3.png" id="40_7gl1n"]
 [ext_resource type="Script" uid="uid://cyb756u3apams" path="res://Scripts/enemy_spawner.gd" id="40_65fbj"]
+[ext_resource type="PackedScene" uid="uid://bhihxjjq3t0w" path="res://Scenes/DashGhost.tscn" id="41_8jv1o"]
 [ext_resource type="Script" uid="uid://digytliyvdo7l" path="res://Scripts/skeleton_spawn_point.gd" id="41_65fbj"]
 [ext_resource type="Texture2D" uid="uid://gu42bv5sowuf" path="res://Assets/tileset/dungeon props/peaks/peaks_4.png" id="41_nty7n"]
 [ext_resource type="Texture2D" uid="uid://om5byogwe17m" path="res://Assets/tileset/dungeon props/peaks/peaks_2.png" id="42_2gv1e"]
+[ext_resource type="Script" uid="uid://djtu6eaumqgh8" path="res://Scripts/test_emitter.gd" id="42_7rh26"]
 [ext_resource type="Script" uid="uid://v54wbf7eqdws" path="res://Scripts/VampireSpawnPoint.gd" id="42_v76b2"]
 [ext_resource type="Texture2D" uid="uid://c3agnqt8aaear" path="res://Assets/tileset/dungeon props/peaks/peaks_1.png" id="43_w6mf8"]
 [ext_resource type="PackedScene" uid="uid://bju8bt6iv6dyw" path="res://Scenes/Skeleton.tscn" id="50_hy581"]
@@ -3461,8 +3463,15 @@ sources/11 = SubResource("TileSetAtlasSource_x8fqe")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fven"]
 bg_color = Color(0.8069555, 0.53231496, 0.1956537, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7rh26"]
+bg_color = Color(0.37176213, 0.6882172, 0.33483258, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jv1o"]
+bg_color = Color(0.74509805, 0.011764706, 0.19215687, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pds1l"]
-bg_color = Color(0.6469988, 0.093378656, 0.8060419, 1)
+bg_color = Color(0.97447556, 0.9999061, 0.974616, 1)
+border_color = Color(0.8, 0.8, 0.8, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydvyc"]
 bg_color = Color(0.32941177, 0.21568628, 0.2509804, 1)
@@ -3656,7 +3665,6 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("5_pds1l")
-metadata/_edit_lock_ = true
 
 [node name="StaminaBar" type="ProgressBar" parent="MainCamera/CanvasLayer/HUD"]
 visible = false
@@ -3669,21 +3677,32 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_8fven")
 value = 100.0
 show_percentage = false
 
-[node name="ProgressBar" type="ProgressBar" parent="MainCamera/CanvasLayer/HUD"]
+[node name="HealthBar" type="ProgressBar" parent="MainCamera/CanvasLayer/HUD"]
+visible = false
+light_mask = 0
+visibility_layer = 3
+z_index = 2
+layout_mode = 0
+offset_left = 25.0
+offset_top = 21.0
+offset_right = 490.0
+offset_bottom = 39.0
+rotation = 4.9291597e-05
+theme_override_styles/fill = SubResource("StyleBoxFlat_7rh26")
+value = 100.0
+show_percentage = false
+
+[node name="HealthAnimation" type="ProgressBar" parent="MainCamera/CanvasLayer/HUD"]
 visible = false
 layout_mode = 0
 offset_left = 25.0
 offset_top = 21.0
 offset_right = 490.0
 offset_bottom = 39.0
+theme_override_styles/background = SubResource("StyleBoxFlat_8jv1o")
 theme_override_styles/fill = SubResource("StyleBoxFlat_pds1l")
-value = 100.0
+value = 80.0
 show_percentage = false
-
-[node name="DialogueBox" type="Container" parent="MainCamera/CanvasLayer"]
-offset_right = 1147.0
-offset_bottom = 259.0
-metadata/_edit_lock_ = true
 
 [node name="DialogueControl" type="Control" parent="MainCamera/CanvasLayer"]
 layout_mode = 3
@@ -4364,3 +4383,9 @@ script = ExtResource("42_v76b2")
 [node name="VampireSpawn7" type="Area2D" parent="EnemySpawner"]
 position = Vector2(376, -1160)
 script = ExtResource("42_v76b2")
+
+[node name="Sprite2D" parent="." instance=ExtResource("41_8jv1o")]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-128, -55)
+script = ExtResource("42_7rh26")

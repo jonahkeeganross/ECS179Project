@@ -103,6 +103,11 @@ func _pop_next() -> void:
 
 func _deactivate()-> void:
 	_active = false
+	var tween = self.create_tween()
+	tween.tween_property(_sprite, "modulate:a", 0.0, 0.3).set_delay(0.1).set_trans(Tween.TRANS_QUAD)
+	tween.tween_callback(_destory)
+	
+func _destory():
 	queue_free()
 
 func _on_body_entered(body: Node):

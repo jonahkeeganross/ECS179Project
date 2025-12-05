@@ -7,7 +7,10 @@ extends Character
 
 
 @onready var animation_tree:AnimationTree  = $AnimationTree
+@onready var invincibility_timer:Timer = $InvincibilityTimer
+@onready var blink_timer:Timer = $BlinkTimer
 
+enum ActionState {IDLE, ATTACK, DASH}
 enum FacingDir { LEFT, RIGHT, UP, DOWN }
 
 var dash_cmd: Command
@@ -16,6 +19,19 @@ var _dead: bool = false
 var _facing_dir: int = FacingDir.RIGHT
 var current_area: Area2D = null
 
+const max_stamina = 100
+var stamina:float = 100
+var state:ActionState = ActionState.IDLE
+var time_since_dash:float = 0
+var time_to_stam_regen:float = 2.5
+var stam_regen_rate_base:float = 5
+var cur_stam_regen_rate:float = 2
+var acceleration:float = 8
+var ghost_scene = preload("res://Scenes/DashGhost.tscn")
+var iframe_length = 1
+var invincible = false
+
+
 
 func _ready():
 	GameState.player = self
@@ -23,7 +39,18 @@ func _ready():
 	bind_player_input_commands()
 	animation_player.process_mode = Node.PROCESS_MODE_ALWAYS
 	_play_animation("idle")
+	invincibility_timer.timeout.connect(_on_invincibility_timeout)
 	self.type = CharacterSpec.spec.PLAYER
+	blink_timer.timeout.connect(_on_blink_timeout)
+	
+func _process(delta: float) -> void:
+	time_since_dash += delta
+	
+	if stamina < max_stamina and time_since_dash > time_to_stam_regen:
+		cur_stam_regen_rate += acceleration * delta
+		stamina += cur_stam_regen_rate * delta
+		set_stamina(stamina)
+
 
 
 func _physics_process(delta: float):
@@ -70,60 +97,50 @@ func _physics_process(delta: float):
 		self.velocity.y = 0.0
 
 	update_animation_parameters()
-	#
-	#if not attack_pressed:
-		#
-		#if is_moving_h or is_moving_v:
-			#
-			#match _facing_dir:
-				#FacingDir.UP:
-					#_play_animation("walk_up")
-				#FacingDir.DOWN:
-					#_play_animation("walk_down")
-				#FacingDir.LEFT, FacingDir.RIGHT:
-					#
-					#_play_animation("walk")
-		#else:
-			## Idle
-			#match _facing_dir:
-				#FacingDir.UP:
-					#_play_animation("idle_up")
-				#FacingDir.DOWN:
-					#_play_animation("idle_down")
-				#FacingDir.LEFT, FacingDir.RIGHT:
-					#_play_animation("idle")
-	#else:
-		#print(_facing_dir)
-		#match _facing_dir:
-			#FacingDir.UP:
-				#print("ATTACKINGU")
-				#_play_animation("attack01_up")
-			#FacingDir.DOWN:
-				#print("ATTACKINGD")
-				#_play_animation("attack01_down")
-			#FacingDir.LEFT, FacingDir.RIGHT:
-				#print("ATTACKINGLR")
-				#_play_animation("attack01")
-	#
+	
 	if Input.is_action_just_pressed("dash"):
 		dash_cmd.execute(self)
-		
-	
-	#if attack_pressed:
-		
-		
+		stamina -= 10
+		set_stamina(stamina)
+		time_since_dash  = 0 
+		cur_stam_regen_rate = stam_regen_rate_base
+		dash_cmd.execute(self)
+		create_ghost()
 	super(delta)
+	
 
+
+func give_invincibility(duration: float = 0.5):
+	invincible = true
+	invincibility_timer.start(duration)
+	
+
+func  _on_blink_timeout():
+	sprite.visible = !sprite.visible
+	if invincibility_timer.time_left < 0.2:
+		blink_timer.start(0.03)
+	elif invincibility_timer.time_left < 0.5:
+		blink_timer.start(0.06)
+	
+
+func _on_invincibility_timeout():
+	invincible = false
+	blink_timer.stop()
+	sprite.visible = true
 
 func take_damage(damage: int) -> void:
-	health -= damage
-	$HealthBar.value = health
-
-	if health <= 0:
-		_dead = true
-		#_play_animation("death")
-	#else:
-		#_play_animation("hurt")
+	if not invincible:
+		blink_timer.start(0.08)
+		give_invincibility(1)
+		health -= damage
+		set_health(health)
+		$HealthBar.value = health
+		
+		if health <= 0:
+			_dead = true
+			#_play_animation("death")
+		#else:
+			#_play_animation("hurt")
 
 
 func resurrect() -> void:
@@ -181,6 +198,36 @@ func update_animation_parameters():
 func _play_animation(anim_name: String) -> void:
 	if animation_player.current_animation != anim_name:
 		animation_player.play(anim_name)
+
+func set_stamina(new_stamina: float):
+	BUS.player_stamina_changed.emit(stamina)
+	
+func set_health(new_health: float):
+	BUS.player_health_changed.emit(health)
+	
+func create_ghost():
+	var ghost:Sprite2D = ghost_scene.instantiate()
+	self.get_parent().add_child(ghost)
+
+	ghost.global_position = global_position
+	ghost.scale = sprite.scale
+	ghost.vframes = sprite.vframes
+	ghost.hframes = sprite.hframes
+	ghost.frame = sprite.frame
+	ghost.texture = sprite.texture
+
+func start_attack(anim_name: String):
+	if state != ActionState.IDLE:
+		return	
+	state = ActionState.ATTACK
+	
+	match  anim_name:
+		"Attack1":
+			animation_tree["parameters/conditions/attack"] = true	
+		"Attacl2":
+			animation_tree["parameters/conditions/attack2"] = true	
+		"Attack3":
+			animation_tree["parameters/conditions/attack3"] = true	
 
 
 func _shoot_arrow() -> void:

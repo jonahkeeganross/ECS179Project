@@ -40,7 +40,7 @@ func _emit2():
 		var projectile_info = ProjectileInfo.new(
 			CharacterSpec.spec.ENEMY, 
 			10, # damage
-			7, # Lifetime
+			2, # Lifetime
 			0, # Spawn delay
 			20, # Speed
 			70, # Acceleration

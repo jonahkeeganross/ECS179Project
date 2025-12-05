@@ -1498,6 +1498,7 @@ position = Vector2(-32, -32)
 shape = SubResource("RectangleShape2D_0hol4")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+visible = false
 offset_left = -22.0
 offset_top = -30.0
 offset_right = 23.0
@@ -1569,3 +1570,7 @@ script = ExtResource("22_i2e8t")
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_5v66d")
 disabled = true
+
+[node name="InvincibilityTimer" type="Timer" parent="."]
+
+[node name="BlinkTimer" type="Timer" parent="."]
