@@ -30,6 +30,8 @@ func _ready() -> void:
 
 func _process(_delta):
 	if _dead:
+		remove_from_group("Enemies")
+		$CollisionShape2D.disabled = true
 		if !animation_player.is_playing():
 			sprite.visible = false
 		return
