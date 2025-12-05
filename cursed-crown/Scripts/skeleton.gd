@@ -1,12 +1,6 @@
 class_name Skeleton
 extends Character
 
-@onready var stun_timer:Timer = $StunTime
-@onready var health_bar:ProgressBar = $HealthBar
-#@onready var  
-enum State {IDLE, CHASE, ATTACK, STUN, DEAD}
-
-var state:State
 var health:int = 100
 var target : Character
 var cmd_list : Array[Command]
@@ -18,20 +12,17 @@ var _facing_dir
 var _dead:bool = false
 var player = GameState.player
 var enabled: bool
-var _knockback_velocity: Vector2
-
 
 #@onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 func _ready() -> void:
-	state = State.IDLE
 	add_to_group("Enemies")
 	add_to_group("Skeleton")
 	bind_skeleton_commands()
-	movement_speed = 30
-	stun_timer.timeout.connect(_stun_timeout)
-	
+	movement_speed = 75
+
+
 func _process(_delta):
 	if _dead:
 		if !animation_player.is_playing():
@@ -46,35 +37,21 @@ func _process(_delta):
 
 
 func _physics_process(delta: float):
-	
-	match state:
-		State.DEAD:
-			if _dead:
-				return
+	if _dead:
+		return
 				
-		State.IDLE, State.CHASE, State.ATTACK:		
-			if is_moving:
-				$NavigationAgent2D.target_position = player.global_position
-				var next_path_point = $NavigationAgent2D.get_next_path_position()
-				var direction = (next_path_point - global_position).normalized()
-				velocity = direction * movement_speed
-				move_and_slide()
-			else:
-				self.velocity = Vector2(0, 0)
-				$NavigationAgent2D.set_velocity(Vector2.ZERO)
-				$NavigationAgent2D.target_position = global_position
-		State.STUN:
-			process_knockback(delta)
-	super(delta)
-	
-func _deactivate():
-	var tween = self.create_tween()
-	tween.tween_property(health_bar, "modulate:a", 0.0, 0.8).set_delay(0.1).set_trans(Tween.TRANS_QUAD)
-	tween.tween_callback(_destory)
+	if is_moving:
+		$NavigationAgent2D.target_position = player.global_position
+		var next_path_point = $NavigationAgent2D.get_next_path_position()
+		var direction = (next_path_point - global_position).normalized()
+		velocity = direction * movement_speed
+		move_and_slide()
 
-func _destory():
-	#queue_free()
-	print("destroy?")
+	else:
+		self.velocity = Vector2(0, 0)
+
+	super(delta)
+
 
 func bind_skeleton_commands():
 	right_cmd = MoveRightCommand.new()
@@ -86,29 +63,11 @@ func bind_skeleton_commands():
 func take_damage(damage:int):
 	health -= damage
 	if 0 >= health:
-		_deactivate()
 		_dead = true
-		state = State.DEAD
 		velocity = Vector2.ZERO
 		animation_player.play("death")
-	health_bar.value  = health
 
-func apply_knockback(dir:Vector2 ,strength:float, timer:float = 0.3):
-	if not _dead:
-		_knockback_velocity = -dir * strength
-		state = State.STUN
-		stun_timer.start()
-		
-	
-func process_knockback(delta:float):
-	velocity = _knockback_velocity
-	#_knockback_velocity = _knockback_velocity.lerp(Vector2.ZERO, delta)
-	_knockback_velocity = _knockback_velocity.move_toward(Vector2.ZERO, 2000.0 * delta)
-	if _knockback_velocity == Vector2.ZERO:
-		state = State.CHASE
-func _stun_timeout():
-	_knockback_velocity = Vector2.ZERO
-	state = State.CHASE
+
 #func command_callback(command_name:String) -> void:
 	#if "summon" == command_name:
 		#audio_player.stop()

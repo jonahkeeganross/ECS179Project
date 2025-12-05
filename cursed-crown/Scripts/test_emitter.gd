@@ -36,16 +36,14 @@ func _emit():
 func _emit2():
 	for i in range(10):
 		#var new_projectile = projectile.instantiate() as FireBall
-		var projectile_list: Array[ProjectileInfo] = []
 		var projectile_info = ProjectileInfo.new(
 			CharacterSpec.spec.ENEMY, 
 			10, # damage
-			2, # Lifetime
+			7, # Lifetime
 			0, # Spawn delay
 			20, # Speed
 			70, # Acceleration
 			i * 36, # Initial Rotation
 			25 # Initial Rot velocity 
 			)
-		projectile_list.append(projectile_info)
-		projectile_manager.spawn_fireball(global_position, projectile_list)
+		projectile_manager.spawn_fireball(global_position, projectile_info)

@@ -49,7 +49,7 @@ func _ready() -> void:
 func _process(delta) -> void:
 	var current_room = player.current_area
 	
-	#print(current_room)
+	print(current_room)
 	
 	if count_enemies(current_room):
 		for door in doors:
@@ -64,7 +64,7 @@ func _process(delta) -> void:
 func _physics_process(delta: float) -> void:
 	if enable_skeleton:
 		var skeletons = enemy_spawner.skeletons
-		#print(skeletons)
+		print(skeletons)
 		for skeleton in skeletons:
 			var distance = (skeleton.global_position - player.global_position).length()
 
@@ -96,7 +96,7 @@ func count_enemies(room : Area2D) -> bool:
 	for body in bodies:
 		if body in get_tree().get_nodes_in_group("Enemies"):
 			total_bodies += 1
-	#print(total_bodies)
+	print(total_bodies)
 	if total_bodies == 0:
 		return true
 	return false

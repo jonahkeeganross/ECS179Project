@@ -1,4 +1,3 @@
-class_name Prompt
 extends Area2D
 
 
@@ -32,7 +31,7 @@ Early to weeks we could.
 
 
 func _ready() -> void:
-	add_to_group("Prompt")
+	print("READY")
 	area.body_entered.connect(_on_body_entered)
 	dialogue.push_back(test1)
 	dialogue.push_back(test2)

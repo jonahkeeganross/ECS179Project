@@ -8,15 +8,10 @@ var cmd_list : Array[Command]
 var move_rl_input: float
 var move_ud_input: float
 var is_moving: bool = false
-var is_attacking: bool = false
-var player:Node2D = GameState.player
-var enabled: bool
-var _facing_dir = Facing.RIGHT
+var _facing_dir
 var _dead:bool = false
-var _test_dt = 0
-var attack_speed = 2
-var cur_time = 1
-
+var player = GameState.player
+var enabled: bool
 
 #@onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
 
@@ -37,15 +32,8 @@ func _process(_delta):
 		scale.y = 1.0
 		rotation_degrees = 0.0
 	elif Facing.RIGHT == facing:
-		scale.y = 1.0
-		#rotation_degrees = -180.0
-	
-	if is_attacking:
-		if cur_time > 2:
-			spawn_fireball_bite()
-			cur_time = 0
-		cur_time += _delta
-
+		scale.y = -1.0
+		rotation_degrees = 180.0
 
 
 func _physics_process(delta: float):
@@ -58,7 +46,7 @@ func _physics_process(delta: float):
 		var direction = (next_path_point - global_position).normalized()
 		velocity = direction * movement_speed
 		move_and_slide()
-		
+
 	else:
 		self.velocity = Vector2(0, 0)
 
@@ -80,34 +68,6 @@ func take_damage(damage:int):
 		animation_player.play("death")
 
 
-func spawn_fireball_bite():
-	var dir = (player.global_position - global_position)
-	var projectile_list:Array[ProjectileInfo] = []
-	var projectile_spawn = ProjectileInfo.new(
-		CharacterSpec.spec.ENEMY, 
-		10, # damage
-		1, # Lifetime
-		0.01, # Spawn delay
-		180, # Speed
-		-180, # Acceleration
-		0, # Initial Rotation
-		0 # Initial Rot velocity 
-	)
-	var projectile_shoot = ProjectileInfo.new(
-		CharacterSpec.spec.ENEMY, 
-		10, # damage
-		7, # Lifetime
-		0.01, # Spawn delay
-		20, # Speed
-		70, # Acceleration
-		0, # Initial Rotation
-		0, # Initial Rot velocity 
-		player
-	)
-	projectile_list.append(projectile_spawn)
-	projectile_list.append(projectile_shoot)
-	
-	BUS.emit_signal("spawn_fireball", global_position, projectile_list)
 #func command_callback(command_name:String) -> void:
 	#if "summon" == command_name:
 		#audio_player.stop()

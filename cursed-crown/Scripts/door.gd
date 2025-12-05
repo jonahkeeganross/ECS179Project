@@ -1,10 +1,6 @@
 extends StaticBody2D
 
 
-func _ready() -> void:
-	add_to_group("door")
-
-
 func open() -> void:
 	$Door_Open.visible = true
 	$Door_Closed.visible = false

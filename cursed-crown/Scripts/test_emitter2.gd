@@ -13,7 +13,7 @@ var cooldown:float = 7
 func _process(delta: float) -> void:
 	total_time += delta
 	if total_time > cooldown:
-		#_emit()
+		_emit()
 		total_time = 0
 	
 func _emit():

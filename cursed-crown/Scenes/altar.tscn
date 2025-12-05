@@ -1,17 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://ctyb6ojuj8ra"]
+[gd_scene load_steps=4 format=3 uid="uid://ctyb6ojuj8ra"]
 
 [ext_resource type="Texture2D" uid="uid://bbsqr3yddh8vw" path="res://Assets/altar/altar.png" id="1_qtrpd"]
+[ext_resource type="Script" path="res://Scripts/Interactables/AltarInteraction.gd" id="2_altar_interaction"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5b5ay"]
-size = Vector2(33, 19)
+[sub_resource type="CircleShape2D" id="CircleShape2D_interaction"]
+radius = 80.0
 
-[node name="Altar" type="Area2D"]
+[node name="Altar" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(32.47577, -3.8737102)
 scale = Vector2(0.11009692, 0.10050516)
 texture = ExtResource("1_qtrpd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="AltarInteraction" type="Area2D" parent="."]
+script = ExtResource("2_altar_interaction")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AltarInteraction"]
 position = Vector2(32.5, -1.5)
-shape = SubResource("RectangleShape2D_5b5ay")
+shape = SubResource("CircleShape2D_interaction")
+
+[node name="InteractionPrompt" type="Label" parent="AltarInteraction"]
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 85.0
+offset_bottom = -34.0
+text = "Press F to open shop"
+horizontal_alignment = 1
