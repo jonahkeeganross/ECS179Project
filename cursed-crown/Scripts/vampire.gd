@@ -1,6 +1,13 @@
 class_name Vampire
 extends Character
 
+@onready var stun_timer:Timer = $StunTime
+@onready var health_bar:ProgressBar = $HealthBar
+#@onready var  
+enum State {IDLE, CHASE, ATTACK, STUN, DEAD}
+
+var state:State
+
 var health:int = 100
 var target : Character
 var cmd_list : Array[Command]
@@ -16,6 +23,7 @@ var _dead:bool = false
 var _test_dt = 0
 var attack_speed = 2
 var cur_time = 1
+var _knockback_velocity: Vector2
 
 
 #@onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
@@ -41,30 +49,50 @@ func _process(_delta):
 	elif Facing.RIGHT == facing:
 		scale.y = 1.0
 		#rotation_degrees = -180.0
-	
-	if is_attacking:
-		if cur_time > 2:
-			spawn_fireball_bite()
-			cur_time = 0
-		cur_time += _delta
 
 
 
 func _physics_process(delta: float):
-	if _dead:
-		return
-		
-	if is_moving:
-		$NavigationAgent2D.target_position = player.global_position
-		var next_path_point = $NavigationAgent2D.get_next_path_position()
-		var direction = (next_path_point - global_position).normalized()
-		velocity = direction * movement_speed
-		move_and_slide()
-		
-	else:
-		self.velocity = Vector2(0, 0)
-
+	match state:
+		State.DEAD:
+			if _dead:
+				$NavigationAgent2D.set_velocity(Vector2.ZERO)
+				return
+				
+		State.IDLE, State.CHASE, State.ATTACK:		
+			if is_moving:
+				var facing_dir = global_position.x - player.global_position.x
+				if facing_dir < 0:
+					facing = Facing.LEFT
+				else: facing = Facing.RIGHT
+				
+				$NavigationAgent2D.target_position = player.global_position
+				var next_path_point = $NavigationAgent2D.get_next_path_position()
+				var direction = (next_path_point - global_position).normalized()
+				velocity = direction * movement_speed
+				move_and_slide()
+			else:
+				self.velocity = Vector2(0, 0)
+				$NavigationAgent2D.set_velocity(Vector2.ZERO)
+				$NavigationAgent2D.target_position = global_position
+				
+			if attacking:
+				if cur_time > 2:
+					spawn_fireball_bite()
+					cur_time = 0
+				cur_time += delta
+		State.STUN:
+			process_knockback(delta)
 	super(delta)
+	
+func _deactivate():
+	var tween = self.create_tween()
+	tween.tween_property(health_bar, "modulate:a", 0.0, 0.8).set_delay(0.1).set_trans(Tween.TRANS_QUAD)
+	tween.tween_callback(_destory)
+
+func _destory():
+	#queue_free()
+	print("destroy?")
 
 
 func bind_vampire_commands():
@@ -77,9 +105,32 @@ func bind_vampire_commands():
 func take_damage(damage:int):
 	health -= damage
 	if 0 >= health:
+		_deactivate()
 		_dead = true
+		state = State.DEAD
 		velocity = Vector2.ZERO
 		animation_player.play("death")
+	health_bar.value  = health
+		
+
+func apply_knockback(dir:Vector2 ,strength:float, timer:float = 0.3):
+	if not _dead:
+		_knockback_velocity = -dir * strength
+		state = State.STUN
+		stun_timer.start()
+		
+	
+func process_knockback(delta:float):
+	velocity = _knockback_velocity
+	#_knockback_velocity = _knockback_velocity.lerp(Vector2.ZERO, delta)
+	_knockback_velocity = _knockback_velocity.move_toward(Vector2.ZERO, 2000.0 * delta)
+	if _knockback_velocity == Vector2.ZERO:
+		state = State.CHASE
+		
+
+func _stun_timeout():
+	_knockback_velocity = Vector2.ZERO
+	state = State.CHASE
 
 
 func spawn_fireball_bite():

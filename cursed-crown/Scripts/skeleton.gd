@@ -35,10 +35,14 @@ func _ready() -> void:
 	
 func _process(_delta):
 	if _dead:
+		$NavigationAgent2D.set_velocity(Vector2.ZERO)
 		remove_from_group("Enemies")
 		$CollisionShape2D.disabled = true
 		if !animation_player.is_playing():
 			sprite.visible = false
+		if animation_player.is_playing():
+			if animation_player.current_animation == "attack":
+				animation_player.play("death")
 		return
 	if Facing.LEFT == facing:
 		scale.y = 1.0
@@ -49,10 +53,10 @@ func _process(_delta):
 
 
 func _physics_process(delta: float):
-	
 	match state:
 		State.DEAD:
 			if _dead:
+				$NavigationAgent2D.set_velocity(Vector2.ZERO)
 				return
 				
 		State.IDLE, State.CHASE, State.ATTACK:		
@@ -67,15 +71,16 @@ func _physics_process(delta: float):
 				var direction = (next_path_point - global_position).normalized()
 				velocity = direction * movement_speed
 				move_and_slide()
+			else:
+				self.velocity = Vector2(0, 0)
+				$NavigationAgent2D.set_velocity(Vector2.ZERO)
+				$NavigationAgent2D.target_position = global_position
+				
 			if attacking:
 				if cur_time > 2:
 					animation_player.play("attack")
 					cur_time = 0
 				cur_time += delta
-			else:
-				self.velocity = Vector2(0, 0)
-				$NavigationAgent2D.set_velocity(Vector2.ZERO)
-				$NavigationAgent2D.target_position = global_position
 		State.STUN:
 			process_knockback(delta)
 	super(delta)

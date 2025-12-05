@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cut8xugsri52a"]
+[gd_scene load_steps=19 format=3 uid="uid://cut8xugsri52a"]
 
 [ext_resource type="Script" uid="uid://dqubv5k0ginqj" path="res://Scripts/vampire.gd" id="1_te72b"]
 [ext_resource type="Texture2D" uid="uid://dl22g3g7l74pu" path="res://Assets/vampire/enemies-vampire_idle.png" id="2_2tffl"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://nfct7qrdc54s" path="res://Assets/vampire/enemies-vampire_death.png" id="4_xf5bl"]
 [ext_resource type="Texture2D" uid="uid://8pbnsovhayh1" path="res://Assets/vampire/enemies-vampire_take_damage.png" id="5_ekqqj"]
 [ext_resource type="Texture2D" uid="uid://b5uaouiqpb3o" path="res://Assets/vampire/enemies-vampire_movement.png" id="6_ltbgj"]
+[ext_resource type="Script" path="res://Scenes/hurt_box.gd" id="7_2tffl"]
 
 [sub_resource type="Animation" id="Animation_aefvb"]
 length = 0.001
@@ -353,7 +354,11 @@ bg_color = Color(0.7954563, 0.1439021, 0.3739534, 0.9529412)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2tffl"]
 bg_color = Color(0.2521279, 0.49308515, 0.22031984, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fdgvd"]
+size = Vector2(22, 29)
+
 [node name="Vampire" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_te72b")
 metadata/_custom_type_script = "uid://dxjwjosnicb5y"
 
@@ -388,3 +393,12 @@ theme_override_styles/background = SubResource("StyleBoxFlat_te72b")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2tffl")
 value = 100.0
 show_percentage = false
+
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("7_2tffl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_fdgvd")
+
+[node name="StunTime" type="Timer" parent="."]
