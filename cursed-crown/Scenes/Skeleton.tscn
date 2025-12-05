@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bju8bt6iv6dyw"]
+[gd_scene load_steps=19 format=3 uid="uid://bju8bt6iv6dyw"]
 
 [ext_resource type="Script" uid="uid://bwqxx1bhfflgx" path="res://Scripts/skeleton.gd" id="1_yek4v"]
 [ext_resource type="Texture2D" uid="uid://df32f1jbqpg1y" path="res://Assets/skeleton/enemies-skeleton2_idle.png" id="2_ks230"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d34drbmxqlcep" path="res://Assets/skeleton/enemies-skeleton2_death2.png" id="4_xbfmp"]
 [ext_resource type="Texture2D" uid="uid://c1guga5rk4p4a" path="res://Assets/skeleton/enemies-skeleton2_take_damage.png" id="5_q1wii"]
 [ext_resource type="Texture2D" uid="uid://dcocojdogqi6l" path="res://Assets/skeleton/enemies-skeleton2_movemen.png" id="6_lw4xn"]
+[ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scenes/hurt_box.gd" id="7_2bjux"]
 
 [sub_resource type="Animation" id="Animation_xwnc4"]
 length = 0.001
@@ -338,6 +339,9 @@ bg_color = Color(0.7954563, 0.1439021, 0.3739534, 0.9529412)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2bjux"]
 bg_color = Color(0.2521279, 0.49308515, 0.22031984, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rtppx"]
+size = Vector2(22, 29)
+
 [node name="Skeleton" type="CharacterBody2D"]
 script = ExtResource("1_yek4v")
 metadata/_custom_type_script = "uid://dxjwjosnicb5y"
@@ -373,3 +377,13 @@ theme_override_styles/background = SubResource("StyleBoxFlat_yek4v")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2bjux")
 value = 100.0
 show_percentage = false
+
+[node name="HurtBox" type="Area2D" parent="."]
+script = ExtResource("7_2bjux")
+metadata/_custom_type_script = "uid://ce2t2valtx5g2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_rtppx")
+
+[node name="StunTime" type="Timer" parent="."]

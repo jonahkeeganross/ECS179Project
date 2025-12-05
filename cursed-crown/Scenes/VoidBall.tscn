@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://virfurxn6td1"]
+
+[ext_resource type="Script" uid="uid://bqod1wsf782nk" path="res://Scripts/DamageManager/Projectiles/voidball.gd" id="1_xwh0d"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dju2h"]
+radius = 10.198039
+
+[node name="VoidBall" type="Node2D"]
+script = ExtResource("1_xwh0d")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visibility_layer = 31
+rotation = 0.0010419062
+shape = SubResource("CircleShape2D_dju2h")
+debug_color = Color(0.86578465, 0.0006095278, 0.86755383, 0.41960785)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+
+[node name="DelayTimer" type="Timer" parent="Area2D"]
+
+[node name="AliveTimer" type="Timer" parent="Area2D"]

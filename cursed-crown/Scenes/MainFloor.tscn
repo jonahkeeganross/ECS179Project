@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=4 uid="uid://dvv2hjnsm3aoa"]
+[gd_scene load_steps=90 format=4 uid="uid://dvv2hjnsm3aoa"]
 
 [ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scripts/FirstLevelRoomController.gd" id="1_65fbj"]
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
@@ -15,9 +15,11 @@
 [ext_resource type="Script" uid="uid://bh1dancwsgxdg" path="res://Scripts/dialogue_controller.gd" id="15_qklwc"]
 [ext_resource type="Script" uid="uid://cr0m2wm1kd216" path="res://Scripts/DamageManager/projectile_manager.gd" id="16_e834v"]
 [ext_resource type="PackedScene" uid="uid://dkhkuy8nt46mh" path="res://Scenes/Laser.tscn" id="17_j6g3n"]
+[ext_resource type="PackedScene" uid="uid://b52v66pdkqaop" path="res://Scenes/Boss.tscn" id="17_x8fqe"]
 [ext_resource type="TileSet" uid="uid://coi41otns33ly" path="res://Assets/tileset/outside/outside-tileset.tres" id="19_vlthb"]
 [ext_resource type="Texture2D" uid="uid://ccuhe5r87t7es" path="res://Assets/tileset/dungeon props/chest/chest_open_1.png" id="20_ct527"]
 [ext_resource type="Texture2D" uid="uid://blvixum1d8rts" path="res://Assets/tileset/dungeon props/chest/chest_open_2.png" id="21_7iri4"]
+[ext_resource type="PackedScene" uid="uid://virfurxn6td1" path="res://Scenes/VoidBall.tscn" id="21_m4ysf"]
 [ext_resource type="Script" uid="uid://dx46u8i4bn2uq" path="res://Scripts/Cutscene/test_prompt.gd" id="21_ydvyc"]
 [ext_resource type="Texture2D" uid="uid://dr5q1cyewmuj2" path="res://Assets/tileset/dungeon props/chest/chest_open_3.png" id="22_jo1nd"]
 [ext_resource type="Texture2D" uid="uid://cdly12mpj07kr" path="res://Assets/tileset/dungeon props/chest/chest_open_4.png" id="23_rfpp5"]
@@ -3819,6 +3821,7 @@ unique_name_in_owner = true
 script = ExtResource("16_e834v")
 fireball = ExtResource("15_g0mtc")
 laser = ExtResource("17_j6g3n")
+voidball = ExtResource("21_m4ysf")
 
 [node name="TestDialogue" type="Node2D" parent="."]
 
@@ -4389,3 +4392,7 @@ script = ExtResource("42_v76b2")
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(-128, -55)
 script = ExtResource("42_7rh26")
+
+[node name="Boss" parent="." instance=ExtResource("17_x8fqe")]
+position = Vector2(-140, 90)
+rotation = 0.026867071

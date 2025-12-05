@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=3 uid="uid://bomosdxmu542w"]
+[gd_scene load_steps=94 format=3 uid="uid://bomosdxmu542w"]
 
 [ext_resource type="Script" uid="uid://b587w7w3v17d6" path="res://Scripts/player.gd" id="1_megsn"]
 [ext_resource type="Texture2D" uid="uid://dlvc3lw4kc7c0" path="res://Assets/soilder/Soldier/attack01_front.png" id="2_5v66d"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bpqpu6pqx388s" path="res://Assets/soilder/Soldier/walk_down.png" id="19_c43xd"]
 [ext_resource type="Texture2D" uid="uid://c6ftqrma837fp" path="res://Assets/soilder/Soldier/walk_up.png" id="20_avx33"]
 [ext_resource type="Script" uid="uid://cm3efw3g1fq3r" path="res://Scenes/hitbox.gd" id="22_i2e8t"]
+[ext_resource type="Script" uid="uid://vm51eb51uhpp" path="res://Scenes/knock_hitbox.gd" id="23_i2e8t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
 size = Vector2(21, 14)
@@ -210,6 +211,20 @@ tracks/4/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.59),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack_animation_end"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_jm72n"]
 resource_name = "attack01_down"
@@ -274,6 +289,20 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.59),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack_animation_end"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_7kol6"]
@@ -352,6 +381,20 @@ tracks/5/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.59),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack_animation_end"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_1gyp3"]
 resource_name = "attack02"
@@ -416,6 +459,20 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.59),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack_animation_end"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_el2t0"]
@@ -482,6 +539,20 @@ tracks/4/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack_animation_end"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_37i8u"]
 resource_name = "attack02_up"
@@ -547,6 +618,20 @@ tracks/4/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"attack_animation_end"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_5e5gc"]
 resource_name = "attack03"
@@ -595,11 +680,14 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.74),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.74, 0.9),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"_shoot_arrow"
+}, {
+"args": [],
+"method": &"attack_animation_end"
 }]
 }
 tracks/4/type = "value"
@@ -613,6 +701,17 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [1]
+}
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"values": []
 }
 
 [sub_resource type="Animation" id="Animation_p4pck"]
@@ -662,11 +761,14 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.74),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.74, 0.9),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"_shoot_arrow"
+}, {
+"args": [],
+"method": &"attack_animation_end"
 }]
 }
 tracks/4/type = "value"
@@ -729,11 +831,14 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.74),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.74, 0.9),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"_shoot_arrow"
+}, {
+"args": [],
+"method": &"attack_animation_end"
 }]
 }
 tracks/4/type = "value"
@@ -1452,7 +1557,7 @@ advance_condition = &"walk"
 states/Attack/node = SubResource("AnimationNodeBlendSpace2D_jm72n")
 states/Attack/position = Vector2(199.51022, 6.5848923)
 states/Attack2/node = SubResource("AnimationNodeBlendSpace2D_70hv0")
-states/Attack2/position = Vector2(145.1853, 264.33453)
+states/Attack2/position = Vector2(146.1853, 265.38922)
 states/Attack3/node = SubResource("AnimationNodeBlendSpace2D_lyrkg")
 states/Attack3/position = Vector2(352.93277, 265.38922)
 states/End/position = Vector2(572.5, 124.647644)
@@ -1466,7 +1571,7 @@ states/attack01_down/position = Vector2(789.18, 330.74994)
 states/attack01_up/node = SubResource("AnimationNodeAnimation_kccva")
 states/attack01_up/position = Vector2(607.18, 330.87494)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_q4ads"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_n12xk"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_cxuvp"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_mh0xd"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_5bb04"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_3rfk4"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_mu56t"), "Idle", "Attack2", SubResource("AnimationNodeStateMachineTransition_c43xd"), "Idle", "Attack3", SubResource("AnimationNodeStateMachineTransition_avx33"), "Walk", "Attack2", SubResource("AnimationNodeStateMachineTransition_rxg2u"), "Walk", "Attack3", SubResource("AnimationNodeStateMachineTransition_xixlo"), "Attack2", "Idle", SubResource("AnimationNodeStateMachineTransition_bfbt0"), "Attack2", "Walk", SubResource("AnimationNodeStateMachineTransition_wosd6"), "Attack3", "Idle", SubResource("AnimationNodeStateMachineTransition_hkrn1"), "Attack3", "Walk", SubResource("AnimationNodeStateMachineTransition_wpo1r")]
-graph_offset = Vector2(145.5749, 115.44743)
+graph_offset = Vector2(-222.42511, 185.44743)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5v66d"]
 radius = 31.000002
@@ -1564,7 +1669,7 @@ parameters/Idle/blend_position = Vector2(0.18827713, 0.009821415)
 parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="SmashAttackHB" type="Area2D" parent="."]
-script = ExtResource("22_i2e8t")
+script = ExtResource("23_i2e8t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SmashAttackHB"]
 rotation = 1.5707964

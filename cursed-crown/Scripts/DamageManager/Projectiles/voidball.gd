@@ -1,4 +1,4 @@
-class_name  FireBall
+class_name  VoidBall
 extends Node2D
 
 var cur_vel = Vector2.ZERO
@@ -28,7 +28,6 @@ func _ready() -> void:
 		# Create an actual texture image
 		var img = Image.create(32, 32, false, Image.FORMAT_RGBA8)
 		img.fill(Color(0, 0, 0, 0))  # Transparent background
-
 		# Draw a circle
 		for x in range(32):
 			for y in range(32):
@@ -38,7 +37,7 @@ func _ready() -> void:
 				if distance <= 10:
 					# Orange/red fireball color with gradient
 					var alpha = 1.0 - (distance / 10.0) * 0.3
-					img.set_pixel(x, y, Color(1.0, 0.4, 0.0, alpha))
+					img.set_pixel(x, y, Color(0.439, 0.004, 0.765, 0.7))
 
 		var texture = ImageTexture.create_from_image(img)
 		_sprite.texture = texture
@@ -49,7 +48,7 @@ func initialize(pos:Vector2, info: Array[ProjectileInfo]):
 	projectile_array = info
 	var tween = self.create_tween()
 	
-	tween.tween_property(_sprite, "modulate:a", 1.0, 0.3).set_delay(0.1).set_trans(Tween.TRANS_QUAD)
+	tween.tween_property(_sprite, "modulate:a", 0.7, 0.3).set_delay(0.1).set_trans(Tween.TRANS_QUAD)
 	
 	var cur_info = projectile_array.pop_front()
 	_projectile_info = cur_info
@@ -61,12 +60,13 @@ func initialize(pos:Vector2, info: Array[ProjectileInfo]):
 		rot = (cur_info.target.global_position - global_position).angle()
 	
 func _launch():
+	print('TEST')
 	area.body_entered.connect(_on_body_entered)
 	_alive_timer.wait_time = _projectile_info.lifetime
 	_alive_timer.start()
 	alive_time = 0
 	_active = true
-	_coll_shape.debug_color = Color("e60600ff")
+	_coll_shape.debug_color = Color("c026c3ff")
 
 	# Show the fireball sprite
 	if _sprite:

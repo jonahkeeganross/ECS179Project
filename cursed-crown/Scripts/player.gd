@@ -21,19 +21,28 @@ var current_area: Area2D = null
 
 const max_stamina = 100
 var stamina:float = 100
+
 var state:ActionState = ActionState.IDLE
-var time_since_dash:float = 0
-var time_to_stam_regen:float = 2.5
+var time_since_stamina_use:float = 0
+var time_to_stam_regen:float = 1
 var stam_regen_rate_base:float = 5
 var cur_stam_regen_rate:float = 2
 var acceleration:float = 8
+
+var cur_anim:String = ""
+
 var ghost_scene = preload("res://Scenes/DashGhost.tscn")
+
 var iframe_length = 1
 var invincible = false
-
+var pi: PlayerInfo
 
 
 func _ready():
+	pi = PlayerInfo.new(self)
+	
+	#animation_player.animation_finished.connect(_on_animation_finished)
+	
 	GameState.player = self
 	add_to_group("Player")
 	bind_player_input_commands()
@@ -44,9 +53,9 @@ func _ready():
 	blink_timer.timeout.connect(_on_blink_timeout)
 	
 func _process(delta: float) -> void:
-	time_since_dash += delta
+	time_since_stamina_use += delta
 	
-	if stamina < max_stamina and time_since_dash > time_to_stam_regen:
+	if stamina < max_stamina and time_since_stamina_use > time_to_stam_regen:
 		cur_stam_regen_rate += acceleration * delta
 		stamina += cur_stam_regen_rate * delta
 		set_stamina(stamina)
@@ -102,7 +111,7 @@ func _physics_process(delta: float):
 		dash_cmd.execute(self)
 		stamina -= 10
 		set_stamina(stamina)
-		time_since_dash  = 0 
+		time_since_stamina_use  = 0 
 		cur_stam_regen_rate = stam_regen_rate_base
 		dash_cmd.execute(self)
 		create_ghost()
@@ -171,22 +180,13 @@ func update_animation_parameters():
 		animation_tree["parameters/conditions/idle"] = false	
 		animation_tree["parameters/conditions/walk"] = true	
 	#print(direction)
-	if (Input.is_action_just_pressed("attack") 
-		and animation_tree["parameters/conditions/attack2"] == false
-		and animation_tree["parameters/conditions/attack3"] == false):
-		#animation_tree["parameters/conditions/idle"] = false	
-		#animation_tree["parameters/conditions/walk"] = false	
-		animation_tree["parameters/conditions/attack"] = true	
+	if (Input.is_action_just_pressed("attack")):
+		start_attack("attack")
 	elif (Input.is_action_just_pressed("attack2") ):
-		animation_tree["parameters/conditions/attack2"] = true	
+		start_attack("attack2")
 	elif (Input.is_action_just_pressed("attack3") ):
-		animation_tree["parameters/conditions/attack3"] = true	
-		#_shoot_arrow()
-	else:
-		animation_tree["parameters/conditions/attack"] = false	
-		animation_tree["parameters/conditions/attack2"] = false	
-		animation_tree["parameters/conditions/attack3"] = false	
-	
+		start_attack("attack3")
+
 	
 		
 	animation_tree["parameters/Idle/blend_position"] = direction
@@ -221,14 +221,43 @@ func start_attack(anim_name: String):
 		return	
 	state = ActionState.ATTACK
 	
+	
 	match  anim_name:
-		"Attack1":
+		"attack":
+			if stamina - pi.attack_stamina_cons < 0:
+				state = ActionState.IDLE
+				return
+			stamina -= pi.attack_stamina_cons
 			animation_tree["parameters/conditions/attack"] = true	
-		"Attacl2":
-			animation_tree["parameters/conditions/attack2"] = true	
-		"Attack3":
+			animation_tree["parameters/conditions/attack2"] = false
+			animation_tree["parameters/conditions/attack3"] = false	
+		"attack2":
+			if stamina - pi.smash_stamina_cons < 0:
+				state = ActionState.IDLE
+				return
+			stamina -= pi.smash_stamina_cons
+			animation_tree["parameters/conditions/attack"] = false	
+			animation_tree["parameters/conditions/attack2"] = true
+			animation_tree["parameters/conditions/attack3"] = false	
+		"attack3":
+			if stamina - pi.smash_stamina_cons < 0:
+				state = ActionState.IDLE
+				return
+			stamina -= pi.arrow_stamina_cons
+			animation_tree["parameters/conditions/attack"] = false	
+			animation_tree["parameters/conditions/attack2"] = false
 			animation_tree["parameters/conditions/attack3"] = true	
-
+	cur_anim = anim_name
+	time_since_stamina_use = 0
+	set_stamina(stamina)
+func attack_animation_end():
+	#print("done")
+	if state == ActionState.ATTACK  :
+		state = ActionState.IDLE
+		animation_tree["parameters/conditions/attack"] = false	
+		animation_tree["parameters/conditions/attack2"] = false	
+		animation_tree["parameters/conditions/attack3"] = false	
+	
 
 func _shoot_arrow() -> void:
 	if arrow_scene == null:
