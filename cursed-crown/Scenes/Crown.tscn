@@ -1,7 +1,7 @@
-[gd_scene load_steps=84 format=4 uid="uid://dvv2hjnsm3aoa"]
+[gd_scene load_steps=85 format=4 uid="uid://dvv2hjnsm3aoa"]
 
 [ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scenes/FirstLevelRoomController.gd" id="1_65fbj"]
-[ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/Tilesets/tilesheet_complete.png" id="1_ctg82"]
+[ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="1_ymu4p"]
 [ext_resource type="Texture2D" uid="uid://coij7ger2puva" path="res://Assets/tileset/dungeon props/torch_strip.png" id="3_my8h3"]
 [ext_resource type="Texture2D" uid="uid://b2j8veffelu45" path="res://Assets/tileset/dungeon props/chest_open_strip.png" id="4_4a42m"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://b1se7ndqn340y" path="res://Assets/tileset/dungeon props/coin_strip.png" id="10_oxf7q"]
 [ext_resource type="Texture2D" uid="uid://bynsx5y5mi2h7" path="res://Assets/tileset/dungeon props/flag_strip.png" id="11_qrk6o"]
 [ext_resource type="Texture2D" uid="uid://v16blarn1v0k" path="res://Assets/tileset/dungeon props/side_torch_strip.png" id="12_5014w"]
-[ext_resource type="Script" uid="uid://1g73rtj0v6sq" path="res://Scripts/dialogue_manager.gd" id="14_0n3e1"]
 [ext_resource type="Script" uid="uid://djtu6eaumqgh8" path="res://Scripts/test_emitter.gd" id="14_pfs72"]
 [ext_resource type="PackedScene" uid="uid://e5t3em8gg4ly" path="res://Scenes/Fireball.tscn" id="15_g0mtc"]
 [ext_resource type="Script" uid="uid://bh1dancwsgxdg" path="res://Scripts/dialogue_controller.gd" id="15_qklwc"]
@@ -33,6 +32,8 @@
 [ext_resource type="Script" uid="uid://cyb756u3apams" path="res://Scenes/enemy_spawner.gd" id="40_65fbj"]
 [ext_resource type="Texture2D" uid="uid://gu42bv5sowuf" path="res://Assets/tileset/dungeon props/peaks/peaks_4.png" id="41_nty7n"]
 [ext_resource type="Texture2D" uid="uid://om5byogwe17m" path="res://Assets/tileset/dungeon props/peaks/peaks_2.png" id="42_2gv1e"]
+[ext_resource type="PackedScene" uid="uid://ccygxjijwljky" path="res://Scenes/Dash.tscn" id="42_bthw1"]
+[ext_resource type="PackedScene" uid="uid://c720ogf8khc2h" path="res://Scenes/DashGhost.tscn" id="43_bthw1"]
 [ext_resource type="Texture2D" uid="uid://c3agnqt8aaear" path="res://Assets/tileset/dungeon props/peaks/peaks_1.png" id="43_w6mf8"]
 [ext_resource type="PackedScene" uid="uid://bju8bt6iv6dyw" path="res://Scenes/Skeleton.tscn" id="50_hy581"]
 [ext_resource type="PackedScene" uid="uid://cut8xugsri52a" path="res://Scenes/vampire.tscn" id="51_gre53"]
@@ -3713,7 +3714,6 @@ show_percentage = false
 [node name="DialogueBox" type="Container" parent="MainCamera/CanvasLayer"]
 offset_right = 1147.0
 offset_bottom = 259.0
-script = ExtResource("14_0n3e1")
 metadata/_edit_lock_ = true
 
 [node name="DialogueControl" type="Control" parent="MainCamera/CanvasLayer"]
@@ -3858,6 +3858,7 @@ laser = ExtResource("17_j6g3n")
 [node name="TestDialogue" type="Node2D" parent="."]
 
 [node name="Outside" type="TileMapLayer" parent="."]
+visible = false
 tile_set = ExtResource("19_vlthb")
 
 [node name="Chest" type="Area2D" parent="."]
@@ -4221,3 +4222,9 @@ vampire_spawn_points = Array[Vector2]([Vector2(775, -768)])
 [node name="Vampire" parent="." node_paths=PackedStringArray("player") instance=ExtResource("51_gre53")]
 position = Vector2(-202, -149)
 player = NodePath("../Player")
+
+[node name="Dash" type="Node" parent="."]
+
+[node name="Node2D" parent="." instance=ExtResource("42_bthw1")]
+
+[node name="DashGhost" parent="." instance=ExtResource("43_bthw1")]

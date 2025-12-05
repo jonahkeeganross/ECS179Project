@@ -1,20 +1,31 @@
 class_name Player
 extends Character
 
+
+
 @export var health: int = 100
-
 @export var arrow_scene: PackedScene
-
 
 @onready var animation_tree:AnimationTree  = $AnimationTree
 
 enum FacingDir { LEFT, RIGHT, UP, DOWN }
+
+const max_stamina = 100
+
 
 var dash_cmd: Command
 var direction: Vector2 = Vector2.ZERO
 var _dead: bool = false
 var _facing_dir: int = FacingDir.RIGHT
 var current_area: Area2D = null
+ 
+var stamina:float = 100
+var time_since_dash:float = 0
+var time_to_stam_regen:float = 2.5
+var stam_regen_rate_base:float = 5
+var cur_stam_regen_rate:float = 2
+var acceleration:float = 2
+var ghost_scene = preload("res://Scenes/DashGhost.tscn")
 
 
 func _ready():
@@ -26,6 +37,13 @@ func _ready():
 	_play_animation("idle")
 	self.type = CharacterSpec.spec.PLAYER
 
+func _process(delta: float) -> void:
+	time_since_dash += delta
+	
+	if stamina < max_stamina and time_since_dash > time_to_stam_regen:
+		cur_stam_regen_rate += acceleration * delta
+		stamina += cur_stam_regen_rate * delta
+		use_stamina(stamina)
 
 func _physics_process(delta: float):
 	if _dead:
@@ -34,10 +52,12 @@ func _physics_process(delta: float):
 		direction = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
 	var move_rl_input := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	var move_ud_input := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
-	
 	var attack_pressed := Input.is_action_just_pressed("attack")
 	
 	
+		#
+	#if stamina > max_stamina:
+		#stamina = max_stamina
 	var is_moving_h: bool = abs(move_rl_input) > 0.1
 	var is_moving_v: bool = abs(move_ud_input) > 0.1
 	var is_diagonal: bool = is_moving_h and is_moving_v
@@ -55,7 +75,6 @@ func _physics_process(delta: float):
 	else:
 		self.velocity.x = 0.0
 
-
 	if is_moving_v:
 		if not is_diagonal:
 			if move_ud_input > 0.0:
@@ -71,49 +90,32 @@ func _physics_process(delta: float):
 		self.velocity.y = 0.0
 
 	update_animation_parameters()
-	#
-	#if not attack_pressed:
-		#
-		#if is_moving_h or is_moving_v:
-			#
-			#match _facing_dir:
-				#FacingDir.UP:
-					#_play_animation("walk_up")
-				#FacingDir.DOWN:
-					#_play_animation("walk_down")
-				#FacingDir.LEFT, FacingDir.RIGHT:
-					#
-					#_play_animation("walk")
-		#else:
-			## Idle
-			#match _facing_dir:
-				#FacingDir.UP:
-					#_play_animation("idle_up")
-				#FacingDir.DOWN:
-					#_play_animation("idle_down")
-				#FacingDir.LEFT, FacingDir.RIGHT:
-					#_play_animation("idle")
-	#else:
-		#print(_facing_dir)
-		#match _facing_dir:
-			#FacingDir.UP:
-				#print("ATTACKINGU")
-				#_play_animation("attack01_up")
-			#FacingDir.DOWN:
-				#print("ATTACKINGD")
-				#_play_animation("attack01_down")
-			#FacingDir.LEFT, FacingDir.RIGHT:
-				#print("ATTACKINGLR")
-				#_play_animation("attack01")
-	#
+	
 	if Input.is_action_just_pressed("dash"):
+		stamina -= 10
+		use_stamina(stamina)
+		time_since_dash  = 0 
+		cur_stam_regen_rate = stam_regen_rate_base
 		dash_cmd.execute(self)
+		create_ghost()
+		
 		
 	
 	#if attack_pressed:
 		
 		
 	super(delta)
+
+func create_ghost():
+	var ghost:Sprite2D = ghost_scene.instantiate()
+	self.get_parent().add_child(ghost)
+
+	ghost.global_position = global_position
+	ghost.scale = sprite.scale
+	ghost.vframes = sprite.vframes
+	ghost.hframes = sprite.hframes
+	ghost.frame = sprite.frame
+	ghost.texture = sprite.texture
 
 
 func take_damage(damage: int) -> void:
@@ -126,6 +128,8 @@ func take_damage(damage: int) -> void:
 	#else:
 		#_play_animation("hurt")
 
+func use_stamina(new_stamina: float):
+	BUS.player_stamina_changed.emit(stamina)
 
 func resurrect() -> void:
 	_dead = false
