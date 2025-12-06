@@ -48,6 +48,8 @@ var iframe_length = 1
 var invincible = false
 var pi: PlayerInfo
 
+var input_locked: bool = false
+
 
 func _ready():
 	pi = PlayerInfo.new(self)
@@ -88,8 +90,9 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float):
-	if _dead:
+	if _dead or input_locked:
 		return
+
 
 	if Input.get_vector("move_left", "move_right", "move_up", "move_down") != Vector2.ZERO:
 		direction = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()

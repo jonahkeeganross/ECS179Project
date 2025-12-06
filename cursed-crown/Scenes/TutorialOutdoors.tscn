@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=4 uid="uid://dc2s1chfsnirx"]
+[gd_scene load_steps=130 format=4 uid="uid://dc2s1chfsnirx"]
 
 [ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scripts/FirstLevelRoomController.gd" id="1_q4q68"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="2_q33qw"]
@@ -48,6 +48,7 @@
 [ext_resource type="Script" uid="uid://baresbw16bvuj" path="res://Scripts/tutorialCameraController.gd" id="32_7gc2c"]
 [ext_resource type="Texture2D" uid="uid://bbsqr3yddh8vw" path="res://Assets/altar/altar.png" id="32_bycvk"]
 [ext_resource type="Script" uid="uid://cyl6s6lmj4t1r" path="res://Scripts/Room.gd" id="34_a8or5"]
+[ext_resource type="PackedScene" uid="uid://cnbk437ssbkqk" path="res://Scenes/TutorialPopup.tscn" id="35_oqsc2"]
 [ext_resource type="Script" uid="uid://cyb756u3apams" path="res://Scripts/enemy_spawner.gd" id="38_l380o"]
 [ext_resource type="PackedScene" uid="uid://bju8bt6iv6dyw" path="res://Scenes/Skeleton.tscn" id="39_11ed6"]
 [ext_resource type="PackedScene" uid="uid://cut8xugsri52a" path="res://Scenes/vampire.tscn" id="40_55v4u"]
@@ -7762,6 +7763,8 @@ offset_bottom = -485.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_8fven")
 value = 100.0
 show_percentage = false
+
+[node name="TutorialPopup" parent="MainCamera/CanvasLayer" instance=ExtResource("35_oqsc2")]
 
 [node name="ProjectileManager" type="Node2D" parent="."]
 unique_name_in_owner = true

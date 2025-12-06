@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://cnbk437ssbkqk"]
+
+[ext_resource type="Script" uid="uid://b15kboahp2oeg" path="res://Scripts/tutorial_popup.gd" id="1_8l5ya"]
+[ext_resource type="Texture2D" uid="uid://7rhvwep6pkat" path="res://Assets/screens/move.png" id="2_apdo6"]
+[ext_resource type="Texture2D" uid="uid://br0y7l41ymmlp" path="res://Assets/screens/slash.png" id="3_1n8ua"]
+[ext_resource type="Texture2D" uid="uid://dypq0krjlgs7p" path="res://Assets/screens/shockwave.png" id="4_e754u"]
+[ext_resource type="Texture2D" uid="uid://d3pdudhwmclxh" path="res://Assets/screens/arrowAttack.png" id="5_0qxsi"]
+[ext_resource type="Texture2D" uid="uid://cgibb7kmu7fmq" path="res://Assets/screens/interact.png" id="6_5cwtp"]
+
+[node name="TutorialPopup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8l5ya")
+move_tutorial = ExtResource("2_apdo6")
+attack_j_tutorial = ExtResource("3_1n8ua")
+attack_k_tutorial = ExtResource("4_e754u")
+attack_l_tutorial = ExtResource("5_0qxsi")
+altar_tutorial = ExtResource("6_5cwtp")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.4862745, 0.6, 0.4392157, 0.8039216)
+
+[node name="CenterContainer" type="CenterContainer" parent="Background"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ImageRect" type="TextureRect" parent="Background/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("5_0qxsi")
+expand_mode = 3
+stretch_mode = 5
