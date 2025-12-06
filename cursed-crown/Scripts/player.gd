@@ -21,7 +21,7 @@ extends Character
 @onready var test1:CollisionPolygon2D = $SideAttackRight/CollisionPolygon2D
 @onready var test2:CollisionPolygon2D = $SideAttackLeft/CollisionPolygon2D
 
-enum ActionState {IDLE, ATTACK, DASH}
+enum ActionState {IDLE, ATTACK, DASH, DEAD} # ← added DEAD
 enum FacingDir { LEFT, RIGHT, UP, DOWN }
 
 var dash_cmd: Command
@@ -70,7 +70,11 @@ func _ready():
 
 	# Notify HUD of initial max_stamina
 	BUS.player_max_stamina_changed.emit(pi.max_stamina)
+	# make sure death / revival conditions start off
+	animation_tree["parameters/conditions/death"] = false
+	animation_tree["parameters/conditions/revival"] = false
 	
+
 func _process(delta: float) -> void:
 	time_since_stamina_use += delta
 	
@@ -86,36 +90,22 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float):
 	if _dead:
 		return
+
 	if Input.get_vector("move_left", "move_right", "move_up", "move_down") != Vector2.ZERO:
 		direction = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
-		#if test1.disabled == true:
-			#print("Right is disabled")
-		#else:
-			#print("Right is not disabled")
-		#if test2.disabled == true	:
-			#print("Left is disabled")
-		#else:
-			#print("Left is not disabled")
-		#
 
 		if direction.x < 0:
 			left_attack_box.monitoring = true
-			#left_attack_box.visible = true	
-			#right_attack_box.visible = false	
 			right_attack_box.monitoring = false
-			
 		else:
 			left_attack_box.monitoring = false
-			#left_attack_box.visible = false
-			#right_attack_box.visible = true	
-			right_attack_box.monitoring = true	
+			right_attack_box.monitoring = true
 			
 			
 	var move_rl_input := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	var move_ud_input := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
 	
 	var attack_pressed := Input.is_action_just_pressed("attack")
-	
 	
 	var is_moving_h: bool = abs(move_rl_input) > 0.1
 	var is_moving_v: bool = abs(move_ud_input) > 0.1
@@ -178,9 +168,6 @@ func _on_blink_timeout():
 	elif invincibility_timer.time_left < 0.5:
 		blink_timer.start(0.06)
 
-#func make_ghost_trail( int seg = ):
-	
-
 	
 func _on_ghost_dash_timer():
 	create_ghost()
@@ -191,26 +178,59 @@ func _on_invincibility_timeout():
 	blink_timer.stop()
 	sprite.visible = true
 
+
+# --- DEATH HANDLING ---
 func take_damage(damage: int) -> void:
-	if not invincible:
-		blink_timer.start(0.08)
-		give_invincibility(1)
-		health -= damage
-		set_health(health)
-		$HealthBar.value = health
-		
-		if health <= 0:
-			_dead = true
-			#_play_animation("death")
-		#else:
-			#_play_animation("hurt")
+	if invincible or _dead:
+		return
+
+	blink_timer.start(0.08)
+	give_invincibility(1)
+	health -= damage
+	set_health(health)
+	$HealthBar.value = health
+	
+	if health <= 0:
+		_handle_death()
+	#else:
+		# could play "hurt" later if you want
+
+
+func _handle_death() -> void:
+	_dead = true
+	state = ActionState.DEAD
+	velocity = Vector2.ZERO
+
+	# Turn off all movement / attack conditions
+	animation_tree["parameters/conditions/idle"] = false
+	animation_tree["parameters/conditions/walk"] = false
+	animation_tree["parameters/conditions/attack"] = false
+	animation_tree["parameters/conditions/attack2"] = false
+	animation_tree["parameters/conditions/attack3"] = false
+
+	# 🔥 Trigger the death animation in the AnimationTree
+	animation_tree["parameters/conditions/death"] = true
+	# we are NOT using revival yet, just making sure it's off
+	animation_tree["parameters/conditions/revival"] = false
+# --- END DEATH HANDLING ---
 
 
 func resurrect() -> void:
+	# manual resurrection (altar, UI, debug key, etc.)
 	_dead = false
+	state = ActionState.IDLE
 	health = 100
 	$HealthBar.value = health
-	#_play_animation("revival")
+	set_health(health)
+
+	# reset AnimationTree back to idle; no revival anim yet
+	animation_tree["parameters/conditions/death"] = false
+	animation_tree["parameters/conditions/revival"] = false
+	animation_tree["parameters/conditions/idle"] = true
+	animation_tree["parameters/conditions/walk"] = false
+	animation_tree["parameters/conditions/attack"] = false
+	animation_tree["parameters/conditions/attack2"] = false
+	animation_tree["parameters/conditions/attack3"] = false
 
 
 func bind_player_input_commands():
@@ -221,27 +241,25 @@ func bind_player_input_commands():
 	down_cmd = MoveDownCommand.new()
 
 func update_animation_parameters():
-	#print("TEST")
 	animation_tree.active = true
-	#if is_instance_valid(animation_tree):
-		#print("VALID TREE")
+
+	# If we're dead, don't overwrite the death animation state
+	if state == ActionState.DEAD:
+		return
+
 	if velocity == Vector2.ZERO:	
-		#print("SHould be idle")
 		animation_tree["parameters/conditions/idle"] = true	
 		animation_tree["parameters/conditions/walk"] = false	
-		
 	else:
 		animation_tree["parameters/conditions/idle"] = false	
 		animation_tree["parameters/conditions/walk"] = true	
-	#print(direction)
+
 	if (Input.is_action_just_pressed("attack")):
 		start_attack("attack")
 	elif (Input.is_action_just_pressed("attack2") ):
 		start_attack("attack2")
 	elif (Input.is_action_just_pressed("attack3") ):
 		start_attack("attack3")
-
-	
 		
 	animation_tree["parameters/Idle/blend_position"] = direction
 	animation_tree["parameters/Walk/blend_position"] = direction
@@ -276,7 +294,6 @@ func start_attack(anim_name: String):
 		return	
 	state = ActionState.ATTACK
 	
-	
 	match  anim_name:
 		"attack":
 			if stamina - pi.attack_stamina_cons < 0:
@@ -302,12 +319,14 @@ func start_attack(anim_name: String):
 			animation_tree["parameters/conditions/attack"] = false	
 			animation_tree["parameters/conditions/attack2"] = false
 			animation_tree["parameters/conditions/attack3"] = true	
+
 	cur_anim = anim_name
 	time_since_stamina_use = 0
 	set_stamina(stamina)
+
+
 func attack_animation_end():
-	#print("done")
-	if state == ActionState.ATTACK  :
+	if state == ActionState.ATTACK:
 		state = ActionState.IDLE
 		animation_tree["parameters/conditions/attack"] = false	
 		animation_tree["parameters/conditions/attack2"] = false	

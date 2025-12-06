@@ -1,17 +1,38 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhrynw8plnvt0"]
+[gd_scene load_steps=4 format=3 uid="uid://bhrynw8plnvt0"]
 
-[ext_resource type="Texture2D" uid="uid://clyu8llybvx7y" path="res://Assets/screens/endScreen.png" id="1_gcms0"]
+[ext_resource type="Texture2D" uid="uid://d0wuyonx7f5e0" path="res://Assets/screens/screen(1).jpg" id="1_gcms0"]
+[ext_resource type="Script" uid="uid://xc8hwoubnmjg" path="res://Scripts/end_screen.gd" id="1_jrx8a"]
+[ext_resource type="PackedScene" uid="uid://ba6doc00ey7xv" path="res://Scenes/StartScreen.tscn" id="2_3gukv"]
 
 [node name="EndScreen" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jrx8a")
+start_screen_scene = ExtResource("2_3gukv")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = -502.0
-offset_top = -572.0
-offset_right = 522.0
-offset_bottom = 452.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.0003597972
+scale = Vector2(1.0057186, 1.0010083)
+pivot_offset = Vector2(-148.26889, -130.73335)
 texture = ExtResource("1_gcms0")
-expand_mode = 3
-stretch_mode = 3
+expand_mode = 5
+stretch_mode = 5
+
+[node name="FadeRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
