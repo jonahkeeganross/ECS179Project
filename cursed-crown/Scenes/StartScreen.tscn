@@ -1,17 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://ba6doc00ey7xv"]
+[gd_scene load_steps=4 format=3 uid="uid://ba6doc00ey7xv"]
 
-[ext_resource type="Texture2D" uid="uid://bsvtt174a2xie" path="res://Assets/screens/startScreen.png" id="1_ko4ly"]
+[ext_resource type="Script" uid="uid://d1v7bm3wva7dl" path="res://Scripts/start_screen.gd" id="1_0on6r"]
+[ext_resource type="Texture2D" uid="uid://dwfiv686ii51j" path="res://Assets/screens/screen.jpg" id="1_ko4ly"]
+[ext_resource type="PackedScene" uid="uid://dc2s1chfsnirx" path="res://Scenes/TutorialOutdoors.tscn" id="2_usjih"]
 
 [node name="StartScreen" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0on6r")
+next_scene = ExtResource("2_usjih")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = -516.0
-offset_top = -524.0
-offset_right = 508.0
-offset_bottom = 500.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.0003597972
+scale = Vector2(1.0057186, 1.0010083)
+pivot_offset = Vector2(-148.26889, -130.73335)
 texture = ExtResource("1_ko4ly")
 expand_mode = 5
-stretch_mode = 3
+stretch_mode = 5
