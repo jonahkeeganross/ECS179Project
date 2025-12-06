@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://cut8xugsri52a"]
+[gd_scene load_steps=20 format=3 uid="uid://cut8xugsri52a"]
 
 [ext_resource type="Script" uid="uid://dqubv5k0ginqj" path="res://Scripts/vampire.gd" id="1_te72b"]
 [ext_resource type="Texture2D" uid="uid://dl22g3g7l74pu" path="res://Assets/vampire/enemies-vampire_idle.png" id="2_2tffl"]
+[ext_resource type="PackedScene" uid="uid://lu85iee3wwvs" path="res://Scenes/coin_factory.tscn" id="2_fdgvd"]
 [ext_resource type="Texture2D" uid="uid://dspcjp2qxb8wh" path="res://Assets/vampire/enemies-vampire_attack.png" id="3_fdgvd"]
 [ext_resource type="Texture2D" uid="uid://nfct7qrdc54s" path="res://Assets/vampire/enemies-vampire_death.png" id="4_xf5bl"]
 [ext_resource type="Texture2D" uid="uid://8pbnsovhayh1" path="res://Assets/vampire/enemies-vampire_take_damage.png" id="5_ekqqj"]
@@ -360,6 +361,7 @@ size = Vector2(22, 29)
 [node name="Vampire" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_te72b")
+coin_factory = ExtResource("2_fdgvd")
 metadata/_custom_type_script = "uid://dxjwjosnicb5y"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

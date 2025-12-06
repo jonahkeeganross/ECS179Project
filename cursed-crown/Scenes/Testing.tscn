@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=4 uid="uid://jtjks1iy4nrx"]
+[gd_scene load_steps=45 format=4 uid="uid://jtjks1iy4nrx"]
 
 [ext_resource type="PackedScene" uid="uid://dbn7dua3isgh1" path="res://Scenes/DoorH.tscn" id="1_62ywn"]
 [ext_resource type="Script" uid="uid://bf8hs3l6dnoj5" path="res://Scripts/RoomController.gd" id="1_b1e3n"]
@@ -15,13 +15,14 @@
 [ext_resource type="Texture2D" uid="uid://bynsx5y5mi2h7" path="res://Assets/tileset/dungeon props/flag_strip.png" id="11_mt3rn"]
 [ext_resource type="Texture2D" uid="uid://v16blarn1v0k" path="res://Assets/tileset/dungeon props/side_torch_strip.png" id="12_t8t7r"]
 [ext_resource type="PackedScene" uid="uid://bomosdxmu542w" path="res://Scenes/Player.tscn" id="13_cjlnd"]
-[ext_resource type="Script" path="res://Scripts/camera_controller.gd" id="14_mh2ei"]
+[ext_resource type="Script" uid="uid://c87geakc2kbi" path="res://Scripts/camera_controller.gd" id="14_mh2ei"]
 [ext_resource type="Script" uid="uid://n006wbdkk7yk" path="res://Scripts/HUD.gd" id="15_0akhw"]
-[ext_resource type="Script" uid="uid://1g73rtj0v6sq" path="res://Scripts/dialogue_manager.gd" id="16_mcuio"]
 [ext_resource type="Script" uid="uid://bh1dancwsgxdg" path="res://Scripts/dialogue_controller.gd" id="17_62ywn"]
 [ext_resource type="PackedScene" uid="uid://bju8bt6iv6dyw" path="res://Scenes/Skeleton.tscn" id="19_b1e3n"]
 [ext_resource type="PackedScene" uid="uid://cut8xugsri52a" path="res://Scenes/vampire.tscn" id="20_s5sam"]
+[ext_resource type="Script" uid="uid://c5wppki514drd" path="res://Scripts/coin_factory.gd" id="22_mt3rn"]
 [ext_resource type="Script" uid="uid://cyl6s6lmj4t1r" path="res://Scripts/Room.gd" id="22_s5sam"]
+[ext_resource type="PackedScene" uid="uid://gg3w1kprefs8" path="res://Scenes/Coin.tscn" id="23_mt3rn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oq3go"]
 texture = ExtResource("1_vhqah")
@@ -3469,14 +3470,10 @@ vertices = PackedVector2Array(106.4375, -629.3672, 286, -983.0078, 286, -403, 10
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(1, 0, 4), PackedInt32Array(1, 4, 5), PackedInt32Array(3, 2, 6, 7), PackedInt32Array(8, 7, 6), PackedInt32Array(9, 8, 6, 10), PackedInt32Array(1, 5, 11), PackedInt32Array(12, 1, 11, 13), PackedInt32Array(12, 13, 14), PackedInt32Array(12, 14, 15), PackedInt32Array(12, 15, 16), PackedInt32Array(12, 16, 17), PackedInt32Array(18, 12, 17, 19), PackedInt32Array(18, 19, 20), PackedInt32Array(18, 20, 21), PackedInt32Array(18, 21, 22), PackedInt32Array(10, 18, 22, 23), PackedInt32Array(10, 23, 24), PackedInt32Array(10, 24, 9), PackedInt32Array(10, 6, 25, 26), PackedInt32Array(27, 28, 29, 26, 25), PackedInt32Array(27, 25, 30)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-298, -994, 296, -993, 296, -393, 23, -393, 23, -296, 293, -296, 296, 295, -297, 297, -296, -302, -27, -297, -27, -390, -296, -391)])
 
-[node name="Testing" type="Node2D" node_paths=PackedStringArray("room1", "room2", "door1", "door2", "skeleton", "vampire")]
+[node name="Testing" type="Node2D" node_paths=PackedStringArray("door1", "door2")]
 script = ExtResource("1_b1e3n")
-room1 = NodePath("Room1")
-room2 = NodePath("Room2")
 door1 = NodePath("Door1")
 door2 = NodePath("Door2")
-skeleton = NodePath("Skeleton")
-vampire = NodePath("Vampire")
 
 [node name="Door1" parent="." instance=ExtResource("1_62ywn")]
 z_index = 1
@@ -3547,7 +3544,6 @@ show_percentage = false
 [node name="DialogueBox" type="Container" parent="MainCamera/CanvasLayer"]
 offset_right = 1147.0
 offset_bottom = 259.0
-script = ExtResource("16_mcuio")
 
 [node name="DialogueControl" type="Control" parent="MainCamera/CanvasLayer"]
 layout_mode = 3
@@ -3658,15 +3654,13 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_b1e3n")
 value = 100.0
 show_percentage = false
 
-[node name="Skeleton" parent="." node_paths=PackedStringArray("player") instance=ExtResource("19_b1e3n")]
+[node name="Skeleton" parent="." instance=ExtResource("19_b1e3n")]
 position = Vector2(-87, -648)
 collision_layer = 17
-player = NodePath("../Player")
 
-[node name="Vampire" parent="." node_paths=PackedStringArray("player") instance=ExtResource("20_s5sam")]
+[node name="Vampire" parent="." instance=ExtResource("20_s5sam")]
 position = Vector2(208, -656)
 collision_layer = 17
-player = NodePath("../Player")
 
 [node name="Room1" type="Area2D" parent="."]
 position = Vector2(0, -392)
@@ -3696,3 +3690,7 @@ position = Vector2(0, 58)
 scale = Vector2(1.0958084, 1.0858896)
 color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(-69, -721, -53, -735, -31, -739, 8, -741, 36, -742, 59, -734, 78, -711, 86, -678, 88, -633, 87, -611, 74, -592, 43, -582, 11, -579, -18, -579, -42, -579, -60, -591, -72, -609, -78, -644, -79, -667, -78, -695)
+
+[node name="CoinFactory" type="Node2D" parent="."]
+script = ExtResource("22_mt3rn")
+coin = ExtResource("23_mt3rn")

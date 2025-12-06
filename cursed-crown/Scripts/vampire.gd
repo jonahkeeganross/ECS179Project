@@ -1,6 +1,8 @@
 class_name Vampire
 extends Character
 
+@export var coin_factory : PackedScene
+
 @onready var stun_timer:Timer = $StunTime
 @onready var health_bar:ProgressBar = $HealthBar
 #@onready var  
@@ -24,6 +26,8 @@ var _test_dt = 0
 var attack_speed = 2
 var cur_time = 1
 var _knockback_velocity: Vector2
+var coin_drop_chance = 0.5
+var coin_spawned = false
 
 
 #@onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
@@ -42,6 +46,13 @@ func _process(_delta):
 		$CollisionShape2D.disabled = true
 		if !animation_player.is_playing():
 			sprite.visible = false
+			
+		if coin_spawned == false:
+			chance_coin()
+			coin_spawned = true
+		
+		await get_tree().create_timer(1).timeout
+		
 		return
 	if Facing.LEFT == facing:
 		scale.y = 1.0
@@ -126,6 +137,14 @@ func process_knockback(delta:float):
 	_knockback_velocity = _knockback_velocity.move_toward(Vector2.ZERO, 2000.0 * delta)
 	if _knockback_velocity == Vector2.ZERO:
 		state = State.CHASE
+		
+		
+func chance_coin() -> void:
+	var coin_spawner = coin_factory.instantiate()
+	coin_spawner.spawning_pos = global_position
+	add_child(coin_spawner)
+	if randf_range(0, 1) < coin_drop_chance:
+		coin_spawner.spawn_coins(1)
 		
 
 func _stun_timeout():

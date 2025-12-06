@@ -4,7 +4,6 @@ extends Node2D
 @export var enemy_spawner : Node2D
 @export var is_tutorial: bool
 
-
 @onready var player = get_node("Player")
 
 var doors : Array[StaticBody2D] = []
@@ -15,11 +14,6 @@ var skeletons : Array[Skeleton]
 var vampires : Array[Vampire]
 
 
-func _ready() -> void:
-	skeletons = enemy_spawner.skeletons
-	vampires = enemy_spawner.vampires
-
-
 func _process(delta) -> void:
 	var current_room = player.current_area
 	var current_room_enemies : Array
@@ -28,11 +22,7 @@ func _process(delta) -> void:
 	for body in bodies:
 		if body in get_tree().get_nodes_in_group("Enemies"):
 			current_room_enemies.append(body)
-			
-				
-	
-	print(current_room_enemies)
-		
+					
 	if count_enemies(current_room):
 		if not is_tutorial:
 			for door in get_tree().get_nodes_in_group("door"):
@@ -59,7 +49,12 @@ func _process(delta) -> void:
 			
 
 func _physics_process(delta: float) -> void:
+	skeletons = enemy_spawner.skeletons
+	vampires = enemy_spawner.vampires
+	
 	for skeleton in skeletons:
+		if not is_instance_valid(skeleton):
+			continue
 		if skeleton.enabled == true:
 			var distance = (skeleton.global_position - player.global_position).length()
 
@@ -73,6 +68,8 @@ func _physics_process(delta: float) -> void:
 				# skeleton attack goes here
 	
 	for vampire in vampires:
+		if not is_instance_valid(vampire):
+			continue
 		if vampire.enabled == true:
 			var distance = (vampire.global_position - player.global_position).length()
 
