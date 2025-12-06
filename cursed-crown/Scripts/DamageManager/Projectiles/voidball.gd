@@ -60,7 +60,6 @@ func initialize(pos:Vector2, info: Array[ProjectileInfo]):
 		rot = (cur_info.target.global_position - global_position).angle()
 	
 func _launch():
-	print('TEST')
 	area.body_entered.connect(_on_body_entered)
 	_alive_timer.wait_time = _projectile_info.lifetime
 	_alive_timer.start()

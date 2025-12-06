@@ -33,7 +33,7 @@ func emit_balls_lr():
 			var projectile_info = ProjectileInfo.new(
 				CharacterSpec.spec.ENEMY, 
 				10, # damage
-				4, # Lifetime
+				2, # Lifetime
 				0.1, # Spawn delay
 				20, # Speed
 				70, # Acceleration
@@ -41,6 +41,19 @@ func emit_balls_lr():
 				0 # Initial Rot velocity 
 				)
 			projectile_list.append(projectile_info)
+			var projectile_info2 = ProjectileInfo.new(
+				CharacterSpec.spec.ENEMY, 
+				10, # damage
+				2, # Lifetime
+				2, # Spawn delay
+				20, # Speed
+				70, # Acceleration
+				dir_deg + 180, # Initial Rotation
+				0 # Initial Rot velocity 
+				)
+			projectile_list.append(projectile_info2)
+			
+			
 			
 			var new_pos = global_position + Vector2.from_angle(deg_to_rad(dir_deg)) * 10
 			BUS.emit_signal("spawn_voidball", new_pos , projectile_list)

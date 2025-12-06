@@ -22,7 +22,11 @@ func _process(delta) -> void:
 	for body in bodies:
 		if body in get_tree().get_nodes_in_group("Enemies"):
 			current_room_enemies.append(body)
-					
+			
+				
+	
+	#print(current_room_enemies)
+		
 	if count_enemies(current_room):
 		if not is_tutorial:
 			for door in get_tree().get_nodes_in_group("door"):

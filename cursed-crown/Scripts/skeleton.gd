@@ -5,6 +5,9 @@ extends Character
 
 @onready var stun_timer:Timer = $StunTime
 @onready var health_bar:ProgressBar = $HealthBar
+@onready var atk_hitbox:EnemyHitBox = $CircularAttackHB
+
+
 #@onready var  
 enum State {IDLE, CHASE, ATTACK, STUN, DEAD}
 
@@ -70,13 +73,17 @@ func _physics_process(delta: float):
 				return
 				
 		State.IDLE, State.CHASE, State.ATTACK:		
+			atk_hitbox.monitoring = true
 			if is_moving:
 				var facing_dir = global_position.x - player.global_position.x
 				if facing_dir < 0:
 					facing = Facing.LEFT
-				else: facing = Facing.RIGHT
+					
+				else: 
+					facing = Facing.RIGHT
 				
-				$NavigationAgent2D.target_position = player.global_position
+					
+				$NavigationAgent2D.target_position = player.global_position 
 				var next_path_point = $NavigationAgent2D.get_next_path_position()
 				var direction = (next_path_point - global_position).normalized()
 				velocity = direction * movement_speed
@@ -92,6 +99,7 @@ func _physics_process(delta: float):
 					cur_time = 0
 				cur_time += delta
 		State.STUN:
+			atk_hitbox.monitoring = false
 			process_knockback(delta)
 	super(delta)
 	
@@ -115,6 +123,7 @@ func take_damage(damage:int):
 	health -= damage
 	if 0 >= health:
 		_deactivate()
+		atk_hitbox.monitoring = false
 		_dead = true
 		state = State.DEAD
 		velocity = Vector2.ZERO
@@ -136,8 +145,8 @@ func process_knockback(delta:float):
 		state = State.CHASE
 func _stun_timeout():
 	_knockback_velocity = Vector2.ZERO
-	state = State.CHASE
-	
+	if not 0 >= health:
+		state = State.CHASE
 	
 func chance_coin() -> void:
 	var coin_spawner = coin_factory.instantiate()
@@ -146,6 +155,7 @@ func chance_coin() -> void:
 	if randf_range(0, 1) < coin_drop_chance:
 		coin_spawner.spawn_coins(1)
 		
+	
 #func command_callback(command_name:String) -> void:
 	#if "summon" == command_name:
 		#audio_player.stop()
