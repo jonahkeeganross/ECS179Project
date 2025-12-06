@@ -1,4 +1,4 @@
-class_name HitBox
+class_name EnemyHitBox
 extends Area2D
 
 @export var damage:int = 10
@@ -14,6 +14,7 @@ func _on_area_entered(hurtbox:HurtBox) -> void:
 	#print("ENTERED")
 	#print(.name)
 	if hurtbox.get_owner() != self.owner:
-		if hurtbox.get_owner().has_method("take_damage"):
-			#print("DAMAGE")
-			hurtbox.owner.take_damage(damage)
+		if hurtbox.get_owner() is Player:
+			if hurtbox.get_owner().has_method("take_damage"):
+				#print("DAMAGE")
+				hurtbox.owner.take_damage(damage)

@@ -31,7 +31,7 @@ func _process(delta) -> void:
 			
 				
 	
-	print(current_room_enemies)
+	#print(current_room_enemies)
 		
 	if count_enemies(current_room):
 		if not is_tutorial:

@@ -9,6 +9,17 @@ extends Character
 @onready var animation_tree:AnimationTree  = $AnimationTree
 @onready var invincibility_timer:Timer = $InvincibilityTimer
 @onready var blink_timer:Timer = $BlinkTimer
+@onready var ghost_dash_timer:Timer = $DashEffectTimer
+
+@onready var right_attack_box:KnockbackHitBox = $SideAttackRight
+@onready var left_attack_box:KnockbackHitBox = $SideAttackLeft
+@onready var top_attack_box:KnockbackHitBox = $UpAttackHB
+@onready var down_attack_box:KnockbackHitBox = $DownAttackHB
+
+@onready var smash_attack_box:KnockbackHitBox = $SmashAttackHB
+
+@onready var test1:CollisionPolygon2D = $SideAttackRight/CollisionPolygon2D
+@onready var test2:CollisionPolygon2D = $SideAttackLeft/CollisionPolygon2D
 
 enum ActionState {IDLE, ATTACK, DASH}
 enum FacingDir { LEFT, RIGHT, UP, DOWN }
@@ -42,7 +53,8 @@ func _ready():
 	pi = PlayerInfo.new(self)
 	
 	#animation_player.animation_finished.connect(_on_animation_finished)
-	
+	_set_attack_hitbox_damage(20)
+	_set_attack_hitbox_knockback(200)
 	GameState.player = self
 	add_to_group("Player")
 	bind_player_input_commands()
@@ -51,14 +63,17 @@ func _ready():
 	invincibility_timer.timeout.connect(_on_invincibility_timeout)
 	self.type = CharacterSpec.spec.PLAYER
 	blink_timer.timeout.connect(_on_blink_timeout)
+	ghost_dash_timer.timeout.connect(_on_ghost_dash_timer)
 	
 func _process(delta: float) -> void:
 	time_since_stamina_use += delta
 	
-	if stamina < max_stamina and time_since_stamina_use > time_to_stam_regen:
+	if stamina < pi.max_stamina and time_since_stamina_use > time_to_stam_regen:
 		cur_stam_regen_rate += acceleration * delta
 		stamina += cur_stam_regen_rate * delta
 		set_stamina(stamina)
+	if stamina > pi.max_stamina:
+		stamina = pi.max_stamina
 
 
 
@@ -67,6 +82,29 @@ func _physics_process(delta: float):
 		return
 	if Input.get_vector("move_left", "move_right", "move_up", "move_down") != Vector2.ZERO:
 		direction = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
+		#if test1.disabled == true:
+			#print("Right is disabled")
+		#else:
+			#print("Right is not disabled")
+		#if test2.disabled == true	:
+			#print("Left is disabled")
+		#else:
+			#print("Left is not disabled")
+		#
+
+		if direction.x < 0:
+			left_attack_box.monitoring = true
+			#left_attack_box.visible = true	
+			#right_attack_box.visible = false	
+			right_attack_box.monitoring = false
+			
+		else:
+			left_attack_box.monitoring = false
+			#left_attack_box.visible = false
+			#right_attack_box.visible = true	
+			right_attack_box.monitoring = true	
+			
+			
 	var move_rl_input := Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	var move_ud_input := Input.get_action_strength("move_up") - Input.get_action_strength("move_down")
 	
@@ -108,13 +146,16 @@ func _physics_process(delta: float):
 	update_animation_parameters()
 	
 	if Input.is_action_just_pressed("dash"):
-		dash_cmd.execute(self)
-		stamina -= 10
-		set_stamina(stamina)
-		time_since_stamina_use  = 0 
-		cur_stam_regen_rate = stam_regen_rate_base
-		dash_cmd.execute(self)
-		create_ghost()
+		if stamina - pi.dash_stamina_cons > 0:
+			dash_cmd.execute(self)
+			time_since_stamina_use  = 0 
+			stamina -= pi.dash_stamina_cons
+			print(stamina)
+			set_stamina(stamina)
+			
+			cur_stam_regen_rate = stam_regen_rate_base
+			give_invincibility(0.5)
+		#ghost_dash_timer.start(0.05)
 	super(delta)
 	
 
@@ -130,7 +171,14 @@ func  _on_blink_timeout():
 		blink_timer.start(0.03)
 	elif invincibility_timer.time_left < 0.5:
 		blink_timer.start(0.06)
+
+#func make_ghost_trail( int seg = ):
 	
+
+	
+func _on_ghost_dash_timer():
+	create_ghost()
+
 
 func _on_invincibility_timeout():
 	invincible = false
@@ -190,10 +238,11 @@ func update_animation_parameters():
 	
 		
 	animation_tree["parameters/Idle/blend_position"] = direction
-	animation_tree["parameters/Attack/blend_position"] = direction
 	animation_tree["parameters/Walk/blend_position"] = direction
-	animation_tree["parameters/Attack2/blend_position"] = direction
-	animation_tree["parameters/Attack3/blend_position"] = direction
+	if not( state == ActionState.ATTACK):
+		animation_tree["parameters/Attack/blend_position"] = direction
+		animation_tree["parameters/Attack2/blend_position"] = direction
+		animation_tree["parameters/Attack3/blend_position"] = direction
 
 func _play_animation(anim_name: String) -> void:
 	if animation_player.current_animation != anim_name:
@@ -258,6 +307,21 @@ func attack_animation_end():
 		animation_tree["parameters/conditions/attack2"] = false	
 		animation_tree["parameters/conditions/attack3"] = false	
 	
+
+func _set_attack_hitbox_damage(damage:int) -> void:
+	right_attack_box.damage = damage
+	left_attack_box.damage = damage
+	top_attack_box.damage = damage
+	down_attack_box.damage = damage
+	
+func _set_attack_hitbox_knockback(strength:int) -> void:
+	right_attack_box.knockback_strength = strength
+	left_attack_box.knockback_strength = strength
+	top_attack_box.knockback_strength = strength
+	down_attack_box.knockback_strength = strength
+
+func _set_ground_damage(damage:int) -> void:
+	smash_attack_box.damage = damage
 
 func _shoot_arrow() -> void:
 	if arrow_scene == null:
