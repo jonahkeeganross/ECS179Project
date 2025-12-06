@@ -1,6 +1,8 @@
 class_name Skeleton
 extends Character
 
+@export var coin_factory : PackedScene
+
 @onready var stun_timer:Timer = $StunTime
 @onready var health_bar:ProgressBar = $HealthBar
 #@onready var  
@@ -20,7 +22,8 @@ var player = GameState.player
 var enabled: bool
 var _knockback_velocity: Vector2
 var cur_time = 1
-
+var coin_drop_chance = 0.25
+var coin_spawned = false
 
 #@onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D
 
@@ -43,6 +46,13 @@ func _process(_delta):
 		if animation_player.is_playing():
 			if animation_player.current_animation == "attack":
 				animation_player.play("death")
+		
+		if coin_spawned == false:
+			chance_coin()
+			coin_spawned = true
+		
+		await get_tree().create_timer(1).timeout
+		
 		return
 	if Facing.LEFT == facing:
 		scale.y = 1.0
@@ -127,6 +137,15 @@ func process_knockback(delta:float):
 func _stun_timeout():
 	_knockback_velocity = Vector2.ZERO
 	state = State.CHASE
+	
+	
+func chance_coin() -> void:
+	var coin_spawner = coin_factory.instantiate()
+	coin_spawner.spawning_pos = global_position
+	add_child(coin_spawner)
+	if randf_range(0, 1) < coin_drop_chance:
+		coin_spawner.spawn_coins(1)
+		
 #func command_callback(command_name:String) -> void:
 	#if "summon" == command_name:
 		#audio_player.stop()

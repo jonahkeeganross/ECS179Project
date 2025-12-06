@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://lu85iee3wwvs"]
+
+[ext_resource type="Script" uid="uid://c5wppki514drd" path="res://Scripts/coin_factory.gd" id="1_42kr6"]
+[ext_resource type="PackedScene" uid="uid://gg3w1kprefs8" path="res://Scenes/Coin.tscn" id="2_32v3h"]
+
+[node name="CoinFactory" type="Node2D"]
+script = ExtResource("1_42kr6")
+coin = ExtResource("2_32v3h")

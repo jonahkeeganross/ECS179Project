@@ -18,6 +18,7 @@ var direction: Vector2 = Vector2.ZERO
 var _dead: bool = false
 var _facing_dir: int = FacingDir.RIGHT
 var current_area: Area2D = null
+var total_coins : int = 0
 
 const max_stamina = 500
 var stamina:float = 500
@@ -124,7 +125,7 @@ func give_invincibility(duration: float = 0.5):
 	invincibility_timer.start(duration)
 	
 
-func  _on_blink_timeout():
+func _on_blink_timeout():
 	sprite.visible = !sprite.visible
 	if invincibility_timer.time_left < 0.2:
 		blink_timer.start(0.03)
@@ -203,7 +204,7 @@ func set_stamina(new_stamina: float):
 	BUS.player_stamina_changed.emit(stamina)
 	
 func set_health(new_health: float):
-	BUS.player_health_changed.emit(health)
+	BUS.player_health_changed.emit(health)	
 	
 func create_ghost():
 	var ghost:Sprite2D = ghost_scene.instantiate()

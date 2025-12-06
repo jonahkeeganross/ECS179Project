@@ -5,10 +5,10 @@ extends Control
 @onready var stamina_bar: ProgressBar = $StaminaBar
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var health_bar_animation: ProgressBar = $HealthAnimation
+@onready var coin_count: Label = $CoinCount
 
 
 var health_tween:Tween
-
 
 
 func _ready() -> void:
@@ -18,6 +18,7 @@ func _ready() -> void:
 	#EventBus.hide_boss_health.connect(hide_health)
 	BUS.player_stamina_changed.connect(on_change_stamina)
 	BUS.player_health_changed.connect(on_change_health)
+	BUS.player_coins_changed.connect(on_coin_change)
 	#EventBus.set_health_sig.connect(chane_health)
 	#stamina_bar.visible = false
 	#print(stamina_bar.value)
@@ -54,4 +55,8 @@ func on_change_health(new_health: int) -> void:
 		).set_delay(0.7).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 	health_bar.value = new_health
 	print("SHOWING HEALTH")
+	
+
+func on_coin_change(new_count: int) -> void:
+	coin_count.text = "Shards: " + str(new_count) 
 	

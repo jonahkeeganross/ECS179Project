@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://bju8bt6iv6dyw"]
+[gd_scene load_steps=20 format=3 uid="uid://bju8bt6iv6dyw"]
 
 [ext_resource type="Script" uid="uid://bwqxx1bhfflgx" path="res://Scripts/skeleton.gd" id="1_yek4v"]
 [ext_resource type="Texture2D" uid="uid://df32f1jbqpg1y" path="res://Assets/skeleton/enemies-skeleton2_idle.png" id="2_ks230"]
+[ext_resource type="PackedScene" uid="uid://lu85iee3wwvs" path="res://Scenes/coin_factory.tscn" id="2_rtppx"]
 [ext_resource type="Texture2D" uid="uid://ck20qvtdqc384" path="res://Assets/skeleton/enemies-skeleton2_attack.png" id="3_shq1q"]
 [ext_resource type="Texture2D" uid="uid://d34drbmxqlcep" path="res://Assets/skeleton/enemies-skeleton2_death2.png" id="4_xbfmp"]
 [ext_resource type="Texture2D" uid="uid://c1guga5rk4p4a" path="res://Assets/skeleton/enemies-skeleton2_take_damage.png" id="5_q1wii"]
@@ -345,6 +346,7 @@ size = Vector2(22, 29)
 [node name="Skeleton" type="CharacterBody2D"]
 motion_mode = 1
 script = ExtResource("1_yek4v")
+coin_factory = ExtResource("2_rtppx")
 metadata/_custom_type_script = "uid://dxjwjosnicb5y"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
