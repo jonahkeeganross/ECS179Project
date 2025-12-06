@@ -1,0 +1,192 @@
+[gd_scene load_steps=9 format=3 uid="uid://bvqxj8ymwxqyw"]
+
+[ext_resource type="Script" path="res://Scripts/ShopUI.gd" id="1_shop"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg_overlay"]
+bg_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.15, 0.12, 0.2, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.6, 0.5, 0.3, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_normal"]
+bg_color = Color(0.25, 0.22, 0.3, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5, 0.45, 0.55, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(0.35, 0.32, 0.4, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.65, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
+bg_color = Color(0.2, 0.18, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.5, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_disabled"]
+bg_color = Color(0.15, 0.15, 0.15, 0.5)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.3, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_separator"]
+bg_color = Color(0.5, 0.45, 0.3, 0.5)
+
+[node name="ShopUI" type="CanvasLayer"]
+script = ExtResource("1_shop")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BackgroundOverlay" type="Panel" parent="Control"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg_overlay")
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.0
+offset_top = -220.0
+offset_right = 280.0
+offset_bottom = 220.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="TitleLabel" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 540.0
+offset_bottom = 55.0
+theme_override_colors/font_color = Color(0.9, 0.85, 0.6, 1)
+theme_override_font_sizes/font_size = 24
+text = "⚔ ALTAR SHOP ⚔"
+horizontal_alignment = 1
+
+[node name="Separator1" type="Panel" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 62.0
+offset_right = 530.0
+offset_bottom = 64.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_separator")
+
+[node name="CoinLabel" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 75.0
+offset_right = 540.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
+theme_override_font_sizes/font_size = 16
+text = "💎 Shards: 0"
+horizontal_alignment = 1
+
+[node name="ItemsLabel" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 110.0
+offset_right = 520.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(0.8, 0.75, 0.5, 1)
+text = "Available Items:"
+
+[node name="HealthPotionButton" type="Button" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 140.0
+offset_right = 520.0
+offset_bottom = 185.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
+text = "❤ Health Potion - Restore 30 HP (10 Shards)"
+
+[node name="DamageUpgradeButton" type="Button" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 195.0
+offset_right = 520.0
+offset_bottom = 240.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
+text = "⚔ Damage Upgrade - +5 Attack (20 Shards)"
+
+[node name="StaminaUpgradeButton" type="Button" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 250.0
+offset_right = 520.0
+offset_bottom = 295.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
+text = "⚡ Stamina Upgrade - +20 Max Stamina (15 Shards)"
+
+[node name="Separator2" type="Panel" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 315.0
+offset_right = 530.0
+offset_bottom = 317.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_separator")
+
+[node name="CloseButton" type="Button" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 340.0
+offset_right = 380.0
+offset_bottom = 390.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
+text = "Close (ESC)"

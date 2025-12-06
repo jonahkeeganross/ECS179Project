@@ -31,8 +31,7 @@ var _facing_dir: int = FacingDir.RIGHT
 var current_area: Area2D = null
 var total_coins : int = 0
 
-const max_stamina = 500
-var stamina:float = 500
+var stamina:float = 100
 
 var state:ActionState = ActionState.IDLE
 var time_since_stamina_use:float = 0
@@ -52,7 +51,10 @@ var pi: PlayerInfo
 
 func _ready():
 	pi = PlayerInfo.new(self)
-	
+
+	# Initialize stamina to match pi.max_stamina
+	stamina = pi.max_stamina
+
 	#animation_player.animation_finished.connect(_on_animation_finished)
 	_set_attack_hitbox_damage(20)
 	_set_attack_hitbox_knockback(200)
@@ -65,6 +67,9 @@ func _ready():
 	self.type = CharacterSpec.spec.PLAYER
 	blink_timer.timeout.connect(_on_blink_timeout)
 	ghost_dash_timer.timeout.connect(_on_ghost_dash_timer)
+
+	# Notify HUD of initial max_stamina
+	BUS.player_max_stamina_changed.emit(pi.max_stamina)
 	
 func _process(delta: float) -> void:
 	time_since_stamina_use += delta

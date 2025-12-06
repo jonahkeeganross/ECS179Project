@@ -19,6 +19,7 @@ config/icon="res://Assets/icon.svg"
 
 BUS="*res://Scripts/BUS.gd"
 GameState="*res://Scripts/GameState.gd"
+ShopManager="*res://Scripts/ShopManager.gd"
 
 [input]
 

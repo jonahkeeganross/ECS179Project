@@ -1,5 +1,6 @@
-[gd_scene load_steps=93 format=4 uid="uid://dvv2hjnsm3aoa"]
+[gd_scene load_steps=94 format=4 uid="uid://dvv2hjnsm3aoa"]
 
+[ext_resource type="Script" path="res://Scenes/altar.gd" id="1_altar"]
 [ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scripts/FirstLevelRoomController.gd" id="1_65fbj"]
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="1_ymu4p"]
@@ -3558,7 +3559,7 @@ animations = [{
 size = Vector2(16, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5b5ay"]
-size = Vector2(33, 19)
+size = Vector2(80, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qklwc"]
 size = Vector2(30, 27)
@@ -3710,6 +3711,24 @@ theme_override_styles/background = SubResource("StyleBoxFlat_8jv1o")
 theme_override_styles/fill = SubResource("StyleBoxFlat_pds1l")
 value = 80.0
 show_percentage = false
+
+[node name="HealthLabel" type="Label" parent="MainCamera/CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = 495.0
+offset_top = 21.0
+offset_right = 565.0
+offset_bottom = 39.0
+text = "100/100"
+vertical_alignment = 1
+
+[node name="StaminaLabel" type="Label" parent="MainCamera/CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 50.0
+offset_right = 268.0
+offset_bottom = 70.0
+text = "100/100"
+vertical_alignment = 1
 
 [node name="CoinCount" type="Label" parent="MainCamera/CanvasLayer/HUD"]
 layout_mode = 0
@@ -3896,6 +3915,7 @@ shape = SubResource("RectangleShape2D_6m7xx")
 tile_set = ExtResource("19_vlthb")
 
 [node name="Altar2" type="Area2D" parent="."]
+script = ExtResource("1_altar")
 position = Vector2(-593, -847)
 
 [node name="Sprite2D" type="Sprite2D" parent="Altar2"]
@@ -3907,7 +3927,22 @@ texture = ExtResource("69_jmdp7")
 position = Vector2(32.5, -1.5)
 shape = SubResource("RectangleShape2D_5b5ay")
 
+[node name="InteractPrompt" type="Label" parent="Altar2"]
+offset_left = 0.0
+offset_top = -40.0
+offset_right = 65.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "Press F to Shop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="Altar2" to="Altar2" method="_on_body_entered"]
+[connection signal="body_exited" from="Altar2" to="Altar2" method="_on_body_exited"]
+
 [node name="Altar" type="Area2D" parent="."]
+script = ExtResource("1_altar")
 position = Vector2(-33, 90)
 
 [node name="Sprite2D" type="Sprite2D" parent="Altar"]
@@ -3918,6 +3953,20 @@ texture = ExtResource("69_jmdp7")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Altar"]
 position = Vector2(32.5, -1.5)
 shape = SubResource("RectangleShape2D_5b5ay")
+
+[node name="InteractPrompt" type="Label" parent="Altar"]
+offset_left = 0.0
+offset_top = -40.0
+offset_right = 65.0
+offset_bottom = -20.0
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "Press F to Shop"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="Altar" to="Altar" method="_on_body_entered"]
+[connection signal="body_exited" from="Altar" to="Altar" method="_on_body_exited"]
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(74, 140)
