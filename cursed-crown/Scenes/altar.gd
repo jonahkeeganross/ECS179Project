@@ -63,6 +63,7 @@ func _process(delta) -> void:
 
 
 func _open_shop() -> void:
+	opened = true
 	if current_player != null:
 		print("Altar: Opening shop via ShopManager...")
 		ShopManager.open_shop(current_player)

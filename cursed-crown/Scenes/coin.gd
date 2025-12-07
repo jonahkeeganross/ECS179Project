@@ -17,5 +17,5 @@ func _physics_process(delta: float) -> void:
 		
 		
 	else:
-		global_position = lerp(global_position, player.global_position, 0.1)
+		global_position = lerp(global_position, player.global_position, 0.2)
 	

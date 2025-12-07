@@ -9,6 +9,7 @@ extends CharacterBody2D
 var total_time:float= 0
 
 func _ready() -> void:
+	add_to_group("Enemies")
 	print("ready")
 	visible = true
 	sprt.visible = true	

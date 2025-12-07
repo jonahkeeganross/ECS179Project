@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://d34drbmxqlcep" path="res://Assets/skeleton/enemies-skeleton2_death2.png" id="4_xbfmp"]
 [ext_resource type="Texture2D" uid="uid://c1guga5rk4p4a" path="res://Assets/skeleton/enemies-skeleton2_take_damage.png" id="5_q1wii"]
 [ext_resource type="Texture2D" uid="uid://dcocojdogqi6l" path="res://Assets/skeleton/enemies-skeleton2_movemen.png" id="6_lw4xn"]
-[ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scenes/hurt_box.gd" id="7_2bjux"]
-[ext_resource type="Script" uid="uid://bglv1wymf0uph" path="res://Scenes/enemy_hitbox.gd" id="8_rtppx"]
+[ext_resource type="Script" path="res://Scenes/hurt_box.gd" id="7_2bjux"]
+[ext_resource type="Script" path="res://Scenes/enemy_hitbox.gd" id="8_rtppx"]
 
 [sub_resource type="Animation" id="Animation_xwnc4"]
 length = 0.001

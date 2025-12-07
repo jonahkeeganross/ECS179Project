@@ -71,7 +71,7 @@ func _physics_process(delta: float) -> void:
 		if skeleton.enabled == true:
 			var distance = (skeleton.global_position - player.global_position).length()
 
-			if distance > 75:
+			if distance > 25:
 				skeleton.is_moving = true
 				skeleton.attacking = false
 			else:

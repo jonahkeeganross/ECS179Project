@@ -1,7 +1,7 @@
 [gd_scene load_steps=94 format=4 uid="uid://dvv2hjnsm3aoa"]
 
-[ext_resource type="Script" path="res://Scenes/altar.gd" id="1_altar"]
 [ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scripts/FirstLevelRoomController.gd" id="1_65fbj"]
+[ext_resource type="Script" uid="uid://cuc2lqqtqwejw" path="res://Scenes/altar.gd" id="1_altar"]
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="1_ymu4p"]
 [ext_resource type="Texture2D" uid="uid://coij7ger2puva" path="res://Assets/tileset/dungeon props/torch_strip.png" id="3_my8h3"]
@@ -3875,17 +3875,17 @@ animation = &"open"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chest"]
 shape = SubResource("RectangleShape2D_vtt4i")
 
-[node name="Chest2" type="Area2D" parent="."]
+[node name="Chest2" type="Area2D" parent="." node_paths=PackedStringArray("animated_sprite")]
 z_index = 2
 position = Vector2(435, -562)
 script = ExtResource("22_10yw8")
+coin_factory = ExtResource("23_bwild")
+animated_sprite = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chest2"]
 position = Vector2(3, 4)
 sprite_frames = SubResource("SpriteFrames_jvupn")
 animation = &"open"
-frame = 3
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chest2"]
 position = Vector2(3, 4)
@@ -3915,8 +3915,8 @@ shape = SubResource("RectangleShape2D_6m7xx")
 tile_set = ExtResource("19_vlthb")
 
 [node name="Altar2" type="Area2D" parent="."]
-script = ExtResource("1_altar")
 position = Vector2(-593, -847)
+script = ExtResource("1_altar")
 
 [node name="Sprite2D" type="Sprite2D" parent="Altar2"]
 position = Vector2(32.47577, -3.8737102)
@@ -3928,7 +3928,6 @@ position = Vector2(32.5, -1.5)
 shape = SubResource("RectangleShape2D_5b5ay")
 
 [node name="InteractPrompt" type="Label" parent="Altar2"]
-offset_left = 0.0
 offset_top = -40.0
 offset_right = 65.0
 offset_bottom = -20.0
@@ -3938,12 +3937,9 @@ text = "Press F to Shop"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="body_entered" from="Altar2" to="Altar2" method="_on_body_entered"]
-[connection signal="body_exited" from="Altar2" to="Altar2" method="_on_body_exited"]
-
 [node name="Altar" type="Area2D" parent="."]
-script = ExtResource("1_altar")
 position = Vector2(-33, 90)
+script = ExtResource("1_altar")
 
 [node name="Sprite2D" type="Sprite2D" parent="Altar"]
 position = Vector2(32.47577, -3.8737102)
@@ -3955,7 +3951,6 @@ position = Vector2(32.5, -1.5)
 shape = SubResource("RectangleShape2D_5b5ay")
 
 [node name="InteractPrompt" type="Label" parent="Altar"]
-offset_left = 0.0
 offset_top = -40.0
 offset_right = 65.0
 offset_bottom = -20.0
@@ -3964,9 +3959,6 @@ theme_override_font_sizes/font_size = 10
 text = "Press F to Shop"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[connection signal="body_entered" from="Altar" to="Altar" method="_on_body_entered"]
-[connection signal="body_exited" from="Altar" to="Altar" method="_on_body_exited"]
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2(74, 140)
@@ -4478,3 +4470,9 @@ rotation = 0.026867071
 
 [connection signal="body_entered" from="Chest" to="Chest" method="_on_body_entered"]
 [connection signal="body_exited" from="Chest" to="Chest" method="_on_body_exited"]
+[connection signal="body_entered" from="Chest2" to="Chest2" method="_on_body_entered"]
+[connection signal="body_exited" from="Chest2" to="Chest2" method="_on_body_exited"]
+[connection signal="body_entered" from="Altar2" to="Altar2" method="_on_body_entered"]
+[connection signal="body_exited" from="Altar2" to="Altar2" method="_on_body_exited"]
+[connection signal="body_entered" from="Altar" to="Altar" method="_on_body_entered"]
+[connection signal="body_exited" from="Altar" to="Altar" method="_on_body_exited"]
