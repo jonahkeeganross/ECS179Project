@@ -21,6 +21,12 @@ extends Character
 @onready var test1:CollisionPolygon2D = $SideAttackRight/CollisionPolygon2D
 @onready var test2:CollisionPolygon2D = $SideAttackLeft/CollisionPolygon2D
 
+@onready var sfx_slash: AudioStreamPlayer2D = $sfxSlash
+@onready var sfx_shockwave: AudioStreamPlayer2D = $sfxShockwave
+@onready var sfx_arrow: AudioStreamPlayer2D = $sfxArrow
+
+
+
 enum ActionState {IDLE, ATTACK, DASH, DEAD} # ← added DEAD
 enum FacingDir { LEFT, RIGHT, UP, DOWN }
 
@@ -211,7 +217,7 @@ func _handle_death() -> void:
 	animation_tree["parameters/conditions/attack2"] = false
 	animation_tree["parameters/conditions/attack3"] = false
 
-	# 🔥 Trigger the death animation in the AnimationTree
+	# Trigger the death animation in the AnimationTree
 	animation_tree["parameters/conditions/death"] = true
 	# we are NOT using revival yet, just making sure it's off
 	animation_tree["parameters/conditions/revival"] = false
@@ -259,10 +265,13 @@ func update_animation_parameters():
 
 	if (Input.is_action_just_pressed("attack")):
 		start_attack("attack")
+		
 	elif (Input.is_action_just_pressed("attack2") ):
 		start_attack("attack2")
+		
 	elif (Input.is_action_just_pressed("attack3") ):
 		start_attack("attack3")
+		
 		
 	animation_tree["parameters/Idle/blend_position"] = direction
 	animation_tree["parameters/Walk/blend_position"] = direction
@@ -306,22 +315,27 @@ func start_attack(anim_name: String):
 			animation_tree["parameters/conditions/attack"] = true	
 			animation_tree["parameters/conditions/attack2"] = false
 			animation_tree["parameters/conditions/attack3"] = false	
+			sfx_slash.play()
 		"attack2":
 			if stamina - pi.smash_stamina_cons < 0:
 				state = ActionState.IDLE
 				return
 			stamina -= pi.smash_stamina_cons
+			sfx_shockwave.play()
 			animation_tree["parameters/conditions/attack"] = false	
 			animation_tree["parameters/conditions/attack2"] = true
 			animation_tree["parameters/conditions/attack3"] = false	
+			
 		"attack3":
 			if stamina - pi.smash_stamina_cons < 0:
 				state = ActionState.IDLE
 				return
 			stamina -= pi.arrow_stamina_cons
+			sfx_arrow.play()
 			animation_tree["parameters/conditions/attack"] = false	
 			animation_tree["parameters/conditions/attack2"] = false
 			animation_tree["parameters/conditions/attack3"] = true	
+			
 
 	cur_anim = anim_name
 	time_since_stamina_use = 0

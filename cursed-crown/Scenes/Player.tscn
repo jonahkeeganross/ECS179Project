@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=3 uid="uid://bomosdxmu542w"]
+[gd_scene load_steps=104 format=3 uid="uid://bomosdxmu542w"]
 
 [ext_resource type="Script" uid="uid://b587w7w3v17d6" path="res://Scripts/player.gd" id="1_megsn"]
 [ext_resource type="Texture2D" uid="uid://dlvc3lw4kc7c0" path="res://Assets/soilder/Soldier/attack01_front.png" id="2_5v66d"]
@@ -22,6 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://bpqpu6pqx388s" path="res://Assets/soilder/Soldier/walk_down.png" id="19_c43xd"]
 [ext_resource type="Texture2D" uid="uid://c6ftqrma837fp" path="res://Assets/soilder/Soldier/walk_up.png" id="20_avx33"]
 [ext_resource type="Script" uid="uid://vm51eb51uhpp" path="res://Scenes/knock_hitbox.gd" id="23_i2e8t"]
+[ext_resource type="AudioStream" uid="uid://eplnkeae7aal" path="res://Assets/audio/sfx/slash.mp3" id="23_qidb7"]
+[ext_resource type="AudioStream" uid="uid://bjbxpu4mpm87c" path="res://Assets/audio/sfx/shockwave.mp3" id="24_qidb7"]
+[ext_resource type="AudioStream" uid="uid://dafed524u7a6c" path="res://Assets/audio/sfx/arrow.mp3" id="25_70hv0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_epypp"]
 size = Vector2(21, 14)
@@ -1751,3 +1754,12 @@ disabled = true
 [node name="BlinkTimer" type="Timer" parent="."]
 
 [node name="DashEffectTimer" type="Timer" parent="."]
+
+[node name="sfxSlash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("23_qidb7")
+
+[node name="sfxShockwave" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("24_qidb7")
+
+[node name="sfxArrow" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("25_70hv0")

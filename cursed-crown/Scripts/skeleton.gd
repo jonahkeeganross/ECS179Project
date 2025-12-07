@@ -6,6 +6,7 @@ extends Character
 @onready var stun_timer:Timer = $StunTime
 @onready var health_bar:ProgressBar = $HealthBar
 @onready var atk_hitbox:EnemyHitBox = $CircularAttackHB
+@onready var skeleton_attack: AudioStreamPlayer2D = $skeletonAttack
 
 
 #@onready var  
@@ -96,6 +97,7 @@ func _physics_process(delta: float):
 			if attacking:
 				if cur_time > 2:
 					animation_player.play("attack")
+					skeleton_attack.play()
 					cur_time = 0
 				cur_time += delta
 		State.STUN:

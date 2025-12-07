@@ -5,6 +5,9 @@ extends Character
 
 @onready var stun_timer:Timer = $StunTime
 @onready var health_bar:ProgressBar = $HealthBar
+
+@onready var vampire_attack: AudioStreamPlayer2D = $vampireAttack
+
 #@onready var  
 enum State {IDLE, CHASE, ATTACK, STUN, DEAD}
 
@@ -90,6 +93,7 @@ func _physics_process(delta: float):
 			if is_attacking:
 				if cur_time > 2:
 					spawn_fireball_bite()
+					vampire_attack.play()
 					cur_time = 0
 				cur_time += delta
 		State.STUN:

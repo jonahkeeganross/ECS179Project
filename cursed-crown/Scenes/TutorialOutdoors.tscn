@@ -1,4 +1,4 @@
-[gd_scene load_steps=132 format=4 uid="uid://dc2s1chfsnirx"]
+[gd_scene load_steps=133 format=4 uid="uid://dc2s1chfsnirx"]
 
 [ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scripts/FirstLevelRoomController.gd" id="1_q4q68"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="2_q33qw"]
@@ -61,6 +61,7 @@
 [ext_resource type="Script" uid="uid://ct6vnvwpyjpgc" path="res://Scripts/Cutscene/initial_dialogue.gd" id="54_vyrw7"]
 [ext_resource type="Script" uid="uid://b6r7h5entefig" path="res://Scripts/Cutscene/first_tutorial_sign.gd" id="55_1qfji"]
 [ext_resource type="Script" uid="uid://l2hjstip0jv3" path="res://Scenes/door_dialogue.gd" id="57_7x6ju"]
+[ext_resource type="PackedScene" uid="uid://cjuruuf7y1noh" path="res://Scenes/BgmTutorial.tscn" id="62_7h2o5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_d6ah8"]
 texture = ExtResource("2_qxxi1")
@@ -8018,6 +8019,8 @@ script = ExtResource("54_b7tp4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TransportToLevel1"]
 position = Vector2(0, -7.53125)
 shape = SubResource("RectangleShape2D_1qfji")
+
+[node name="BgmTutorial" parent="." instance=ExtResource("62_7h2o5")]
 
 [connection signal="body_entered" from="Altar" to="Altar" method="_on_body_entered"]
 [connection signal="body_exited" from="Altar" to="Altar" method="_on_body_exited"]
