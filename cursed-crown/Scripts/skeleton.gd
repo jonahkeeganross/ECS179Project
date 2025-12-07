@@ -24,8 +24,8 @@ var _dead:bool = false
 var player = GameState.player
 var enabled: bool
 var _knockback_velocity: Vector2
-var cur_time = 1
-var coin_drop_chance = 0.25
+var cur_time = 2
+var coin_drop_chance = 0.4
 var coin_spawned = false
 
 #@onready var audio_player:AudioStreamPlayer2D = $AudioStreamPlayer2D

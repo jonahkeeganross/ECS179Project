@@ -26,7 +26,7 @@ var _test_dt = 0
 var attack_speed = 2
 var cur_time = 1
 var _knockback_velocity: Vector2
-var coin_drop_chance = 0.5
+var coin_drop_chance = 0.7
 var coin_spawned = false
 
 
@@ -87,7 +87,7 @@ func _physics_process(delta: float):
 				$NavigationAgent2D.set_velocity(Vector2.ZERO)
 				$NavigationAgent2D.target_position = global_position
 				
-			if attacking:
+			if is_attacking:
 				if cur_time > 2:
 					spawn_fireball_bite()
 					cur_time = 0
