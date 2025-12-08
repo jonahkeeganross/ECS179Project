@@ -24,6 +24,7 @@ extends Character
 @onready var sfx_slash: AudioStreamPlayer2D = $sfxSlash
 @onready var sfx_shockwave: AudioStreamPlayer2D = $sfxShockwave
 @onready var sfx_arrow: AudioStreamPlayer2D = $sfxArrow
+@onready var sfx_death: AudioStreamPlayer2D = $sfxDeath
 
 
 
@@ -220,6 +221,7 @@ func _handle_death() -> void:
 
 	# Trigger the death animation in the AnimationTree
 	animation_tree["parameters/conditions/death"] = true
+	sfx_death.play()
 	# we are NOT using revival yet, just making sure it's off
 	animation_tree["parameters/conditions/revival"] = false
 # --- END DEATH HANDLING ---

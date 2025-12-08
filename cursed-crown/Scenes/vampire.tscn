@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cut8xugsri52a"]
+[gd_scene load_steps=44 format=3 uid="uid://cut8xugsri52a"]
 
 [ext_resource type="Script" uid="uid://dqubv5k0ginqj" path="res://Scripts/vampire.gd" id="1_te72b"]
 [ext_resource type="Texture2D" uid="uid://dl22g3g7l74pu" path="res://Assets/vampire/enemies-vampire_idle.png" id="2_2tffl"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b5uaouiqpb3o" path="res://Assets/vampire/enemies-vampire_movement.png" id="6_ltbgj"]
 [ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scenes/hurt_box.gd" id="7_2tffl"]
 [ext_resource type="AudioStream" uid="uid://ctre8ebc5bncl" path="res://Assets/audio/sfx/vampireAttack.mp3" id="9_xf5bl"]
+[ext_resource type="AudioStream" uid="uid://drd2cth4050al" path="res://Assets/audio/sfx/vampire_death.mp3" id="10_ekqqj"]
 
 [sub_resource type="Animation" id="Animation_aefvb"]
 length = 0.001
@@ -529,3 +530,7 @@ parameters/conditions/idle = false
 parameters/conditions/walk = false
 
 [node name="vampireAttack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_xf5bl")
+
+[node name="vampireDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_ekqqj")

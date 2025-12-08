@@ -1,5 +1,6 @@
 class_name Coin
 extends StaticBody2D
+@onready var coin_sound: AudioStreamPlayer2D = $coinSound
 
 var coin_speed : float = 400
 var player : Player
