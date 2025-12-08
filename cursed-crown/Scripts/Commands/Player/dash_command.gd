@@ -8,7 +8,6 @@ var _mult = 50
 
 func execute(character: Character) -> Status:
 	#var input = character.movement_speed
-	print("EEXC")
 	if character.velocity.length() < 1:
 		return Status.DONE # In the case that player is not moving dont dash
 	var _cur_vel_norm = character.velocity.normalized()

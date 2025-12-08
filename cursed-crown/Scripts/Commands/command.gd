@@ -8,4 +8,5 @@ enum Status {
 
 func execute(_character: Character) -> Status:
 	return Status.DONE
+
 	
