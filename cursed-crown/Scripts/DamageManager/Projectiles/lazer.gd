@@ -63,8 +63,15 @@ func initialize(pos:Vector2, info: Array[ProjectileInfo]):
 	global_position = pos +   dir  * half_len
 	var beam_length = rect_shape.size.x
 	var beam_width = rect_shape.size.y
-	_display_sprite.scale = Vector2(beam_length / 10.0, beam_width / 10.0)
-	_display_sprite.position = Vector2(-beam_length / 2.0, -beam_width / 2.0)
+
+	var tween = create_tween()
+	var tween2 = create_tween()
+	_display_sprite.scale = Vector2(1, beam_width / 10.0)
+	var scale = Vector2(beam_length / 10.0, beam_width / 10.0)
+	var posit = Vector2(-beam_length / 2.0, -beam_width / 2.0)
+	tween.tween_property(_display_sprite, "scale", scale , 0.4).set_trans(Tween.TRANS_QUAD)
+	tween2.tween_property(_display_sprite, "position", posit , 0.4).set_trans(Tween.TRANS_QUAD)
+	
 	_active = true
 	#if not cur_info.target:
 		#rot = cur_info.rot

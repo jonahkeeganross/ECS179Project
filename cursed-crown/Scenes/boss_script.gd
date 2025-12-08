@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var anim_play:AnimationPlayer =  $AnimationPlayer
 @onready var animation_tree:AnimationTree =  $AnimationTree
 @onready var nav_agent:NavigationAgent2D =  $NavigationAgent2D
+@onready var boss_hb:HitBox =  $HitBox
 @onready var sheild:Sprite2D =  $Shield
 @onready var _sprite:Sprite2D =  $Sprite2D
 @onready var spawn_timer:Timer =  $Timer
@@ -83,6 +84,7 @@ func _ready() -> void:
 	#print("Boss ready, player:", player, "proj_manager:", projectile_manager)
 	
 func _process(delta: float) -> void:
+	print(is_attacking)
 	if not enabled:
 		return 
 	total_time += delta
@@ -232,8 +234,9 @@ func special_attack1():
 	SpiralCCW(player.global_position - Vector2(300,0))
 	SpiralCW(player.global_position + Vector2(300,0))
 	#go_invisible()
-	Attack1Timer.start(8)
-	Attack1Timer.timeout.connect(reset_movement)
+	Attack1Timer.start(9)
+	await Attack1Timer.timeout
+	reset_movement()
 
 # Shoot out balls 
 func special_attack2():
@@ -248,8 +251,11 @@ func special_attack2():
 	for i in range(1,3):
 		set_animation("attack")
 		emit_random_balls()
-		Attack2Timer.start(1)
-		await  Attack2Timer.timeout
+		between_timer.start(1)
+		await between_timer.timeout
+		 
+	Attack2Timer.start(1)
+	await Attack2Timer.timeout
 	reset_movement()
 
 ## Shoot target lasers
@@ -265,10 +271,10 @@ func special_attack3():
 		Attack3Timer.start(1.5)
 		await  Attack3Timer.timeout
 	print("RESET")
-	reset_movement()
+	
 	become_visible()
 	global_position = original_spawn
-#f
+	reset_movement()
 
 func relocate():
 	if is_attacking == true:
@@ -380,7 +386,7 @@ func special_attack5():
 	Attack5Timer.start(4)
 	await Attack5Timer.timeout
 	reset_movement()
-	set_animation("walk")
+	
 	
 	
 #func dmg_reset():
@@ -454,13 +460,19 @@ func start_tree():
 	
 func go_invisible():
 	var tween = self.create_tween()
+	var tweenh = self.create_tween()
+	boss_hb.monitoring = false
 	tween.tween_property(_sprite, "modulate:a", 0, 1).set_trans(Tween.TRANS_QUAD)
+	tweenh.tween_property(health_bar, "modulate:a", 0, 1).set_trans(Tween.TRANS_QUAD)
 	await tween.finished
 	
 func become_visible():
 	var tween = self.create_tween()
+	var tweenh = self.create_tween()
 	tween.tween_property(_sprite, "modulate:a", 1.0, 3).set_trans(Tween.TRANS_QUAD)
+	tweenh.tween_property(health_bar, "modulate:a", 1, 3).set_trans(Tween.TRANS_QUAD)
 	await tween.finished
+	boss_hb.monitoring = true
 	
 	
 
@@ -533,12 +545,12 @@ func SpiralCW(pos: Vector2):
 			var projectile_info = ProjectileInfo.new(
 			CharacterSpec.spec.ENEMY, 
 				10, # damage
-				8, # Lifetime
-				1, # Spawn delay
+				6, # Lifetime
+				2, # Spawn delay
 				0, # Speed
 				0, # Accelerat ion
 				i * 36, # Initial Rotation
-				20 # Initial Rot velocity 
+				25 # Initial Rot velocity 
 			)
 			projectile_list.append(projectile_info)
 			projectile_manager.spawn_laser(pos, projectile_list)
@@ -552,12 +564,12 @@ func SpiralCCW(pos: Vector2):
 			var projectile_info = ProjectileInfo.new(
 			CharacterSpec.spec.ENEMY, 
 				10, # damage
-				8, # Lifetime
-				1, # Spawn delay
+				6, # Lifetime
+				2, # Spawn delay
 				0, # Speed
 				0, # Accelerat ion
 				i * 36, # Initial Rotation
-				-20 # Initial Rot velocity 
+				-25 # Initial Rot velocity 
 			)
 			projectile_list.append(projectile_info)
 			projectile_manager.spawn_laser(pos, projectile_list)
@@ -698,7 +710,7 @@ func emit_balls_spiral():
 				10, # damage
 				1, # Lifetime
 				0.1, # Spawn delay
-				120, # Speed
+				200, # Speed
 				70, # Acceleration
 				dir_deg, # Initial Rotation
 				0 # Initial Rot velocity 
@@ -709,7 +721,7 @@ func emit_balls_spiral():
 				10, # damage
 				0.5, # Lifetime
 				0.1, # Spawn delay
-				0, # Speed
+				0, # Speedspr
 				0, # Acceleration
 				dir_deg, # Initial Rotation
 				0 # Initial Rot velocity 
@@ -720,7 +732,7 @@ func emit_balls_spiral():
 				10, # damage
 				1, # Lifetime
 				2, # Spawn delay
-				120, # Speed
+				200, # Speed
 				70, # Acceleration
 				dir_deg + 180, # Initial Rotation
 				0 # Initial Rot velocity 

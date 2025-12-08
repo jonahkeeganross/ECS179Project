@@ -165,9 +165,10 @@ func take_damage(damage:int):
 		_deactivate()
 		atk_hitbox.monitoring = false
 		_dead = true
+		animation_player.play("death")
 		state = State.DEAD
 		velocity = Vector2.ZERO
-		animation_player.play("death")
+		
 	print((float(health) / float(max_health)))
 	health_bar.value  = (float(health) / float(max_health)) * 100
 

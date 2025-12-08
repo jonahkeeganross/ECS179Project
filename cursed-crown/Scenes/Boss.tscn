@@ -989,16 +989,22 @@ shape = SubResource("CapsuleShape2D_6njix")
 disabled = true
 
 [node name="Attack1Timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Attack2Timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Attack3Timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Attack4Timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Attack5Timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="Attack6Timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="InbetweenTimer" type="Timer" parent="."]
 
