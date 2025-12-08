@@ -7892,6 +7892,8 @@ polygon = PackedVector2Array(90, 262, 157, 209, 215, 156, 243, 38, 243, -32, 220
 polygon = PackedVector2Array(-70, 314, -183, 174, -255, 121, -276, 30, -286, -74, -227, -138, -207, -223, -206, -261, -376, -261, -355, 222, -199, 252, -137, 285)
 
 [node name="Skeleton Room" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("34_a8or5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Skeleton Room"]
