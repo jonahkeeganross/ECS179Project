@@ -6,6 +6,8 @@ extends Area2D
 
 var player_is_inside : bool = false
 var opened : bool = false
+var open_count : int = 0
+var max_opens : int = 10
 
 func _ready() -> void:
 	add_to_group("Chest")
@@ -22,9 +24,10 @@ func _on_body_exited(body) -> void:
 	
 		
 func _process(delta) -> void:
-	if player_is_inside:
+	if player_is_inside and open_count < max_opens:
 		if Input.is_action_just_pressed("interact"):
 			opened = true
+			open_count += 1
 			open_chest()
 			
 

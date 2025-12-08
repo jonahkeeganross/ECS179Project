@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bvqxj8ymwxqyw"]
 
-[ext_resource type="Script" path="res://Scripts/ShopUI.gd" id="1_shop"]
+[ext_resource type="Script" uid="uid://buu1wwhfh2t8d" path="res://Scripts/ShopUI.gd" id="1_shop"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg_overlay"]
 bg_color = Color(0, 0, 0, 0.7)
@@ -19,6 +19,9 @@ corner_radius_bottom_left = 8
 shadow_color = Color(0, 0, 0, 0.5)
 shadow_size = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_separator"]
+bg_color = Color(0.5, 0.45, 0.3, 0.5)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_normal"]
 bg_color = Color(0.25, 0.22, 0.3, 1)
 border_width_left = 2
@@ -26,18 +29,6 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.5, 0.45, 0.55, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
-bg_color = Color(0.35, 0.32, 0.4, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.7, 0.65, 0.3, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
@@ -55,6 +46,18 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(0.35, 0.32, 0.4, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.65, 0.3, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_disabled"]
 bg_color = Color(0.15, 0.15, 0.15, 0.5)
 border_width_left = 2
@@ -67,14 +70,12 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_separator"]
-bg_color = Color(0.5, 0.45, 0.3, 0.5)
-
 [node name="ShopUI" type="CanvasLayer"]
 script = ExtResource("1_shop")
 
 [node name="Control" type="Control" parent="."]
-layout_mode = 0
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -142,8 +143,8 @@ offset_top = 140.0
 offset_right = 520.0
 offset_bottom = 185.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
 text = "❤ Health Potion - Restore 30 HP (10 Shards)"
 
@@ -154,8 +155,8 @@ offset_top = 195.0
 offset_right = 520.0
 offset_bottom = 240.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
 text = "⚔ Damage Upgrade - +5 Attack (20 Shards)"
 
@@ -166,8 +167,8 @@ offset_top = 250.0
 offset_right = 520.0
 offset_bottom = 295.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
 text = "⚡ Stamina Upgrade - +20 Max Stamina (15 Shards)"
 
@@ -186,7 +187,7 @@ offset_top = 340.0
 offset_right = 380.0
 offset_bottom = 390.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
 text = "Close (ESC)"

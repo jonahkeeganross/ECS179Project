@@ -14,9 +14,9 @@ signal shop_closed
 var player: Player = null
 
 # Shop item prices
-const HEALTH_POTION_PRICE: int = 10
-const DAMAGE_UPGRADE_PRICE: int = 20
-const STAMINA_UPGRADE_PRICE: int = 15
+const HEALTH_POTION_PRICE: int = 5
+const DAMAGE_UPGRADE_PRICE: int = 15
+const STAMINA_UPGRADE_PRICE: int = 10
 
 func _ready() -> void:
 	# Allow processing even when paused
@@ -59,7 +59,7 @@ func close_shop() -> void:
 
 func update_coin_display() -> void:
 	if player:
-		coin_label.text = "Shards: " + str(player.total_coins)
+		coin_label.text = "✦ 💎 Shards: " + str(player.total_coins) + " 💎 ✦"
 
 func update_button_states() -> void:
 	if player:
