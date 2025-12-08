@@ -113,6 +113,7 @@ func _physics_process(delta: float):
 		State.ATTACK:				
 			set_animation("attack")
 			is_attacking = true
+			vampire_attack.play()
 			#animation_player.play("attack")
 			#if cur_time > 2:
 				#spawn_fireball_bite()
@@ -241,7 +242,7 @@ func set_animation(new_anim:StringName):
 			animation_tree["parameters/conditions/walk"] = false
 			animation_tree["parameters/conditions/attack"] = true
 			animation_tree["parameters/conditions/hurt"] = false
-			vampire_attack.play()
+			
 		"hurt":
 			animation_tree["parameters/conditions/dead"] = false
 			animation_tree["parameters/conditions/idle"] = false

@@ -127,6 +127,7 @@ func _physics_process(delta: float):
 				if attacking:
 					if cur_time > 2:
 						animation_player.play("attack")
+						skeleton_attack.play()
 						cur_time = 0
 					cur_time += delta
 		State.ATTACK:
@@ -223,7 +224,7 @@ func set_animation(new_anim:StringName):
 			animation_tree["parameters/conditions/walk"] = false
 			animation_tree["parameters/conditions/attack"] = true
 			animation_tree["parameters/conditions/hurt"] = false
-			skeleton_attack.play()
+			
 		"hurt":
 			animation_tree["parameters/conditions/dead"] = false
 			animation_tree["parameters/conditions/idle"] = false

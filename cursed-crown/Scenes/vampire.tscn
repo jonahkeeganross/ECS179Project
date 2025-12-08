@@ -530,7 +530,6 @@ parameters/conditions/idle = false
 parameters/conditions/walk = false
 
 [node name="vampireAttack" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("9_xf5bl")
 
 [node name="vampireDeath" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_ekqqj")
