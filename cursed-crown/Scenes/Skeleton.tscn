@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bju8bt6iv6dyw"]
+[gd_scene load_steps=43 format=3 uid="uid://bju8bt6iv6dyw"]
 
 [ext_resource type="Script" uid="uid://bwqxx1bhfflgx" path="res://Scripts/skeleton.gd" id="1_yek4v"]
 [ext_resource type="Texture2D" uid="uid://df32f1jbqpg1y" path="res://Assets/skeleton/enemies-skeleton2_idle.png" id="2_ks230"]
@@ -151,6 +151,25 @@ tracks/5/keys = {
 "method": &"unset_attacking"
 }]
 }
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("skeletonAttack")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("10_87cwn")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("10_87cwn")
+}],
+"times": PackedFloat32Array(0.033333335, 0.56666666)
+}
+tracks/6/use_blend = false
 
 [sub_resource type="Animation" id="Animation_oo0xs"]
 resource_name = "death"
@@ -457,6 +476,7 @@ advance_mode = 2
 advance_condition = &"hurt"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8lo8o"]
+states/Start/position = Vector2(194, 100)
 states/attack/node = SubResource("AnimationNodeAnimation_k2wj7")
 states/attack/position = Vector2(428, 53)
 states/death/node = SubResource("AnimationNodeAnimation_87cwn")
@@ -538,4 +558,3 @@ parameters/conditions/idle = false
 parameters/conditions/walk = false
 
 [node name="skeletonAttack" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("10_87cwn")
