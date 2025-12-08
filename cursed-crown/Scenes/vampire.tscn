@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cut8xugsri52a"]
+[gd_scene load_steps=42 format=3 uid="uid://cut8xugsri52a"]
 
 [ext_resource type="Script" uid="uid://dqubv5k0ginqj" path="res://Scripts/vampire.gd" id="1_te72b"]
 [ext_resource type="Texture2D" uid="uid://dl22g3g7l74pu" path="res://Assets/vampire/enemies-vampire_idle.png" id="2_2tffl"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://nfct7qrdc54s" path="res://Assets/vampire/enemies-vampire_death.png" id="4_xf5bl"]
 [ext_resource type="Texture2D" uid="uid://8pbnsovhayh1" path="res://Assets/vampire/enemies-vampire_take_damage.png" id="5_ekqqj"]
 [ext_resource type="Texture2D" uid="uid://b5uaouiqpb3o" path="res://Assets/vampire/enemies-vampire_movement.png" id="6_ltbgj"]
-[ext_resource type="Script" path="res://Scenes/hurt_box.gd" id="7_2tffl"]
+[ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scenes/hurt_box.gd" id="7_2tffl"]
 
 [sub_resource type="Animation" id="Animation_aefvb"]
 length = 0.001
@@ -106,11 +106,14 @@ tracks/3/path = NodePath(".")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0.9),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.9, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [],
 "method": &"spawn_fireball_bite"
+}, {
+"args": [],
+"method": &"unset_attacking"
 }]
 }
 tracks/4/type = "value"
@@ -180,7 +183,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_j1opw"]
 resource_name = "hurt"
-length = 0.5
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -212,10 +215,10 @@ tracks/2/path = NodePath("Sprite2D:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
+"times": PackedFloat32Array(0, 0.06666668, 0.13333334, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 4]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -358,7 +361,102 @@ bg_color = Color(0.2521279, 0.49308515, 0.22031984, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fdgvd"]
 size = Vector2(22, 29)
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fdgvd"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xf5bl"]
+animation = &"death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ekqqj"]
+animation = &"hurt"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ltbgj"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_adrl2"]
+animation = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_op3gm"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l8ak0"]
+advance_mode = 2
+advance_condition = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mrxwq"]
+advance_mode = 2
+advance_condition = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8pmxg"]
+advance_mode = 2
+advance_condition = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0ctkv"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4ogv1"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s411t"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xtduo"]
+advance_mode = 2
+advance_condition = &"dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l6xip"]
+advance_mode = 2
+advance_condition = &"dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xo5xo"]
+advance_mode = 2
+advance_condition = &"dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_62ipx"]
+advance_mode = 2
+advance_condition = &"hurt"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_35swm"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o7ls3"]
+advance_mode = 2
+advance_condition = &"hurt"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x3sh3"]
+advance_mode = 2
+advance_condition = &"hurt"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2mkuf"]
+advance_mode = 2
+advance_condition = &"walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_01x4u"]
+advance_mode = 2
+advance_condition = &"attack"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8bn17"]
+states/attack/node = SubResource("AnimationNodeAnimation_fdgvd")
+states/attack/position = Vector2(449, 218)
+states/death/node = SubResource("AnimationNodeAnimation_xf5bl")
+states/death/position = Vector2(711, 218)
+states/hurt/node = SubResource("AnimationNodeAnimation_ekqqj")
+states/hurt/position = Vector2(552, -16)
+states/idle/node = SubResource("AnimationNodeAnimation_ltbgj")
+states/idle/position = Vector2(355, 96)
+states/walk/node = SubResource("AnimationNodeAnimation_adrl2")
+states/walk/position = Vector2(594, 116)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_op3gm"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_l8ak0"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_mrxwq"), "walk", "attack", SubResource("AnimationNodeStateMachineTransition_8pmxg"), "attack", "walk", SubResource("AnimationNodeStateMachineTransition_0ctkv"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_4ogv1"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_s411t"), "walk", "death", SubResource("AnimationNodeStateMachineTransition_xtduo"), "idle", "death", SubResource("AnimationNodeStateMachineTransition_l6xip"), "attack", "death", SubResource("AnimationNodeStateMachineTransition_xo5xo"), "idle", "hurt", SubResource("AnimationNodeStateMachineTransition_62ipx"), "hurt", "idle", SubResource("AnimationNodeStateMachineTransition_35swm"), "walk", "hurt", SubResource("AnimationNodeStateMachineTransition_o7ls3"), "attack", "hurt", SubResource("AnimationNodeStateMachineTransition_x3sh3"), "hurt", "walk", SubResource("AnimationNodeStateMachineTransition_2mkuf"), "hurt", "attack", SubResource("AnimationNodeStateMachineTransition_01x4u")]
+graph_offset = Vector2(-66, 81)
+
 [node name="Vampire" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_te72b")
 coin_factory = ExtResource("2_fdgvd")
@@ -404,3 +502,12 @@ position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_fdgvd")
 
 [node name="StunTime" type="Timer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_8bn17")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/attack = false
+parameters/conditions/dead = false
+parameters/conditions/hurt = false
+parameters/conditions/idle = false
+parameters/conditions/walk = false
