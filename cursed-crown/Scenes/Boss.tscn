@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://b52v66pdkqaop"]
+[gd_scene load_steps=61 format=3 uid="uid://b52v66pdkqaop"]
 
 [ext_resource type="Texture2D" uid="uid://dgnp5hbnjq862" path="res://Assets/boss/bossWalk.png" id="1_j5nlm"]
 [ext_resource type="Script" uid="uid://bbd2220mtsoi7" path="res://Scenes/boss_script.gd" id="1_ouxnj"]
@@ -853,6 +853,7 @@ advance_mode = 2
 advance_condition = &"boss_attack"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_veixi"]
+switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_walking"
 
@@ -971,7 +972,6 @@ parameters/Walk/blend_position = Vector2(0.009053469, -1.060538)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_max_distance = 348.0
-debug_enabled = true
 debug_path_custom_color = Color(1, 0.2509804, 1, 1)
 
 [node name="Shield" type="Sprite2D" parent="."]

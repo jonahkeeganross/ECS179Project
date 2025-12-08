@@ -49,6 +49,7 @@ var minions:Array[Vampire]
 
 var original_spawn:Vector2 
 
+var prob_multiplier = 1
 var total_health:int = 500
 var second_phase:int = 250
 
@@ -110,21 +111,22 @@ func _physics_process(delta: float) -> void:
 		State.BOUND:
 			var dist = (player.global_position - global_position).length()
 			if dist < 200:
-				spawn()
+				spawn() 
 		State.STG2:
 			if st2_ready == true and is_attacking == false:
 				second_phase_setup()
 			if minion_spawner.cleared == true:
 				print("cleared")
+				prob_multiplier = 2
 				hide_shield()
 				state = State.CHASE
 				_done_stage2 = true
+				reset_movement()
 			
 				
 		State.CHASE:
 			update_animation_parameters()
 			set_animation("walk")
-			nav_agent.debug_enabled = true
 			nav_agent.target_position = player.global_position 
 			var next_path_point = nav_agent.get_next_path_position()
 			var direction = (next_path_point - global_position).normalized()
@@ -137,28 +139,32 @@ func _physics_process(delta: float) -> void:
 			var prob_close = 1
 			var prob_far = 100
 			var prob_relocate = 1
+			var prob_diff = 1
 			if dist < 20:
 				prob_relocate = 150
 				
 			if dist < 100:
-				prob_close = 50
-				prob_far = 30
+				prob_close = 50 * prob_multiplier
+				prob_far = 30 * prob_multiplier
 			elif dist < 200:
-				prob_close = 20
-				prob_far = 40
-			elif dist < 400:
-				prob_close = 10
-				prob_far = 80
-			elif dist < 700:
-				prob_close = 6
-				prob_far = 200
+				prob_close = 20 * prob_multiplier
+				prob_far = 40 * prob_multiplier
+			elif dist < 300:
+				prob_close = 10 * prob_multiplier
+				prob_far = 80 * prob_multiplier
+			elif dist < 500:
+				prob_close = 6 * prob_multiplier
+				prob_far = 200 * prob_multiplier
 			else: 
 				prob_relocate = 100
-				prob_close = 1
-				prob_far = 150
+				prob_close = 1 * prob_multiplier
+				prob_far = 300* prob_multiplier
+				
 			var rand_c = rng.randi_range(0, 10000)
 			var rand_f = rng.randi_range(0, 10000)
 			var rand_r = rng.randi_range(0, 10000)
+			#var rand_r = rng.randi_range(0, 10000)
+		
 			if rand_r < prob_relocate:
 				relocate()
 			if rand_c < prob_close:
@@ -170,19 +176,25 @@ func _physics_process(delta: float) -> void:
 					special_attack5()
 			elif rand_f < prob_far:
 
-				var rand_move = rng.randi_range(0,3)
+				var rand_move = rng.randi_range(0,4)
 				if rand_move == 0: # will relocaste a lot
 					relocate()
 				else:
-					var attack = rng.randi_range(0,3)
+					var attack = rng.randi_range(0,6)
 					match  attack:
 						0: 
-							special_attack4()
+							special_attack1()
 						1: 
-							special_attack4()
+							special_attack1()
 						2: 
-							special_attack4()
+							special_attack2() # rare
 						3: 
+							special_attack3()
+						4: 
+							special_attack3()
+						5: 
+							special_attack4()
+						6: 
 							special_attack4()
 					
 		
@@ -211,6 +223,8 @@ func spawn():
 # Shoot lazers from both sides and teleport
 func special_attack1():
 	# do wrap. \
+	if is_attacking == true:
+		return
 	state = State.ATTACK
 	is_attacking = true
 
@@ -223,9 +237,12 @@ func special_attack1():
 
 # Shoot out balls 
 func special_attack2():
-	emit_random_balls()
+	if is_attacking == true:
+		return
 	is_attacking = true
 	state = State.ATTACK
+	emit_random_balls()
+	
 	set_animation("attack")
 	
 	for i in range(1,3):
@@ -237,13 +254,15 @@ func special_attack2():
 
 ## Shoot target lasers
 func special_attack3():
+	if is_attacking == true:
+		return
 	state = State.ATTACK
 	is_attacking = true
 	go_invisible()
 	
 	for i in range(1,6):
 		target_player()
-		Attack3Timer.start(1)
+		Attack3Timer.start(1.5)
 		await  Attack3Timer.timeout
 	print("RESET")
 	reset_movement()
@@ -252,9 +271,12 @@ func special_attack3():
 #f
 
 func relocate():
+	if is_attacking == true:
+		return
 	state = State.ATTACK
-	go_invisible()
 	is_attacking = true
+	go_invisible()
+	
 	between_timer.start(1)
 	await  between_timer.timeout
 	 
@@ -294,6 +316,8 @@ func relocate():
 	reset_movement()
 ##grid attack
 func special_attack4():
+	if is_attacking == true:
+		return
 	is_attacking = true
 	state = State.ATTACK
 	
@@ -347,6 +371,8 @@ func special_attack4():
 	reset_movement()
 			
 func special_attack5():	
+	if is_attacking == true:
+		return
 	is_attacking = true
 	state = State.ATTACK
 	set_animation("attack3")
@@ -366,9 +392,10 @@ func take_damage(damage:int):
 		return
 	health -= damage
 	if health < second_phase and not _done_stage2:
-		
-		state = State.STG2
-		st2_ready = true
+		if not is_attacking:
+			
+			state = State.STG2
+			st2_ready = true
 		#_done_stage2 = true
 		
 		
@@ -386,10 +413,10 @@ func take_damage(damage:int):
 ## Alternate lazers above
 #func special_attack4():
 func second_phase_setup():
-	
+	is_attacking = true
 	st2_ready = false
 	go_invisible()
-	is_attacking = true
+	
 	sheild.visible = true
 	between_timer.start(1)
 	await  between_timer.timeout
@@ -630,7 +657,7 @@ func target_player():
 		CharacterSpec.spec.ENEMY, 
 			10, # damage
 			1, # Lifetime
-			0.3, # Spawn delay
+			0.5, # Spawn delay
 			0, # Speed
 			0, # Accelerat ion
 			dir, # Initial Rotation
@@ -648,7 +675,7 @@ func target_player():
 		CharacterSpec.spec.ENEMY, 
 			10, # damage
 			1, # Lifetime
-			0.3, # Spawn delay
+			0.5, # Spawn delay
 			0, # Speed
 			0, # Accelerat ion
 			dir, # Initial Rotation
