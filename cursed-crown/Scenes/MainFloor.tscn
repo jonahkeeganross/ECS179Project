@@ -22,7 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://blvixum1d8rts" path="res://Assets/tileset/dungeon props/chest/chest_open_2.png" id="21_7iri4"]
 [ext_resource type="PackedScene" uid="uid://virfurxn6td1" path="res://Scenes/VoidBall.tscn" id="21_m4ysf"]
 [ext_resource type="Script" uid="uid://dx46u8i4bn2uq" path="res://Scripts/Cutscene/test_prompt.gd" id="21_ydvyc"]
-[ext_resource type="Script" uid="uid://uu06aveogqxm" path="res://Scripts/chest.gd" id="22_10yw8"]
+[ext_resource type="Script" path="res://Scripts/chest.gd" id="22_10yw8"]
 [ext_resource type="Texture2D" uid="uid://dr5q1cyewmuj2" path="res://Assets/tileset/dungeon props/chest/chest_open_3.png" id="22_jo1nd"]
 [ext_resource type="PackedScene" uid="uid://lu85iee3wwvs" path="res://Scenes/coin_factory.tscn" id="23_bwild"]
 [ext_resource type="Texture2D" uid="uid://cdly12mpj07kr" path="res://Assets/tileset/dungeon props/chest/chest_open_4.png" id="23_rfpp5"]
