@@ -94,6 +94,7 @@ func _pop_next() -> void:
 		return
 	var cur_info = projectile_array.pop_front()
 	_projectile_info = cur_info		
+
 	if not cur_info.target:
 
 		rot = cur_info.rot

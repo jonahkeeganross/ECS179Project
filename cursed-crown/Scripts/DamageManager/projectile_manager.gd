@@ -4,6 +4,7 @@ class_name ProjectileManager
 
 @export var fireball:PackedScene
 @export var laser:PackedScene
+@export var biglaser:PackedScene
 @export var voidball:PackedScene
 
 func _ready() -> void:
@@ -20,8 +21,14 @@ func spawn_voidball(pos:Vector2, projectInfo: Array[ProjectileInfo]):
 	new_projectile.initialize(pos, projectInfo)
 
 
-func spawn_laser(pos:Vector2, projectInfo: ProjectileInfo):
+func spawn_laser(pos:Vector2, projectInfo: Array[ProjectileInfo]):
 	
 	var new_projectile = laser.instantiate() as Laser
+	add_child(new_projectile)
+	new_projectile.initialize(pos, projectInfo)
+
+func spawn_big_laser(pos:Vector2, projectInfo: Array[ProjectileInfo]):
+	
+	var new_projectile = biglaser.instantiate() as BigLaser
 	add_child(new_projectile)
 	new_projectile.initialize(pos, projectInfo)

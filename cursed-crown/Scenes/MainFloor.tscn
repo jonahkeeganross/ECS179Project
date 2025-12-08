@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=4 uid="uid://dvv2hjnsm3aoa"]
+[gd_scene load_steps=95 format=4 uid="uid://dvv2hjnsm3aoa"]
 
 [ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scripts/FirstLevelRoomController.gd" id="1_65fbj"]
 [ext_resource type="Script" uid="uid://cuc2lqqtqwejw" path="res://Scenes/altar.gd" id="1_altar"]
@@ -20,6 +20,7 @@
 [ext_resource type="TileSet" uid="uid://coi41otns33ly" path="res://Assets/tileset/outside/outside-tileset.tres" id="19_vlthb"]
 [ext_resource type="Texture2D" uid="uid://ccuhe5r87t7es" path="res://Assets/tileset/dungeon props/chest/chest_open_1.png" id="20_ct527"]
 [ext_resource type="Texture2D" uid="uid://blvixum1d8rts" path="res://Assets/tileset/dungeon props/chest/chest_open_2.png" id="21_7iri4"]
+[ext_resource type="PackedScene" path="res://Scenes/BigLaser.tscn" id="21_80668"]
 [ext_resource type="PackedScene" uid="uid://virfurxn6td1" path="res://Scenes/VoidBall.tscn" id="21_m4ysf"]
 [ext_resource type="Script" uid="uid://uu06aveogqxm" path="res://Scripts/chest.gd" id="22_10yw8"]
 [ext_resource type="Texture2D" uid="uid://dr5q1cyewmuj2" path="res://Assets/tileset/dungeon props/chest/chest_open_3.png" id="22_jo1nd"]
@@ -38,6 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://om5byogwe17m" path="res://Assets/tileset/dungeon props/peaks/peaks_2.png" id="42_2gv1e"]
 [ext_resource type="Script" uid="uid://v54wbf7eqdws" path="res://Scripts/VampireSpawnPoint.gd" id="42_v76b2"]
 [ext_resource type="Texture2D" uid="uid://c3agnqt8aaear" path="res://Assets/tileset/dungeon props/peaks/peaks_1.png" id="43_w6mf8"]
+[ext_resource type="Script" uid="uid://x2j4816p8fcq" path="res://Scripts/test_emitter2.gd" id="46_v5cdc"]
 [ext_resource type="PackedScene" uid="uid://dllwuw4l28f1p" path="res://Scenes/BgmDungeon.tscn" id="48_v5cdc"]
 [ext_resource type="PackedScene" uid="uid://bju8bt6iv6dyw" path="res://Scenes/Skeleton.tscn" id="50_hy581"]
 [ext_resource type="PackedScene" uid="uid://cut8xugsri52a" path="res://Scenes/vampire.tscn" id="51_gre53"]
@@ -3628,6 +3630,11 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-817, -540, -446, -539,
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v76b2"]
 size = Vector2(19, 20)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_80668"]
+vertices = PackedVector2Array(404.2422, 326.47656, -390.70313, 324.53125, -390.70313, -361.57813, 400.35156, -369.39063)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-400.69788, 334.51013, 414.30212, 336.51013, 410.30212, -379.48987, -400.69788, -371.48987)])
+
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("enemy_spawner")]
 script = ExtResource("1_65fbj")
 enemy_spawner = NodePath("EnemySpawner")
@@ -3649,6 +3656,7 @@ tile_set = SubResource("TileSet_0e48y")
 metadata/_edit_lock_ = true
 
 [node name="Player" parent="." instance=ExtResource("27_a4m7m")]
+position = Vector2(-537, -1085)
 
 [node name="MainCamera" type="Camera2D" parent="." node_paths=PackedStringArray("subject")]
 position = Vector2(33, 31)
@@ -3853,6 +3861,7 @@ unique_name_in_owner = true
 script = ExtResource("16_e834v")
 fireball = ExtResource("15_g0mtc")
 laser = ExtResource("17_j6g3n")
+biglaser = ExtResource("21_80668")
 voidball = ExtResource("21_m4ysf")
 
 [node name="TestDialogue" type="Node2D" parent="."]
@@ -4031,12 +4040,15 @@ position = Vector2(-74, -140)
 shape = SubResource("RectangleShape2D_1junq")
 
 [node name="BossRoom" type="Area2D" parent="."]
+unique_name_in_owner = true
+visible = false
 position = Vector2(74, 140)
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("57_2gv1e")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BossRoom"]
+[node name="bosscollisionshape" type="CollisionShape2D" parent="BossRoom"]
+unique_name_in_owner = true
 z_index = 1
 position = Vector2(-626.125, -1469.375)
 shape = SubResource("RectangleShape2D_jvupn")
@@ -4473,11 +4485,21 @@ script = ExtResource("42_v76b2")
 
 [node name="Sprite2D" parent="." instance=ExtResource("41_8jv1o")]
 
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-128, -55)
+script = ExtResource("46_v5cdc")
+
 [node name="Boss" parent="." instance=ExtResource("17_x8fqe")]
-position = Vector2(-533.00006, -1352)
+unique_name_in_owner = true
+position = Vector2(-646, -1305)
 rotation = 0.026867071
 
 [node name="BgmDungeon" parent="." instance=ExtResource("48_v5cdc")]
+
+[node name="BossNavRoom" type="NavigationRegion2D" parent="."]
+position = Vector2(-556.3021, -1314.5101)
+navigation_polygon = SubResource("NavigationPolygon_80668")
+travel_cost = 0.0
 
 [connection signal="body_entered" from="Chest" to="Chest" method="_on_body_entered"]
 [connection signal="body_exited" from="Chest" to="Chest" method="_on_body_exited"]

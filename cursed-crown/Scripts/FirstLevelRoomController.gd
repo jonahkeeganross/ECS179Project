@@ -6,6 +6,9 @@ extends Node2D
 
 @onready var player = get_node("Player")
 @onready var tutorial_popup: TutorialPopup = null
+@onready var boss:Boss = %Boss
+
+
 
 var doors : Array[StaticBody2D] = []
 var original_position : Vector2
@@ -18,7 +21,9 @@ var vampires : Array[Vampire]
 func _ready() -> void:
 	
 	tutorial_popup = get_tree().get_first_node_in_group("TutorialPopup") as TutorialPopup
-
+	boss.player = $Player
+	boss.projectile_manager = %ProjectileManager
+	boss.boss_room = %bosscollisionshape
 	# show move after start
 	if is_tutorial and tutorial_popup:
 		_show_move_tutorial_delayed()

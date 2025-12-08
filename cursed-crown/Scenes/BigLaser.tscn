@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpvq5q2oofo07"]
+
+[ext_resource type="Script" uid="uid://51v68m6mta7r" path="res://Scripts/DamageManager/Projectiles/biglaser.gd" id="1_nq77b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfk2d"]
+size = Vector2(416, 6)
+
+[node name="BigLaser" type="Node2D"]
+script = ExtResource("1_nq77b")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_cfk2d")
+debug_color = Color(0.654902, 0.07450981, 0.2784314, 0.41960785)
+
+[node name="DelayTimer" type="Timer" parent="Area2D"]
+
+[node name="AliveTimer" type="Timer" parent="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+position = Vector2(7.6293945e-06, 0)
+scale = Vector2(415.99997, 6)
