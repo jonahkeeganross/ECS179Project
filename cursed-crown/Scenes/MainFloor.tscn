@@ -3630,6 +3630,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(-817, -540, -446, -539, -443, -288, -611, -288, -612, -406, -817, -404)])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v76b2"]
+size = Vector2(19, 20)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("enemy_spawner")]
 script = ExtResource("1_65fbj")
@@ -3971,6 +3972,8 @@ shape = SubResource("RectangleShape2D_qklwc")
 [node name="SecondRoomUp" type="Area2D" parent="."]
 visible = false
 position = Vector2(74, 160)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("57_2gv1e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SecondRoomUp"]
@@ -3990,6 +3993,8 @@ polygon = PackedVector2Array(121, -1257, 127, -1272, 127, -1285, 133, -1295, 145
 [node name="FirstRoomUp" type="Area2D" parent="."]
 visible = false
 position = Vector2(74, 140)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("57_2gv1e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FirstRoomUp"]
@@ -4028,6 +4033,8 @@ polygon = PackedVector2Array(-107, -758, -110, -741, -110, -727, -110, -706, -10
 [node name="Spawn" type="Area2D" parent="."]
 visible = false
 position = Vector2(74, 140)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("57_2gv1e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spawn"]
@@ -4036,8 +4043,9 @@ position = Vector2(-74, -140)
 shape = SubResource("RectangleShape2D_1junq")
 
 [node name="BossRoom" type="Area2D" parent="."]
-visible = false
 position = Vector2(74, 140)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("57_2gv1e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossRoom"]
@@ -4058,6 +4066,8 @@ shape = SubResource("RectangleShape2D_i5a83")
 [node name="ThirdRoomRight" type="Area2D" parent="."]
 visible = false
 position = Vector2(74, 140)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("57_2gv1e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ThirdRoomRight"]
@@ -4091,8 +4101,9 @@ color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(626, -780, 622, -764, 622, -749, 625, -739, 634, -730, 647, -726, 671, -726, 684, -730, 692, -735, 696, -748, 697, -762, 697, -775, 692, -782, 681, -785, 666, -785, 648, -785, 634, -785)
 
 [node name="SecondRoomRight" type="Area2D" parent="."]
-visible = false
 position = Vector2(74, 140)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("57_2gv1e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SecondRoomRight"]
@@ -4108,6 +4119,8 @@ navigation_polygon = SubResource("NavigationPolygon_vtt4i")
 [node name="FirstRoomRight" type="Area2D" parent="."]
 visible = false
 position = Vector2(74, 140)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("57_2gv1e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FirstRoomRight"]
@@ -4154,6 +4167,8 @@ debug_color = Color(3.946722e-06, 0.602211, 0.6890868, 0.41960785)
 [node name="LastRoomLeft" type="Area2D" parent="."]
 visible = false
 position = Vector2(74, 140)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("57_2gv1e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LastRoomLeft"]
@@ -4171,8 +4186,9 @@ color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(-1115, -543, -1099, -544, -1078, -546, -1053, -547, -1034, -547, -1018, -547, -1001, -547, -990, -543, -981, -531, -977, -500, -979, -442, -979, -412, -978, -351, -986, -310, -1013, -306, -1038, -306, -1076, -306, -1094, -307, -1108, -314, -1119, -333, -1121, -385, -1120, -530)
 
 [node name="FirstRoomLeft" type="Area2D" parent="."]
-visible = false
 position = Vector2(74, 140)
+collision_layer = 0
+collision_mask = 3
 script = ExtResource("57_2gv1e")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FirstRoomLeft"]
@@ -4307,7 +4323,7 @@ script = ExtResource("41_65fbj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemySpawner/SkeletonSpawn4"]
 z_index = 2
-position = Vector2(-2, -1)
+position = Vector2(-2.5, -1)
 shape = SubResource("RectangleShape2D_v76b2")
 
 [node name="SkeletonSpawn5" type="Area2D" parent="EnemySpawner"]
@@ -4465,7 +4481,7 @@ position = Vector2(-128, -55)
 script = ExtResource("42_7rh26")
 
 [node name="Boss" parent="." instance=ExtResource("17_x8fqe")]
-position = Vector2(-140, 90)
+position = Vector2(-533.00006, -1352)
 rotation = 0.026867071
 
 [connection signal="body_entered" from="Chest" to="Chest" method="_on_body_entered"]
