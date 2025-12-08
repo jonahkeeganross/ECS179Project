@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CursedCrown MAIN UPDATE"
-run/main_scene="uid://dvv2hjnsm3aoa"
+run/main_scene="uid://ba6doc00ey7xv"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://Assets/icon.svg"
 
@@ -20,6 +20,10 @@ config/icon="res://Assets/icon.svg"
 BUS="*res://Scripts/BUS.gd"
 GameState="*res://Scripts/GameState.gd"
 ShopManager="*res://Scripts/ShopManager.gd"
+
+[display]
+
+window/stretch/mode="viewport"
 
 [input]
 

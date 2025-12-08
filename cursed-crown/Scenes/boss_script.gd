@@ -21,6 +21,7 @@ extends CharacterBody2D
 @onready var health_bar:ProgressBar = $HealthBar
 
 @onready var between_timer:Timer = $InbetweenTimer
+@onready var spawnBoss: AudioStreamPlayer2D = $spawn
 
 enum State {IDLE, CHASE, ATTACK, DEAD, BOUND, SPAWNING,STG2}
 
@@ -74,6 +75,7 @@ func _ready() -> void:
 	animation_tree["parameters/conditions/is_walking"] = false
 	animation_tree["parameters/conditions/boss_sp_attack1"] = false
 	animation_tree["parameters/conditions/sp_attack2"] = false
+	#print("Boss ready, player:", player, "proj_manager:", projectile_manager)
 	
 func _process(delta: float) -> void:
 	if not enabled:
@@ -359,6 +361,11 @@ func set_animation(new_anim:StringName):
 			animation_tree["parameters/conditions/is_walking"] = false
 			animation_tree["parameters/conditions/boss_attack"] = false
 			animation_tree["parameters/conditions/sp_attack2"] = false
+			
+			await get_tree().create_timer(1.2).timeout
+			get_tree().change_scene_to_file("res://Scenes/EndScreen.tscn")
+
+			
 		"spawn":
 			animation_tree["parameters/conditions/spawn"] = true	
 			animation_tree["parameters/conditions/boss_sp_attack1"] = false
@@ -366,6 +373,9 @@ func set_animation(new_anim:StringName):
 			animation_tree["parameters/conditions/is_walking"] = false
 			animation_tree["parameters/conditions/boss_attack"] = false
 			animation_tree["parameters/conditions/sp_attack2"] = false
+			spawnBoss.play()
+			
+			
 		"idle":
 			animation_tree["parameters/conditions/spawn"] = false
 			animation_tree["parameters/conditions/boss_sp_attack1"] = false

@@ -225,7 +225,8 @@ func _handle_death() -> void:
 	# we are NOT using revival yet, just making sure it's off
 	animation_tree["parameters/conditions/revival"] = false
 # --- END DEATH HANDLING ---
-
+	await get_tree().create_timer(1.2).timeout
+	get_tree().change_scene_to_file("res://Scenes/EndScreen.tscn")
 
 func resurrect() -> void:
 	# manual resurrection (altar, UI, debug key, etc.)
