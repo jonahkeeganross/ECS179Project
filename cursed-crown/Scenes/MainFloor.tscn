@@ -4101,7 +4101,6 @@ color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(626, -780, 622, -764, 622, -749, 625, -739, 634, -730, 647, -726, 671, -726, 684, -730, 692, -735, 696, -748, 697, -762, 697, -775, 692, -782, 681, -785, 666, -785, 648, -785, 634, -785)
 
 [node name="SecondRoomRight" type="Area2D" parent="."]
-visible = false
 position = Vector2(74, 140)
 collision_layer = 0
 collision_mask = 3
