@@ -22,7 +22,7 @@ extends CharacterBody2D
 
 @onready var between_timer:Timer = $InbetweenTimer
 
-enum State {IDLE, CHASE, ATTACK, DEAD, BOUND, SPAWNING}
+enum State {IDLE, CHASE, ATTACK, DEAD, BOUND, SPAWNING,STG2}
 
 var state:State = State.BOUND
 
@@ -34,6 +34,7 @@ var is_moving: bool = false
 var is_attacking: bool = false
 var _facing_dir
 var _dead:bool = false
+var _done_stage2:bool = false
 var enabled: bool
 var _knockback_velocity: Vector2
 var cur_time = 2
@@ -320,6 +321,7 @@ func take_damage(damage:int):
 		set_animation("dead")
 	print((float(health) / float(total_health)))
 	health_bar.value  = (float(health) / float(total_health)) * 100
+	
 ## Alternate lazers above
 #func special_attack4():
 		#
