@@ -14,9 +14,9 @@ signal shop_closed
 var player: Player = null
 
 # Shop item prices
-const HEALTH_POTION_PRICE: int = 5
-const DAMAGE_UPGRADE_PRICE: int = 15
-const STAMINA_UPGRADE_PRICE: int = 10
+const HEALTH_POTION_PRICE: int = 1
+const DAMAGE_UPGRADE_PRICE: int = 3
+const STAMINA_UPGRADE_PRICE: int = 2
 
 func _ready() -> void:
 	# Allow processing even when paused
@@ -37,11 +37,11 @@ func _ready() -> void:
 
 	# Update button texts with prices
 	if health_potion_button:
-		health_potion_button.text = "Health Potion (" + str(HEALTH_POTION_PRICE) + " Shards)"
+		health_potion_button.text = "[1] Health Potion (" + str(HEALTH_POTION_PRICE) + " Shards)"
 	if damage_upgrade_button:
-		damage_upgrade_button.text = "Damage Upgrade (" + str(DAMAGE_UPGRADE_PRICE) + " Shards)"
+		damage_upgrade_button.text = "[2] Damage Upgrade (" + str(DAMAGE_UPGRADE_PRICE) + " Shards)"
 	if stamina_upgrade_button:
-		stamina_upgrade_button.text = "Stamina Upgrade (" + str(STAMINA_UPGRADE_PRICE) + " Shards)"
+		stamina_upgrade_button.text = "[3] Stamina Upgrade (" + str(STAMINA_UPGRADE_PRICE) + " Shards)"
 
 func open_shop(p: Player) -> void:
 	player = p
@@ -109,6 +109,20 @@ func _process(delta: float) -> void:
 			get_viewport().set_input_as_handled()
 
 func _input(event: InputEvent) -> void:
-	if control and control.visible and event.is_action_pressed("ui_cancel"):
-		close_shop()
-		get_viewport().set_input_as_handled()
+	if control and control.visible:
+		# Check for ESC to close shop
+		if event.is_action_pressed("ui_cancel"):
+			close_shop()
+			get_viewport().set_input_as_handled()
+
+		# Check for number keys 1, 2, 3 to purchase items
+		if event is InputEventKey and event.pressed and not event.echo:
+			if event.keycode == KEY_1:
+				_on_health_potion_pressed()
+				get_viewport().set_input_as_handled()
+			elif event.keycode == KEY_2:
+				_on_damage_upgrade_pressed()
+				get_viewport().set_input_as_handled()
+			elif event.keycode == KEY_3:
+				_on_stamina_upgrade_pressed()
+				get_viewport().set_input_as_handled()

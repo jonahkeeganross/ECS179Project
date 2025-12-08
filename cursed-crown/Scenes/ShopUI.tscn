@@ -102,6 +102,7 @@ shadow_size = 3
 shadow_offset = Vector2(0, 2)
 
 [node name="ShopUI" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_shop")
 
 [node name="Control" type="Control" parent="."]
@@ -109,11 +110,13 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 1
 
 [node name="BackgroundOverlay" type="Panel" parent="Control"]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bg_overlay")
 
 [node name="Panel" type="Panel" parent="Control"]
@@ -134,6 +137,7 @@ offset_left = 20.0
 offset_top = 20.0
 offset_right = 540.0
 offset_bottom = 55.0
+mouse_filter = 2
 theme_override_colors/font_color = Color(0.9, 0.85, 0.6, 1)
 theme_override_font_sizes/font_size = 24
 text = "✦ ⚔ ALTAR SHOP ⚔ ✦"
@@ -141,6 +145,7 @@ horizontal_alignment = 1
 
 [node name="CornerDecor1" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 50.0
@@ -151,6 +156,7 @@ text = "◆"
 
 [node name="CornerDecor2" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 510.0
 offset_top = 10.0
 offset_right = 550.0
@@ -161,6 +167,7 @@ text = "◆"
 
 [node name="CornerDecor3" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 10.0
 offset_top = 405.0
 offset_right = 50.0
@@ -171,6 +178,7 @@ text = "◆"
 
 [node name="CornerDecor4" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 510.0
 offset_top = 405.0
 offset_right = 550.0
@@ -185,10 +193,12 @@ offset_left = 30.0
 offset_top = 62.0
 offset_right = 530.0
 offset_bottom = 64.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_separator")
 
 [node name="SepDecor1" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 15.0
 offset_top = 56.0
 offset_right = 40.0
@@ -199,6 +209,7 @@ text = "✧"
 
 [node name="SepDecor2" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 520.0
 offset_top = 56.0
 offset_right = 545.0
@@ -213,6 +224,7 @@ offset_left = 20.0
 offset_top = 75.0
 offset_right = 540.0
 offset_bottom = 100.0
+mouse_filter = 2
 theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
 theme_override_font_sizes/font_size = 16
 text = "✦ 💎 Shards: 0 💎 ✦"
@@ -224,6 +236,7 @@ offset_left = 40.0
 offset_top = 110.0
 offset_right = 520.0
 offset_bottom = 130.0
+mouse_filter = 2
 theme_override_colors/font_color = Color(0.8, 0.75, 0.5, 1)
 text = "⚜ Available Items ⚜"
 
@@ -237,7 +250,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
-text = "❤ Health Potion - Restore 30 HP (10 Shards)"
+text = "[1] ❤ Health Potion - Restore 30 HP"
 
 [node name="DamageUpgradeButton" type="Button" parent="Control/Panel"]
 layout_mode = 0
@@ -249,7 +262,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
-text = "⚔ Damage Upgrade - +5 Attack (20 Shards)"
+text = "[2] ⚔ Damage Upgrade - +5 Attack"
 
 [node name="StaminaUpgradeButton" type="Button" parent="Control/Panel"]
 layout_mode = 0
@@ -261,7 +274,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
-text = "⚡ Stamina Upgrade - +20 Max Stamina (15 Shards)"
+text = "[3] ⚡ Stamina Upgrade - +20 Max Stamina"
 
 [node name="Separator2" type="Panel" parent="Control/Panel"]
 layout_mode = 0
@@ -269,10 +282,12 @@ offset_left = 30.0
 offset_top = 315.0
 offset_right = 530.0
 offset_bottom = 317.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_separator")
 
 [node name="SepDecor3" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 15.0
 offset_top = 309.0
 offset_right = 40.0
@@ -283,6 +298,7 @@ text = "✧"
 
 [node name="SepDecor4" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 520.0
 offset_top = 309.0
 offset_right = 545.0
@@ -305,6 +321,7 @@ text = "✖ Close (ESC)"
 
 [node name="SideDecor1" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 10.0
 offset_top = 150.0
 offset_right = 30.0
@@ -315,6 +332,7 @@ text = "⚔"
 
 [node name="SideDecor2" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 530.0
 offset_top = 150.0
 offset_right = 550.0
@@ -325,6 +343,7 @@ text = "⚔"
 
 [node name="SideDecor3" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 10.0
 offset_top = 205.0
 offset_right = 30.0
@@ -335,6 +354,7 @@ text = "✦"
 
 [node name="SideDecor4" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 530.0
 offset_top = 205.0
 offset_right = 550.0
@@ -345,6 +365,7 @@ text = "✦"
 
 [node name="SideDecor5" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 10.0
 offset_top = 260.0
 offset_right = 30.0
@@ -355,6 +376,7 @@ text = "⚡"
 
 [node name="SideDecor6" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 530.0
 offset_top = 260.0
 offset_right = 550.0
@@ -365,6 +387,7 @@ text = "⚡"
 
 [node name="TopDecor1" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 100.0
 offset_top = 85.0
 offset_right = 120.0
@@ -375,6 +398,7 @@ text = "✧"
 
 [node name="TopDecor2" type="Label" parent="Control/Panel"]
 layout_mode = 0
+mouse_filter = 2
 offset_left = 440.0
 offset_top = 85.0
 offset_right = 460.0
