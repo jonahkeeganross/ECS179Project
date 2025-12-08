@@ -8,6 +8,7 @@ extends Character
 @onready var atk_hitbox:EnemyHitBox = $CircularAttackHB
 @onready var animation_tree:AnimationTree = $AnimationTree
 @onready var skeleton_attack: AudioStreamPlayer2D = $skeletonAttack
+@onready var skeleton_death: AudioStreamPlayer2D = $skeletonDeath
 
 
 #@onready var  
@@ -65,6 +66,7 @@ func _process(_delta):
 		if animation_player.is_playing():
 			if animation_player.current_animation == "attack":
 				animation_player.play("death")
+				
 		
 		if coin_spawned == false:
 			chance_coin()
@@ -140,6 +142,7 @@ func _physics_process(delta: float):
 	
 func _deactivate():
 	set_animation("dead")
+	skeleton_death.play()
 	var tween = self.create_tween()
 	tween.tween_property(health_bar, "modulate:a", 0.0, 0.8).set_delay(0.1).set_trans(Tween.TRANS_QUAD)
 	tween.tween_callback(_destory)
@@ -220,6 +223,7 @@ func set_animation(new_anim:StringName):
 			animation_tree["parameters/conditions/walk"] = false
 			animation_tree["parameters/conditions/attack"] = true
 			animation_tree["parameters/conditions/hurt"] = false
+			skeleton_attack.play()
 		"hurt":
 			animation_tree["parameters/conditions/dead"] = false
 			animation_tree["parameters/conditions/idle"] = false

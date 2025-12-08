@@ -8,6 +8,7 @@ extends Character
 @onready var animation_tree:AnimationTree = $AnimationTree
 
 @onready var vampire_attack: AudioStreamPlayer2D = $vampireAttack
+@onready var vampire_death: AudioStreamPlayer2D = $vampireDeath
 
 #@onready var  
 enum State {IDLE, CHASE, ATTACK, STUN, DEAD}
@@ -126,6 +127,7 @@ func _physics_process(delta: float):
 	
 func _deactivate():
 	set_animation("dead")
+	vampire_death.play()
 	var tween = self.create_tween()
 	tween.tween_property(health_bar, "modulate:a", 0.0, 0.8).set_delay(0.1).set_trans(Tween.TRANS_QUAD)
 	tween.tween_callback(_destory)
@@ -239,6 +241,7 @@ func set_animation(new_anim:StringName):
 			animation_tree["parameters/conditions/walk"] = false
 			animation_tree["parameters/conditions/attack"] = true
 			animation_tree["parameters/conditions/hurt"] = false
+			vampire_attack.play()
 		"hurt":
 			animation_tree["parameters/conditions/dead"] = false
 			animation_tree["parameters/conditions/idle"] = false

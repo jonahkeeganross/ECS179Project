@@ -1,9 +1,53 @@
-[gd_scene load_steps=3 format=3 uid="uid://e5t3em8gg4ly"]
+[gd_scene load_steps=10 format=3 uid="uid://e5t3em8gg4ly"]
 
 [ext_resource type="Script" uid="uid://b3fts1sd5ogal" path="res://Scripts/DamageManager/Projectiles/fireball.gd" id="1_o53bx"]
+[ext_resource type="Texture2D" uid="uid://3f0bbgsg1ucp" path="res://Assets/fireball_spritesheet.png" id="2_dju2h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dju2h"]
 radius = 10.198039
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffurd"]
+atlas = ExtResource("2_dju2h")
+region = Rect2(0, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4j73p"]
+atlas = ExtResource("2_dju2h")
+region = Rect2(512, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3s34"]
+atlas = ExtResource("2_dju2h")
+region = Rect2(1024, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6v0yx"]
+atlas = ExtResource("2_dju2h")
+region = Rect2(1536, 0, 512, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77ydb"]
+atlas = ExtResource("2_dju2h")
+region = Rect2(2048, 0, 512, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xodhr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffurd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4j73p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3s34")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6v0yx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_77ydb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Fireball" type="Node2D"]
 script = ExtResource("1_o53bx")
@@ -17,7 +61,10 @@ debug_color = Color(0.8888389, 0.30520257, 0.32070455, 0.41960785)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Area2D"]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Area2D"]
+[node name="fire" type="AnimatedSprite2D" parent="Area2D"]
+position = Vector2(0.37500143, 0.24999952)
+scale = Vector2(0.06494141, 0.06542969)
+sprite_frames = SubResource("SpriteFrames_xodhr")
 
 [node name="Sprite2D" type="Sprite2D" parent="Area2D"]
 

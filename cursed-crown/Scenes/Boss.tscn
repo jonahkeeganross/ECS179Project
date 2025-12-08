@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://6e3df5c48gl0" path="res://Assets/boss/bossSpecialAttack.png" id="5_iy1o6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnrqi"]
-size = Vector2(20, 33)
+size = Vector2(27, 49)
 
 [sub_resource type="Animation" id="Animation_e6qxx"]
 length = 0.001
@@ -856,13 +856,15 @@ graph_offset = Vector2(-85.55032, -70.52495)
 script = ExtResource("1_ouxnj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4.2499995, -7.75)
+scale = Vector2(1.3399999, 1.4428571)
 texture = ExtResource("1_j5nlm")
 hframes = 5
 vframes = 4
 frame = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
+position = Vector2(3.5, -7.5)
 shape = SubResource("RectangleShape2D_cnrqi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
