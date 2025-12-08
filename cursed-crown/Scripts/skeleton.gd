@@ -83,7 +83,7 @@ func _process(_delta):
 
 func _physics_process(delta: float):
 	if not enabled:
-		print("WEEE")
+
 		return 
 	
 	match state:

@@ -1,4 +1,4 @@
-class_name  Laser
+class_name  BigLaser
 extends Node2D
 
 var alive_time = 0
@@ -8,7 +8,7 @@ var alive_time = 0
 @onready var _delay_timer:Timer  = $Area2D/DelayTimer
 @onready var _coll_shape:CollisionShape2D = $Area2D/CollisionShape2D
 @onready var _display_sprite:Sprite2D = $Area2D/Sprite2D
-@onready var _area:Area2D = $Area2D
+
 
 var rect_shape: RectangleShape2D
 var prefire_color: Color
@@ -75,16 +75,16 @@ func _launch():
 	_alive_timer.wait_time = _projectile_info.lifetime
 	_alive_timer.start()
 	alive_time = 0
-	
+	for body in area.get_overlapping_bodies():
+			_on_body_entered(body) 
 	
 	var tween = create_tween()
 	tween.tween_property(_display_sprite, "modulate", Color(0.667, 0.0, 0.925, 1.0) , 0.3).set_trans(Tween.TRANS_QUAD)
 	#_coll_shape.debug_color = Color("e60600ff")
-	rect_shape.size = Vector2(2000,16)
+	rect_shape.size = Vector2(2000,80)
 
 	# Fill with bright red/orange for laser beam
-	for body in area.get_overlapping_bodies():
-		_on_body_entered(body) 
+
 	# Show and scale the laser sprite
 	if _display_sprite:
 		_display_sprite.visible = true
