@@ -4,11 +4,12 @@ extends CharacterBody2D
 @export var player:Player
 @export var projectile_manager:ProjectileManager
 @export var boss_room:CollisionShape2D
-
+@export var minion_spawner:MinionSpawner
 
 @onready var anim_play:AnimationPlayer =  $AnimationPlayer
 @onready var animation_tree:AnimationTree =  $AnimationTree
 @onready var nav_agent:NavigationAgent2D =  $NavigationAgent2D
+@onready var sheild:Sprite2D =  $Shield
 @onready var _sprite:Sprite2D =  $Sprite2D
 @onready var spawn_timer:Timer =  $Timer
 
@@ -42,6 +43,7 @@ var coin_drop_chance = 0.4
 var coin_spawned = false
 var rng:RandomNumberGenerator
 
+var st2_ready:bool = false
 var minions:Array[Vampire]
 
 var original_spawn:Vector2 
@@ -65,7 +67,9 @@ func _ready() -> void:
 	enabled = true
 	visible = true
 	_sprite.visible = true	
+	sheild.visible = false
 	_sprite.modulate = Color(1.0, 1.0, 1.0, 0.0)
+	sheild.modulate = Color(1.0, 1.0, 1.0, 0.0)
 	state = State.BOUND
 	pause_tree()
 	animation_tree["parameters/conditions/spawn"] = false
@@ -105,13 +109,23 @@ func _physics_process(delta: float) -> void:
 			var dist = (player.global_position - global_position).length()
 			if dist < 200:
 				spawn()
+		State.STG2:
+			if st2_ready == true and is_attacking == false:
+				second_phase_setup()
+			if minion_spawner.cleared == true:
+				print("cleared")
+				hide_shield()
+				state = State.CHASE
+				_done_stage2 = true
+			
+				
 		State.CHASE:
+			update_animation_parameters()
 			set_animation("walk")
 			nav_agent.debug_enabled = true
 			nav_agent.target_position = player.global_position 
 			var next_path_point = nav_agent.get_next_path_position()
 			var direction = (next_path_point - global_position).normalized()
-			print(next_path_point )
 			velocity = direction * movement_speed
 			move_and_slide()		
 			var dist = (player.global_position - global_position).length()
@@ -122,7 +136,7 @@ func _physics_process(delta: float) -> void:
 			var prob_far = 100
 			var prob_relocate = 1
 			if dist < 20:
-				prob_relocate = 300
+				prob_relocate = 150
 				
 			if dist < 100:
 				prob_close = 50
@@ -135,54 +149,59 @@ func _physics_process(delta: float) -> void:
 				prob_far = 80
 			elif dist < 700:
 				prob_close = 6
-				prob_far = 150
+				prob_far = 200
 			else: 
 				prob_relocate = 100
 				prob_close = 1
 				prob_far = 150
 			var rand_c = rng.randi_range(0, 10000)
 			var rand_f = rng.randi_range(0, 10000)
-			if rand_c < prob_relocate:
+			var rand_r = rng.randi_range(0, 10000)
+			if rand_r < prob_relocate:
 				relocate()
 			if rand_c < prob_close:
-				print("CLOSE HIT")
+
 				var rand_close = rng.randi_range(0,1)
 				if rand_close == 0:
 					special_attack2()
 				else:
 					special_attack5()
 			elif rand_f < prob_far:
-				print("far HIT")
-				var rand_move = rng.randi_range(0,1)
+
+				var rand_move = rng.randi_range(0,3)
 				if rand_move == 0: # will relocaste a lot
 					relocate()
 				else:
 					var attack = rng.randi_range(0,3)
 					match  attack:
 						0: 
-							special_attack1()
+							special_attack4()
 						1: 
-							special_attack2()
+							special_attack4()
 						2: 
-							special_attack3()
+							special_attack4()
 						3: 
 							special_attack4()
 					
-				
+		
+			
+			# Killed all vampires
 					
 				
 				
-				
-				
+func update_animation_parameters():
+	var to_player = (player.global_position - global_position).normalized()
+	animation_tree["parameters/Walk/blend_position"] = to_player
+	animation_tree["parameters/Attack/blend_position"] = to_player
 				
 func spawn():
 	state = State.SPAWNING
-	print("SPAWNING")
+
 	var tween = self.create_tween()
 	tween.tween_property(_sprite, "modulate:a", 1.0, 3).set_trans(Tween.TRANS_QUAD)
 	await tween.finished
 	
-	print("DONE")
+
 	set_animation("spawn")
 	state = State.CHASE
 	start_tree()
@@ -192,7 +211,7 @@ func special_attack1():
 	# do wrap. \
 	state = State.ATTACK
 	is_attacking = true
-	print("attack2")
+
 	set_animation("attack2")
 	SpiralCCW(player.global_position - Vector2(300,0))
 	SpiralCW(player.global_position + Vector2(300,0))
@@ -275,24 +294,54 @@ func relocate():
 func special_attack4():
 	is_attacking = true
 	state = State.ATTACK
-	var num_times = randi_range(2,5)
+	
+	var num_times = randi_range(3,5)
 	var last = -1
-	for i in range(1,num_times):
+	for i in range(0,num_times):
+		set_animation("attack")
 		print(i)
 		var up:int = rng.randi_range(0,3)
+		var double = rng.randi_range(0,2)
+		
 		if up == last:
 			up = (up + 1) % 4 
 		match up:
 			0:
 				VerticalGrid1(global_position)
+				if double == 1:
+					var new_test: int = rng.randi_range(0,1)
+					if new_test == 0:
+						HorizontalGrid1(global_position)
+					else:
+						HorizontalGrid2(global_position)
 			1:
 				VerticalGrid2(global_position)
+				if double == 1:
+					var new_test: int = rng.randi_range(0,1)
+					if new_test == 0:
+						HorizontalGrid1(global_position)
+					else:
+						HorizontalGrid2(global_position)
 			2:
 				HorizontalGrid1(global_position)
+				if double == 1:
+					var new_test: int = rng.randi_range(0,1)
+					if new_test == 0:
+						VerticalGrid1(global_position)
+					else:
+						VerticalGrid2(global_position)
 			3:
 				HorizontalGrid2(global_position)
+				if double == 1:
+					var new_test: int = rng.randi_range(0,1)
+					if new_test == 0:
+						VerticalGrid1(global_position)
+					else:
+						VerticalGrid2(global_position)
+		last = up
 		Attack4Timer.start(2.5)
 		await  Attack4Timer.timeout
+	
 	reset_movement()
 			
 func special_attack5():	
@@ -311,7 +360,16 @@ func special_attack5():
 
 
 func take_damage(damage:int):
+	if state == State.STG2:
+		return
 	health -= damage
+	if health < second_phase and not _done_stage2:
+		
+		state = State.STG2
+		st2_ready = true
+		#_done_stage2 = true
+		
+		
 	if 0 >= health:
 		#_deactivate()
 
@@ -319,12 +377,39 @@ func take_damage(damage:int):
 		state = State.DEAD
 		velocity = Vector2.ZERO
 		set_animation("dead")
+		
 	print((float(health) / float(total_health)))
 	health_bar.value  = (float(health) / float(total_health)) * 100
 	
 ## Alternate lazers above
 #func special_attack4():
-		#
+func second_phase_setup():
+	
+	st2_ready = false
+	go_invisible()
+	is_attacking = true
+	sheild.visible = true
+	between_timer.start(1)
+	await  between_timer.timeout
+	global_position = original_spawn
+	become_visible()
+	minion_spawner.create_minions()
+	show_shield()
+	
+		#new_projectile.initialize(pos, projectInfo)
+		
+	
+func show_shield():
+	var tween = self.create_tween()
+	tween.tween_property(sheild, "modulate:a", 1.0, 3).set_trans(Tween.TRANS_QUAD)
+	await tween.finished
+	
+func hide_shield():
+	var tween = self.create_tween()
+	tween.tween_property(sheild, "modulate:a", 0, 1).set_trans(Tween.TRANS_QUAD)
+	await tween.finished
+	sheild.visible = false
+
 func reset_movement():
 	state = State.CHASE
 	is_attacking = false
@@ -646,3 +731,7 @@ func emit_random_balls():
 			
 		var new_pos = global_position 
 		BUS.emit_signal("spawn_voidball", new_pos , projectile_list)
+
+func despawn():
+	visible = false
+	queue_free()
