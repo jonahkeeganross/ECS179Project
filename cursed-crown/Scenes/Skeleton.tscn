@@ -152,6 +152,25 @@ tracks/5/keys = {
 "method": &"unset_attacking"
 }]
 }
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("skeletonAttack")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("10_87cwn")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("10_87cwn")
+}],
+"times": PackedFloat32Array(0.033333335, 0.56666666)
+}
+tracks/6/use_blend = false
 
 [sub_resource type="Animation" id="Animation_oo0xs"]
 resource_name = "death"
@@ -458,6 +477,7 @@ advance_mode = 2
 advance_condition = &"hurt"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8lo8o"]
+states/Start/position = Vector2(194, 100)
 states/attack/node = SubResource("AnimationNodeAnimation_k2wj7")
 states/attack/position = Vector2(428, 53)
 states/death/node = SubResource("AnimationNodeAnimation_87cwn")

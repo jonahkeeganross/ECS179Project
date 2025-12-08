@@ -231,6 +231,8 @@ func set_animation(new_anim:StringName):
 			animation_tree["parameters/conditions/attack"] = false
 			animation_tree["parameters/conditions/hurt"] = true
 
+
+
 func unset_attacking():
 	is_attacking = false
 #func command_callback(command_name:String) -> void:

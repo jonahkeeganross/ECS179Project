@@ -7,6 +7,8 @@ signal CharacterDirectionChange(facing:Facing)
 enum Facing { 
 	LEFT,
 	RIGHT,
+	UP,
+	DOWN,
 }
 
 const TERMINAL_VELOCITY = 700

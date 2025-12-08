@@ -48,7 +48,7 @@ func _ready() -> void:
 	animation_tree["parameters/conditions/idle"] = true
 	animation_tree["parameters/conditions/walk"] = false
 	animation_tree["parameters/conditions/attack"] = false
-	movement_speed = 50
+	movement_speed = 40
 
 var test:float = 0
 

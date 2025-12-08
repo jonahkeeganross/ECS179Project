@@ -152,16 +152,17 @@ func _physics_process(delta: float):
 	update_animation_parameters()
 	
 	if Input.is_action_just_pressed("dash"):
-		if stamina - pi.dash_stamina_cons > 0:
-			dash_cmd.execute(self)
-			time_since_stamina_use  = 0 
-			stamina -= pi.dash_stamina_cons
-			print(stamina)
-			set_stamina(stamina)
-			
-			cur_stam_regen_rate = stam_regen_rate_base
-			give_invincibility(0.5)
-		#ghost_dash_timer.start(0.05)
+		if velocity.length() > 1:
+			if stamina - pi.dash_stamina_cons > 0:
+				dash_cmd.execute(self)
+				time_since_stamina_use  = 0 
+				stamina -= pi.dash_stamina_cons
+				print(stamina)
+				set_stamina(stamina)
+				create_ghost()
+				cur_stam_regen_rate = stam_regen_rate_base
+				give_invincibility(0.5)
+				#ghost_dash_timer.start(0.05)
 	super(delta)
 	
 

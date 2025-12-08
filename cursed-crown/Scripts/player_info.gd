@@ -12,11 +12,11 @@ var stamina_acceleration:float = 10
 var max_stamina:int = 100
 
 var dash_stamina_cons:float = 10
-var smash_stamina_cons:int = 70
-var arrow_stamina_cons:int = 50
+var smash_stamina_cons:int = 40
+var arrow_stamina_cons:int = 30
 var attack_stamina_cons:int = 20
 
-var smash_knockback:float = 10
+var smash_knockback:float = 15
 
 
 var porjectile_sword = false

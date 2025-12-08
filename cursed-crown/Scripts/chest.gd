@@ -22,7 +22,7 @@ func _on_body_exited(body) -> void:
 	
 		
 func _process(delta) -> void:
-	if player_is_inside:
+	if player_is_inside and !opened:
 		if Input.is_action_just_pressed("interact"):
 			opened = true
 			open_chest()

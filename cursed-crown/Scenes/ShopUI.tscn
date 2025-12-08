@@ -1,80 +1,112 @@
 [gd_scene load_steps=9 format=3 uid="uid://bvqxj8ymwxqyw"]
 
-[ext_resource type="Script" path="res://Scripts/ShopUI.gd" id="1_shop"]
+[ext_resource type="Script" uid="uid://buu1wwhfh2t8d" path="res://Scripts/ShopUI.gd" id="1_shop"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg_overlay"]
 bg_color = Color(0, 0, 0, 0.7)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.15, 0.12, 0.2, 0.95)
+bg_color = Color(0.15, 0.12, 0.2, 0.98)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.75, 0.65, 0.4, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+shadow_color = Color(0, 0, 0, 0.8)
+shadow_size = 20
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_separator"]
+bg_color = Color(0.6, 0.52, 0.35, 0.7)
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 2
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_normal"]
+bg_color = Color(0.28, 0.25, 0.35, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.6, 0.5, 0.3, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-shadow_color = Color(0, 0, 0, 0.5)
-shadow_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_normal"]
-bg_color = Color(0.25, 0.22, 0.3, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.5, 0.45, 0.55, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
-bg_color = Color(0.35, 0.32, 0.4, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.7, 0.65, 0.3, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+border_color = Color(0.6, 0.52, 0.65, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+shadow_size = 8
+shadow_offset = Vector2(0, 3)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
-bg_color = Color(0.2, 0.18, 0.25, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.6, 0.5, 0.3, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+bg_color = Color(0.18, 0.16, 0.22, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.7, 0.6, 0.35, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+shadow_color = Color(0, 0, 0, 0.8)
+shadow_size = 4
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_hover"]
+bg_color = Color(0.4, 0.36, 0.48, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.85, 0.75, 0.4, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+shadow_color = Color(0.9, 0.8, 0.3, 0.4)
+shadow_size = 10
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_disabled"]
-bg_color = Color(0.15, 0.15, 0.15, 0.5)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.3, 0.3, 0.3, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_separator"]
-bg_color = Color(0.5, 0.45, 0.3, 0.5)
+bg_color = Color(0.15, 0.15, 0.15, 0.6)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.35, 0.35, 0.35, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 3
+shadow_offset = Vector2(0, 2)
 
 [node name="ShopUI" type="CanvasLayer"]
 script = ExtResource("1_shop")
 
 [node name="Control" type="Control" parent="."]
-layout_mode = 0
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -104,8 +136,48 @@ offset_right = 540.0
 offset_bottom = 55.0
 theme_override_colors/font_color = Color(0.9, 0.85, 0.6, 1)
 theme_override_font_sizes/font_size = 24
-text = "⚔ ALTAR SHOP ⚔"
+text = "✦ ⚔ ALTAR SHOP ⚔ ✦"
 horizontal_alignment = 1
+
+[node name="CornerDecor1" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 35.0
+theme_override_colors/font_color = Color(0.7, 0.6, 0.3, 0.6)
+theme_override_font_sizes/font_size = 20
+text = "◆"
+
+[node name="CornerDecor2" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 510.0
+offset_top = 10.0
+offset_right = 550.0
+offset_bottom = 35.0
+theme_override_colors/font_color = Color(0.7, 0.6, 0.3, 0.6)
+theme_override_font_sizes/font_size = 20
+text = "◆"
+
+[node name="CornerDecor3" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 405.0
+offset_right = 50.0
+offset_bottom = 430.0
+theme_override_colors/font_color = Color(0.7, 0.6, 0.3, 0.6)
+theme_override_font_sizes/font_size = 20
+text = "◆"
+
+[node name="CornerDecor4" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 510.0
+offset_top = 405.0
+offset_right = 550.0
+offset_bottom = 430.0
+theme_override_colors/font_color = Color(0.7, 0.6, 0.3, 0.6)
+theme_override_font_sizes/font_size = 20
+text = "◆"
 
 [node name="Separator1" type="Panel" parent="Control/Panel"]
 layout_mode = 0
@@ -115,6 +187,26 @@ offset_right = 530.0
 offset_bottom = 64.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_separator")
 
+[node name="SepDecor1" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 56.0
+offset_right = 40.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.7, 0.6, 0.3, 0.8)
+theme_override_font_sizes/font_size = 14
+text = "✧"
+
+[node name="SepDecor2" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 56.0
+offset_right = 545.0
+offset_bottom = 70.0
+theme_override_colors/font_color = Color(0.7, 0.6, 0.3, 0.8)
+theme_override_font_sizes/font_size = 14
+text = "✧"
+
 [node name="CoinLabel" type="Label" parent="Control/Panel"]
 layout_mode = 0
 offset_left = 20.0
@@ -123,7 +215,7 @@ offset_right = 540.0
 offset_bottom = 100.0
 theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
 theme_override_font_sizes/font_size = 16
-text = "💎 Shards: 0"
+text = "✦ 💎 Shards: 0 💎 ✦"
 horizontal_alignment = 1
 
 [node name="ItemsLabel" type="Label" parent="Control/Panel"]
@@ -133,7 +225,7 @@ offset_top = 110.0
 offset_right = 520.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.8, 0.75, 0.5, 1)
-text = "Available Items:"
+text = "⚜ Available Items ⚜"
 
 [node name="HealthPotionButton" type="Button" parent="Control/Panel"]
 layout_mode = 0
@@ -142,8 +234,8 @@ offset_top = 140.0
 offset_right = 520.0
 offset_bottom = 185.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
 text = "❤ Health Potion - Restore 30 HP (10 Shards)"
 
@@ -154,8 +246,8 @@ offset_top = 195.0
 offset_right = 520.0
 offset_bottom = 240.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
 text = "⚔ Damage Upgrade - +5 Attack (20 Shards)"
 
@@ -166,8 +258,8 @@ offset_top = 250.0
 offset_right = 520.0
 offset_bottom = 295.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
 text = "⚡ Stamina Upgrade - +20 Max Stamina (15 Shards)"
 
@@ -179,6 +271,26 @@ offset_right = 530.0
 offset_bottom = 317.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_separator")
 
+[node name="SepDecor3" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 309.0
+offset_right = 40.0
+offset_bottom = 323.0
+theme_override_colors/font_color = Color(0.7, 0.6, 0.3, 0.8)
+theme_override_font_sizes/font_size = 14
+text = "✧"
+
+[node name="SepDecor4" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 309.0
+offset_right = 545.0
+offset_bottom = 323.0
+theme_override_colors/font_color = Color(0.7, 0.6, 0.3, 0.8)
+theme_override_font_sizes/font_size = 14
+text = "✧"
+
 [node name="CloseButton" type="Button" parent="Control/Panel"]
 layout_mode = 0
 offset_left = 180.0
@@ -186,7 +298,87 @@ offset_top = 340.0
 offset_right = 380.0
 offset_bottom = 390.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_button_normal")
-theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button_pressed")
+theme_override_styles/hover = SubResource("StyleBoxFlat_button_hover")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_button_disabled")
-text = "Close (ESC)"
+text = "✖ Close (ESC)"
+
+[node name="SideDecor1" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 150.0
+offset_right = 30.0
+offset_bottom = 175.0
+theme_override_colors/font_color = Color(0.6, 0.5, 0.3, 0.4)
+theme_override_font_sizes/font_size = 16
+text = "⚔"
+
+[node name="SideDecor2" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 530.0
+offset_top = 150.0
+offset_right = 550.0
+offset_bottom = 175.0
+theme_override_colors/font_color = Color(0.6, 0.5, 0.3, 0.4)
+theme_override_font_sizes/font_size = 16
+text = "⚔"
+
+[node name="SideDecor3" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 205.0
+offset_right = 30.0
+offset_bottom = 230.0
+theme_override_colors/font_color = Color(0.6, 0.5, 0.3, 0.4)
+theme_override_font_sizes/font_size = 16
+text = "✦"
+
+[node name="SideDecor4" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 530.0
+offset_top = 205.0
+offset_right = 550.0
+offset_bottom = 230.0
+theme_override_colors/font_color = Color(0.6, 0.5, 0.3, 0.4)
+theme_override_font_sizes/font_size = 16
+text = "✦"
+
+[node name="SideDecor5" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 260.0
+offset_right = 30.0
+offset_bottom = 285.0
+theme_override_colors/font_color = Color(0.6, 0.5, 0.3, 0.4)
+theme_override_font_sizes/font_size = 16
+text = "⚡"
+
+[node name="SideDecor6" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 530.0
+offset_top = 260.0
+offset_right = 550.0
+offset_bottom = 285.0
+theme_override_colors/font_color = Color(0.6, 0.5, 0.3, 0.4)
+theme_override_font_sizes/font_size = 16
+text = "⚡"
+
+[node name="TopDecor1" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 85.0
+offset_right = 120.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.9, 0.8, 0.4, 0.5)
+theme_override_font_sizes/font_size = 12
+text = "✧"
+
+[node name="TopDecor2" type="Label" parent="Control/Panel"]
+layout_mode = 0
+offset_left = 440.0
+offset_top = 85.0
+offset_right = 460.0
+offset_bottom = 100.0
+theme_override_colors/font_color = Color(0.9, 0.8, 0.4, 0.5)
+theme_override_font_sizes/font_size = 12
+text = "✧"
