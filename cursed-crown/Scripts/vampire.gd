@@ -10,6 +10,10 @@ extends Character
 @onready var vampire_attack: AudioStreamPlayer2D = $vampireAttack
 @onready var vampire_death: AudioStreamPlayer2D = $vampireDeath
 
+signal died(vampire: Node)
+
+
+
 #@onready var  
 enum State {IDLE, CHASE, ATTACK, STUN, DEAD}
 
@@ -21,6 +25,7 @@ var cmd_list : Array[Command]
 
 var move_rl_input: float
 var move_ud_input: float
+var is_minion:bool = false
 var is_moving: bool = false
 var is_attacking: bool = false
 var player:Node2D = GameState.player
@@ -88,6 +93,9 @@ func _physics_process(delta: float):
 				return
 				
 		State.IDLE, State.CHASE:
+			if is_minion: 
+				state = State.ATTACK
+				return 
 			if not is_attacking:
 				var distance = (global_position - player.global_position).length()
 
@@ -127,12 +135,17 @@ func _physics_process(delta: float):
 	super(delta)
 	
 func _deactivate():
-	set_animation("dead")
-	vampire_death.play()
-	var tween = self.create_tween()
-	tween.tween_property(health_bar, "modulate:a", 0.0, 0.8).set_delay(0.1).set_trans(Tween.TRANS_QUAD)
-	tween.tween_callback(_destory)
-
+	if not state == State.DEAD:
+		state = State.DEAD
+		print("DEAC1")
+		set_animation("dead")
+		vampire_death.play()
+		var tween = self.create_tween()
+		tween.tween_property(health_bar, "modulate:a", 0.0, 0.8).set_delay(0.1).set_trans(Tween.TRANS_QUAD)
+		tween.tween_callback(_destory)
+		if is_minion:
+			died.emit(self)
+			queue_free()
 func _destory():
 	#queue_free()
 	print("destroy?")
@@ -150,14 +163,14 @@ func take_damage(damage:int):
 	if 0 >= health:
 		_deactivate()
 		_dead = true
-		state = State.DEAD
+		
 		velocity = Vector2.ZERO
 		animation_player.play("death")
 	health_bar.value  = health
 		
 
 func apply_knockback(dir:Vector2 ,strength:float, timer:float = 0.3):
-	if not _dead:
+	if not _dead and not is_minion:
 		_knockback_velocity = -dir * strength
 		state = State.STUN
 		stun_timer.start()

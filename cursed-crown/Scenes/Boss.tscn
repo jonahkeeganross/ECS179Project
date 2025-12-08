@@ -324,6 +324,20 @@ tracks/3/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.6666667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"despawn"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_p8vu2"]
 resource_name = "spawn"
@@ -784,9 +798,9 @@ blend_point_0/pos = Vector2(-1, 0)
 blend_point_1/node = SubResource("AnimationNodeAnimation_e1si5")
 blend_point_1/pos = Vector2(1, 0)
 blend_point_2/node = SubResource("AnimationNodeAnimation_4vc3j")
-blend_point_2/pos = Vector2(0, 1.1)
+blend_point_2/pos = Vector2(0, -1)
 blend_point_3/node = SubResource("AnimationNodeAnimation_cnmx5")
-blend_point_3/pos = Vector2(0, -1.1)
+blend_point_3/pos = Vector2(0, 1.1)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 
@@ -808,9 +822,9 @@ blend_point_0/pos = Vector2(-1, 0)
 blend_point_1/node = SubResource("AnimationNodeAnimation_y5e22")
 blend_point_1/pos = Vector2(1, 0)
 blend_point_2/node = SubResource("AnimationNodeAnimation_gtff8")
-blend_point_2/pos = Vector2(0, -1.1)
+blend_point_2/pos = Vector2(0, 1.1)
 blend_point_3/node = SubResource("AnimationNodeAnimation_kqg82")
-blend_point_3/pos = Vector2(0, 1.1)
+blend_point_3/pos = Vector2(0, -1)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 
@@ -826,9 +840,6 @@ animation = &"specialAttack"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pxr0n"]
 animation = &"specialAttack2"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6tp3b"]
-animation = &"wrap_cocoon"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gw2sk"]
 advance_mode = 2
 advance_condition = &"spawn"
@@ -842,7 +853,6 @@ advance_mode = 2
 advance_condition = &"boss_attack"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_veixi"]
-switch_mode = 2
 advance_mode = 2
 advance_condition = &"is_walking"
 
@@ -883,32 +893,15 @@ advance_condition = &"boss_death"
 switch_mode = 2
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0gjka"]
-advance_mode = 2
-advance_condition = &"wrap"
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iy1o6"]
 advance_mode = 2
-advance_condition = &"wrap"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cnrqi"]
-advance_mode = 2
-advance_condition = &"wrap"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_avs7u"]
-advance_mode = 2
-advance_condition = &"wrap"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e6qxx"]
-switch_mode = 2
-advance_mode = 2
-advance_condition = &"unwrap"
+advance_condition = &"is_walking"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_674q3"]
 states/Attack/node = SubResource("AnimationNodeBlendSpace2D_vl6e3")
 states/Attack/position = Vector2(534.7251, 168.01251)
 states/End/position = Vector2(979.5, 94)
-states/Start/position = Vector2(191.5, 99.912506)
+states/Start/position = Vector2(195.5, 100.32501)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_uuly0")
 states/Walk/position = Vector2(472.81885, -16.487495)
 states/death/node = SubResource("AnimationNodeAnimation_i6khy")
@@ -919,10 +912,8 @@ states/specialAttack/node = SubResource("AnimationNodeAnimation_r4xce")
 states/specialAttack/position = Vector2(693.0625, 201.95001)
 states/specialAttack2/node = SubResource("AnimationNodeAnimation_pxr0n")
 states/specialAttack2/position = Vector2(691.375, -8.337494)
-states/wrap_cocoon/node = SubResource("AnimationNodeAnimation_6tp3b")
-states/wrap_cocoon/position = Vector2(365.44968, 207.47505)
-transitions = ["Start", "spawn", SubResource("AnimationNodeStateMachineTransition_gw2sk"), "spawn", "Walk", SubResource("AnimationNodeStateMachineTransition_u3jbm"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_7heva"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_veixi"), "Walk", "specialAttack2", SubResource("AnimationNodeStateMachineTransition_7oyi1"), "specialAttack2", "Walk", SubResource("AnimationNodeStateMachineTransition_8kih1"), "Walk", "specialAttack", SubResource("AnimationNodeStateMachineTransition_t0iri"), "specialAttack", "Walk", SubResource("AnimationNodeStateMachineTransition_d40i4"), "specialAttack2", "death", SubResource("AnimationNodeStateMachineTransition_stir4"), "specialAttack", "death", SubResource("AnimationNodeStateMachineTransition_nmg4g"), "Walk", "death", SubResource("AnimationNodeStateMachineTransition_kqygy"), "Attack", "death", SubResource("AnimationNodeStateMachineTransition_kpmkf"), "death", "End", SubResource("AnimationNodeStateMachineTransition_ax3ta"), "Walk", "wrap_cocoon", SubResource("AnimationNodeStateMachineTransition_0gjka"), "Attack", "wrap_cocoon", SubResource("AnimationNodeStateMachineTransition_iy1o6"), "specialAttack", "wrap_cocoon", SubResource("AnimationNodeStateMachineTransition_cnrqi"), "specialAttack2", "wrap_cocoon", SubResource("AnimationNodeStateMachineTransition_avs7u"), "wrap_cocoon", "spawn", SubResource("AnimationNodeStateMachineTransition_e6qxx")]
-graph_offset = Vector2(-51.550323, -40.52495)
+transitions = ["Start", "spawn", SubResource("AnimationNodeStateMachineTransition_gw2sk"), "spawn", "Walk", SubResource("AnimationNodeStateMachineTransition_u3jbm"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_7heva"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_veixi"), "Walk", "specialAttack2", SubResource("AnimationNodeStateMachineTransition_7oyi1"), "specialAttack2", "Walk", SubResource("AnimationNodeStateMachineTransition_8kih1"), "Walk", "specialAttack", SubResource("AnimationNodeStateMachineTransition_t0iri"), "specialAttack", "Walk", SubResource("AnimationNodeStateMachineTransition_d40i4"), "specialAttack2", "death", SubResource("AnimationNodeStateMachineTransition_stir4"), "specialAttack", "death", SubResource("AnimationNodeStateMachineTransition_nmg4g"), "Walk", "death", SubResource("AnimationNodeStateMachineTransition_kqygy"), "Attack", "death", SubResource("AnimationNodeStateMachineTransition_kpmkf"), "death", "End", SubResource("AnimationNodeStateMachineTransition_ax3ta"), "Start", "Walk", SubResource("AnimationNodeStateMachineTransition_iy1o6")]
+graph_offset = Vector2(-88.55032, -29.524948)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6njix"]
 radius = 89.0
@@ -938,7 +929,7 @@ bg_color = Color(0.2521279, 0.49308515, 0.22031984, 1)
 size = Vector2(57, 88)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_avs7u"]
-size = Vector2(45, 87)
+size = Vector2(28, 68)
 
 [node name="Boss" type="CharacterBody2D"]
 collision_layer = 2
@@ -973,10 +964,8 @@ parameters/conditions/boss_sp_attack1 = false
 parameters/conditions/is_walking = false
 parameters/conditions/sp_attack2 = false
 parameters/conditions/spawn = false
-parameters/conditions/unwrap = false
-parameters/conditions/wrap = false
-parameters/Attack/blend_position = Vector2(0, 0)
-parameters/Walk/blend_position = Vector2(-0.25102884, 0.15121293)
+parameters/Attack/blend_position = Vector2(-0.0057613254, 1.1197308)
+parameters/Walk/blend_position = Vector2(0.009053469, -1.060538)
 
 [node name="Timer" type="Timer" parent="."]
 
@@ -1039,7 +1028,7 @@ script = ExtResource("9_iy1o6")
 metadata/_custom_type_script = "uid://cm3efw3g1fq3r"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(-0.5, -1.5)
+position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_avs7u")
 
 [node name="spawn" type="AudioStreamPlayer2D" parent="."]

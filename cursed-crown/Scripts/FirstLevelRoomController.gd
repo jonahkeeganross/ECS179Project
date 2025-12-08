@@ -62,7 +62,7 @@ func _process(delta) -> void:
 		for door in get_tree().get_nodes_in_group("door"):
 			door.closed()
 		for body in current_room_enemies:
-			print(current_room_enemies)
+			#print(current_room_enemies)
 			if body in get_tree().get_nodes_in_group("Skeleton"):
 				if body is Skeleton:
 					print("skeleton enabled")
