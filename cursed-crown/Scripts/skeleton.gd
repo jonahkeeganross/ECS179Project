@@ -7,6 +7,8 @@ extends Character
 @onready var health_bar:ProgressBar = $HealthBar
 @onready var atk_hitbox:EnemyHitBox = $CircularAttackHB
 @onready var animation_tree:AnimationTree = $AnimationTree
+@onready var skeleton_attack: AudioStreamPlayer2D = $skeletonAttack
+
 
 #@onready var  
 enum State {IDLE, CHASE, ATTACK, STUN, DEAD}

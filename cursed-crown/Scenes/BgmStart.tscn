@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy6rlv2ykw104"]
+
+[ext_resource type="AudioStream" uid="uid://bv7wc57lqooxb" path="res://Assets/audio/music/start_screen.wav" id="1_3gf32"]
+
+[node name="BgmStart" type="AudioStreamPlayer2D"]
+process_mode = 3
+stream = ExtResource("1_3gf32")
+volume_db = -16.0
+autoplay = true

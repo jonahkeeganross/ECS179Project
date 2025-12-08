@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=4 uid="uid://dvv2hjnsm3aoa"]
+[gd_scene load_steps=95 format=4 uid="uid://dvv2hjnsm3aoa"]
 
 [ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scripts/FirstLevelRoomController.gd" id="1_65fbj"]
 [ext_resource type="Script" uid="uid://cuc2lqqtqwejw" path="res://Scenes/altar.gd" id="1_altar"]
@@ -40,6 +40,7 @@
 [ext_resource type="Script" uid="uid://djtu6eaumqgh8" path="res://Scripts/test_emitter.gd" id="42_7rh26"]
 [ext_resource type="Script" uid="uid://v54wbf7eqdws" path="res://Scripts/VampireSpawnPoint.gd" id="42_v76b2"]
 [ext_resource type="Texture2D" uid="uid://c3agnqt8aaear" path="res://Assets/tileset/dungeon props/peaks/peaks_1.png" id="43_w6mf8"]
+[ext_resource type="PackedScene" path="res://Scenes/BgmDungeon.tscn" id="48_v5cdc"]
 [ext_resource type="PackedScene" uid="uid://bju8bt6iv6dyw" path="res://Scenes/Skeleton.tscn" id="50_hy581"]
 [ext_resource type="PackedScene" uid="uid://cut8xugsri52a" path="res://Scenes/vampire.tscn" id="51_gre53"]
 [ext_resource type="Script" uid="uid://cyl6s6lmj4t1r" path="res://Scripts/Room.gd" id="57_2gv1e"]
@@ -4483,6 +4484,8 @@ script = ExtResource("42_7rh26")
 [node name="Boss" parent="." instance=ExtResource("17_x8fqe")]
 position = Vector2(-533.00006, -1352)
 rotation = 0.026867071
+
+[node name="BgmDungeon" parent="." instance=ExtResource("48_v5cdc")]
 
 [connection signal="body_entered" from="Chest" to="Chest" method="_on_body_entered"]
 [connection signal="body_exited" from="Chest" to="Chest" method="_on_body_exited"]

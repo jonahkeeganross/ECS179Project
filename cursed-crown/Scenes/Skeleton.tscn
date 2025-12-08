@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dcocojdogqi6l" path="res://Assets/skeleton/enemies-skeleton2_movemen.png" id="6_lw4xn"]
 [ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scenes/hurt_box.gd" id="7_2bjux"]
 [ext_resource type="Script" uid="uid://bglv1wymf0uph" path="res://Scenes/enemy_hitbox.gd" id="8_rtppx"]
+[ext_resource type="AudioStream" uid="uid://dsr6jihlb1b2u" path="res://Assets/audio/sfx/skeletonAttack.mp3" id="10_87cwn"]
 
 [sub_resource type="Animation" id="Animation_xwnc4"]
 length = 0.001
@@ -535,3 +536,6 @@ parameters/conditions/dead = false
 parameters/conditions/hurt = false
 parameters/conditions/idle = false
 parameters/conditions/walk = false
+
+[node name="skeletonAttack" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_87cwn")

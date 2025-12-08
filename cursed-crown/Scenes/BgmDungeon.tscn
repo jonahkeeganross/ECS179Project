@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dllwuw4l28f1p"]
+
+[ext_resource type="AudioStream" uid="uid://bga8pviynduk5" path="res://Assets/audio/music/dungeon.wav" id="1_r5n24"]
+
+[node name="BgmDungeon" type="AudioStreamPlayer2D"]
+process_mode = 3
+stream = ExtResource("1_r5n24")
+volume_db = -16.0
+autoplay = true

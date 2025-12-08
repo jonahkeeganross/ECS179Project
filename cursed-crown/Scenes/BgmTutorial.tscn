@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjuruuf7y1noh"]
+
+[ext_resource type="AudioStream" uid="uid://sf4hd4gshv1w" path="res://Assets/audio/music/tutorial.wav" id="1_bsj4s"]
+
+[node name="BgmTutorial" type="AudioStreamPlayer2D"]
+process_mode = 3
+stream = ExtResource("1_bsj4s")
+volume_db = -16.0
+autoplay = true

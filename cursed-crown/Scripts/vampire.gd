@@ -7,6 +7,8 @@ extends Character
 @onready var health_bar:ProgressBar = $HealthBar
 @onready var animation_tree:AnimationTree = $AnimationTree
 
+@onready var vampire_attack: AudioStreamPlayer2D = $vampireAttack
+
 #@onready var  
 enum State {IDLE, CHASE, ATTACK, STUN, DEAD}
 
