@@ -21,10 +21,11 @@ var vampires : Array[Vampire]
 func _ready() -> void:
 	
 	tutorial_popup = get_tree().get_first_node_in_group("TutorialPopup") as TutorialPopup
-	boss.player = $Player
-	boss.projectile_manager = %ProjectileManager
-	boss.boss_room = %bosscollisionshape
-	# show move after start
+	if boss: 
+		boss.player = $Player
+		boss.projectile_manager = %ProjectileManager
+		boss.boss_room = %bosscollisionshape
+	
 	if is_tutorial and tutorial_popup:
 		_show_move_tutorial_delayed()
 

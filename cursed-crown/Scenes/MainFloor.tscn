@@ -20,7 +20,7 @@
 [ext_resource type="TileSet" uid="uid://coi41otns33ly" path="res://Assets/tileset/outside/outside-tileset.tres" id="19_vlthb"]
 [ext_resource type="Texture2D" uid="uid://ccuhe5r87t7es" path="res://Assets/tileset/dungeon props/chest/chest_open_1.png" id="20_ct527"]
 [ext_resource type="Texture2D" uid="uid://blvixum1d8rts" path="res://Assets/tileset/dungeon props/chest/chest_open_2.png" id="21_7iri4"]
-[ext_resource type="PackedScene" path="res://Scenes/BigLaser.tscn" id="21_80668"]
+[ext_resource type="PackedScene" uid="uid://bpvq5q2oofo07" path="res://Scenes/BigLaser.tscn" id="21_80668"]
 [ext_resource type="PackedScene" uid="uid://virfurxn6td1" path="res://Scenes/VoidBall.tscn" id="21_m4ysf"]
 [ext_resource type="Script" uid="uid://uu06aveogqxm" path="res://Scripts/chest.gd" id="22_10yw8"]
 [ext_resource type="Texture2D" uid="uid://dr5q1cyewmuj2" path="res://Assets/tileset/dungeon props/chest/chest_open_3.png" id="22_jo1nd"]
@@ -4489,10 +4489,13 @@ script = ExtResource("42_v76b2")
 position = Vector2(-128, -55)
 script = ExtResource("46_v5cdc")
 
-[node name="Boss" parent="." instance=ExtResource("17_x8fqe")]
+[node name="Boss" parent="." node_paths=PackedStringArray("player", "projectile_manager", "boss_room") instance=ExtResource("17_x8fqe")]
 unique_name_in_owner = true
 position = Vector2(-646, -1305)
 rotation = 0.026867071
+player = NodePath("../Player")
+projectile_manager = NodePath("../ProjectileManager")
+boss_room = NodePath("../BossRoom/bosscollisionshape")
 
 [node name="BgmDungeon" parent="." instance=ExtResource("48_v5cdc")]
 
