@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bpvq5q2oofo07"]
+[gd_scene load_steps=3 format=3 uid="uid://b56wwqux4kb02"]
 
-[ext_resource type="Script" uid="uid://51v68m6mta7r" path="res://Scripts/DamageManager/Projectiles/biglaser.gd" id="1_nq77b"]
+[ext_resource type="Script" path="res://Scripts/DamageManager/Projectiles/biglaser.gd" id="1_nq77b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cfk2d"]
 size = Vector2(416, 6)
