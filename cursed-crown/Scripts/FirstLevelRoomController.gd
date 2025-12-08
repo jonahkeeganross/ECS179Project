@@ -16,6 +16,7 @@ var vampires : Array[Vampire]
 
 
 func _ready() -> void:
+	
 	tutorial_popup = get_tree().get_first_node_in_group("TutorialPopup") as TutorialPopup
 
 	# show move after start
@@ -56,27 +57,37 @@ func _process(delta) -> void:
 			door.closed()
 		for body in current_room_enemies:
 			if body in get_tree().get_nodes_in_group("Skeleton"):
-				body.enabled = true
-			elif body in get_tree().get_nodes_in_group("Vampire"):
-				body.enabled = true
 
+				if body is Skeleton:
+					body.enabled = true
+					body.set_physics_process(true)
+					body.set_process(true)
+					
+			elif body in get_tree().get_nodes_in_group("Vampire"):
+				if body is Vampire:
+					body.enabled = true
+					body.set_physics_process(true)
+					body.set_process(true)
+	#print(current_room_enemies.size())
+	#print(get_tree().get_nodes_in_group("Skeleton").size())
 
 func _physics_process(delta: float) -> void:
 	skeletons = enemy_spawner.skeletons
 	vampires = enemy_spawner.vampires
-
+	#print(skeletons.size())
 	for skeleton in skeletons:
 		if not is_instance_valid(skeleton):
+			print("COTN")
 			continue
 		if skeleton.enabled == true:
 			var distance = (skeleton.global_position - player.global_position).length()
-
-			if distance > 25:
-				skeleton.is_moving = true
-				skeleton.attacking = false
-			else:
-				skeleton.is_moving = false
-				skeleton.attacking = true
+#
+			#if distance > 25:
+				#skeleton.is_moving = true
+				#skeleton.attacking = false
+			#else:
+				#skeleton.is_moving = false
+				#skeleton.attacking = true
 
 	for vampire in vampires:
 		if not is_instance_valid(vampire):
@@ -84,13 +95,13 @@ func _physics_process(delta: float) -> void:
 		if vampire.enabled == true:
 			var distance = (vampire.global_position - player.global_position).length()
 
-			if distance > 125:
-				vampire.is_moving = true
-				vampire.is_attacking = false
-			else:
-				vampire.is_moving = false
-				vampire.is_attacking = true
-
+			#if distance > 125:
+				#vampire.is_moving = true
+				#vampire.is_attacking = false
+			#else:
+				#vampire.is_moving = false
+				#vampire.is_attacking = true
+#
 
 
 func count_enemies(room : Area2D) -> bool:
@@ -99,6 +110,7 @@ func count_enemies(room : Area2D) -> bool:
 	for body in bodies:
 		if body in get_tree().get_nodes_in_group("Enemies"):
 			total_bodies += 1
+	#print(total_bodies)
 	if total_bodies == 0:
 		return true
 	return false
