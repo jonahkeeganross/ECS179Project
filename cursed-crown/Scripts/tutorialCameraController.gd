@@ -22,7 +22,7 @@ func _ready() -> void:
 	_health = MAX_HEALTH
 
 func _process(_delta: float) -> void:
-	#print("PROCESSING")
+	print("PROCESSING")
 	camera_height = get_viewport_rect().size.y
 	
 	top_boundary = top_camera_boundary.global_position.y + camera_height/2
@@ -32,8 +32,8 @@ func _process(_delta: float) -> void:
 		
 		
 func set_health_bar() -> void:
-	print("OK")
-	#$HealthBar.value = _health
+	#print("OK")
+	$HealthBar.value = _health
 
 		
 func damage(damage: int):

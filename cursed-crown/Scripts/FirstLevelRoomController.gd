@@ -65,7 +65,7 @@ func _process(delta) -> void:
 			#print(current_room_enemies)
 			if body in get_tree().get_nodes_in_group("Skeleton"):
 				if body is Skeleton:
-					print("skeleton enabled")
+					#print("skeleton enabled")
 					body.enabled = true
 					body.set_physics_process(true)
 					body.set_process(true)
@@ -84,7 +84,7 @@ func _physics_process(delta: float) -> void:
 	#print(skeletons.size())
 	for skeleton in skeletons:
 		if not is_instance_valid(skeleton):
-			print("COTN")
+			#print("COTN")
 			continue
 		if skeleton.enabled == true:
 			var distance = (skeleton.global_position - player.global_position).length()

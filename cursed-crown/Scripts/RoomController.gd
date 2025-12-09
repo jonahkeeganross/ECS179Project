@@ -1,6 +1,9 @@
 class_name TestingRoomController
 extends Node2D
 
+# this script is outdated and was cleanned up massively for the actual room controller
+# was just used to run tests
+
 @export var spawn : Area2D
 @export var boss_room : Area2D
 @export var chest_room_right : Area2D

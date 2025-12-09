@@ -157,7 +157,7 @@ func _physics_process(delta: float):
 				dash_cmd.execute(self)
 				time_since_stamina_use  = 0 
 				stamina -= pi.dash_stamina_cons
-				print(stamina)
+				#print(stamina)
 				set_stamina(stamina)
 				create_ghost()
 				cur_stam_regen_rate = stam_regen_rate_base
@@ -331,7 +331,7 @@ func start_attack(anim_name: String):
 			animation_tree["parameters/conditions/attack3"] = false	
 			
 		"attack3":
-			if stamina - pi.smash_stamina_cons < 0:
+			if stamina - pi.arrow_stamina_cons < 0:
 				state = ActionState.IDLE
 				return
 			stamina -= pi.arrow_stamina_cons
@@ -371,7 +371,7 @@ func _set_ground_damage(damage:int) -> void:
 
 func _shoot_arrow() -> void:
 	if arrow_scene == null:
-		print("No arrow_scene assigned!")
+		#print("No arrow_scene assigned!")
 		return
 
 	var arrow := arrow_scene.instantiate()

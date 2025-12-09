@@ -29,8 +29,8 @@ func _physics_process(_delta: float) -> void:
 	global_position.y = cur_pos.y
 
 func set_health_bar() -> void:
-	print("OK")
-	#$HealthBar.value = _health
+	#print("OK")
+	$HealthBar.value = _health
 
 
 		

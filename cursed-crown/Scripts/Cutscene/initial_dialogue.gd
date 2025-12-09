@@ -7,4 +7,4 @@ func _ready() -> void:
 	#initial dialogue disabled
 	monitoring = false
 	set_deferred("monitoring", false)
-	print("InitialDialogue: disabled (no intro dialogue)")
+	#print("InitialDialogue: disabled (no intro dialogue)")

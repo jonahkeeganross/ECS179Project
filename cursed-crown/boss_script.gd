@@ -84,7 +84,7 @@ func _ready() -> void:
 	#print("Boss ready, player:", player, "proj_manager:", projectile_manager)
 	
 func _process(delta: float) -> void:
-	print(is_attacking)
+	#print(is_attacking)
 	if not enabled:
 		return 
 	total_time += delta
@@ -118,7 +118,7 @@ func _physics_process(delta: float) -> void:
 			if st2_ready == true and is_attacking == false:
 				second_phase_setup()
 			if minion_spawner.cleared == true:
-				print("cleared")
+				#print("cleared")
 				prob_multiplier = 2
 				hide_shield()
 				state = State.CHASE
@@ -270,7 +270,7 @@ func special_attack3():
 		target_player()
 		Attack3Timer.start(1.5)
 		await  Attack3Timer.timeout
-	print("RESET")
+	#print("RESET")
 	
 	become_visible()
 	global_position = original_spawn
@@ -331,7 +331,7 @@ func special_attack4():
 	var last = -1
 	for i in range(0,num_times):
 		set_animation("attack")
-		print(i)
+		#print(i)
 		var up:int = rng.randi_range(0,3)
 		var double = rng.randi_range(0,2)
 		
@@ -413,7 +413,7 @@ func take_damage(damage:int):
 		velocity = Vector2.ZERO
 		set_animation("dead")
 		
-	print((float(health) / float(total_health)))
+	#print((float(health) / float(total_health)))
 	health_bar.value  = (float(health) / float(total_health)) * 100
 	
 ## Alternate lazers above
@@ -596,7 +596,7 @@ func VerticalGrid1(pos: Vector2):
 func VerticalGrid2(pos: Vector2):
 	for i in range(-10, 10, 1):
 		if (abs(i)%2 != 0):
-			print(i)
+			#print(i)
 			var top_anchor = pos + Vector2(80 * i,-1000)
 			#await get_tree().create_timer(0.1).timeout
 			#var new_projectile = projectile.instantiate() as FireBall
@@ -637,7 +637,7 @@ func HorizontalGrid1(pos: Vector2):
 func HorizontalGrid2(pos: Vector2):
 	for i in range(-10, 10, 1):
 		if (abs(i)%2 != 0):
-			print(i)
+			#print(i)
 			var top_anchor = pos + Vector2(1000, 80 * i)
 			#await get_tree().create_timer(0.1).timeout
 			#var new_projectile = projectile.instantiate() as FireBall
