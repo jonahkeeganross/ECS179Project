@@ -39,7 +39,7 @@ var rng:RandomNumberGenerator
 func _ready() -> void:
 	rng = RandomNumberGenerator.new()
 	#$CollisionShape2D.disabled = true
-	print("READY")
+	#print("READY")
 	add_to_group("Enemies")
 	add_to_group("Skeleton")
 	set_physics_process(false)
@@ -149,8 +149,8 @@ func _deactivate():
 	tween.tween_callback(_destory)
 
 func _destory():
-	#queue_free()
-	print("destroy?")
+	queue_free()
+	#print("destroy?")
 
 func bind_skeleton_commands():
 	right_cmd = MoveRightCommand.new()
@@ -169,7 +169,7 @@ func take_damage(damage:int):
 		state = State.DEAD
 		velocity = Vector2.ZERO
 		
-	print((float(health) / float(max_health)))
+	#print((float(health) / float(max_health)))
 	health_bar.value  = (float(health) / float(max_health)) * 100
 
 func apply_knockback(dir:Vector2 ,strength:float, timer:float = 0.3):

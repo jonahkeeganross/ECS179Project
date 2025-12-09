@@ -16,7 +16,7 @@ var max_stamina: int = 100
 
 
 func _ready() -> void:
-	print("DONE")
+	#print("DONE")
 	health_tween = self.create_tween()
 	#EventBus.show_boss_health.connect(show_health)
 	#EventBus.hide_boss_health.connect(hide_health)
@@ -39,13 +39,13 @@ func show_health() -> void:
 	stamina_bar.visible = true
 	health_bar.visible = true
 	health_bar_animation.visible = true
-	print("SHOWING HEALTH")
+	#print("SHOWING HEALTH")
 	
 
 
 func hide_health() -> void:
-	#health_bar.visible = false
-	print("HIDING HEALTH")
+	health_bar.visible = false
+	#print("HIDING HEALTH")
 		
 func on_change_stamina(new_stamina: float) -> void:
 	current_stamina = new_stamina
@@ -66,7 +66,7 @@ func on_change_health(new_health: int) -> void:
 		).set_delay(0.7).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 	health_bar.value = new_health
 	update_health_display()
-	print("SHOWING HEALTH")
+	#print("SHOWING HEALTH")
 
 func on_max_stamina_changed(new_max_stamina: int) -> void:
 	max_stamina = new_max_stamina

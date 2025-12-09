@@ -1,14 +1,14 @@
 [gd_scene load_steps=61 format=3 uid="uid://b52v66pdkqaop"]
 
 [ext_resource type="Texture2D" uid="uid://dgnp5hbnjq862" path="res://Assets/boss/bossWalk.png" id="1_j5nlm"]
-[ext_resource type="Script" uid="uid://bbd2220mtsoi7" path="res://Scenes/boss_script.gd" id="1_ouxnj"]
+[ext_resource type="Script" uid="uid://bbd2220mtsoi7" path="res://boss_script.gd" id="1_ouxnj"]
 [ext_resource type="Texture2D" uid="uid://ctcpym1aey826" path="res://Assets/boss/bossAttack.png" id="2_ouxnj"]
 [ext_resource type="Texture2D" uid="uid://bh0kof1mraavf" path="res://Assets/boss/bossDeath.png" id="3_6tp3b"]
 [ext_resource type="Texture2D" uid="uid://ke6b28v2q570" path="res://Assets/boss/bossSpawn.png" id="4_0gjka"]
 [ext_resource type="Texture2D" uid="uid://6e3df5c48gl0" path="res://Assets/boss/bossSpecialAttack.png" id="5_iy1o6"]
 [ext_resource type="Texture2D" uid="uid://bxb3dyl1ydjs3" path="res://Assets/boss/bossShield.png" id="7_6tp3b"]
-[ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scenes/hurt_box.gd" id="8_0gjka"]
-[ext_resource type="Script" uid="uid://cm3efw3g1fq3r" path="res://Scenes/hitbox.gd" id="9_iy1o6"]
+[ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://hurt_box.gd" id="8_0gjka"]
+[ext_resource type="Script" uid="uid://cm3efw3g1fq3r" path="res://hitbox.gd" id="9_iy1o6"]
 [ext_resource type="AudioStream" uid="uid://dju1gqpca7e60" path="res://Assets/audio/sfx/spawn.mp3" id="10_cnrqi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnrqi"]

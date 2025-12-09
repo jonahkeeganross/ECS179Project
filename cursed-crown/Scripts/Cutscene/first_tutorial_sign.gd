@@ -40,6 +40,6 @@ func _on_body_entered(body: Node) -> void:
 	if body is Player: 
 		if _has_activated == false:
 			BUS.emit_signal("queue_dialogue",dialogue)
-			print("ENTERED")
+			#print("ENTERED")
 			_has_activated = true
 	

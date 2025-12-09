@@ -137,7 +137,7 @@ func _physics_process(delta: float):
 func _deactivate():
 	if not state == State.DEAD:
 		state = State.DEAD
-		print("DEAC1")
+		#print("DEAC1")
 		set_animation("dead")
 		vampire_death.play()
 		var tween = self.create_tween()
@@ -146,9 +146,10 @@ func _deactivate():
 		if is_minion:
 			died.emit(self)
 			queue_free()
+			
 func _destory():
-	#queue_free()
-	print("destroy?")
+	queue_free()
+	#print("destroy?")
 
 
 func bind_vampire_commands():

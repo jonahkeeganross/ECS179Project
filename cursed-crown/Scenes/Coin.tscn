@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://gg3w1kprefs8"]
 
 [ext_resource type="Texture2D" uid="uid://b1se7ndqn340y" path="res://Assets/tileset/dungeon props/coin_strip.png" id="1_qrc3l"]
-[ext_resource type="Script" uid="uid://c2i0lesyft8bh" path="res://Scenes/coin.gd" id="1_somhs"]
+[ext_resource type="Script" uid="uid://c2i0lesyft8bh" path="res://coin.gd" id="1_somhs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qrc3l"]
 atlas = ExtResource("1_qrc3l")

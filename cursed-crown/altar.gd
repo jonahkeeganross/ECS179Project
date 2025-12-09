@@ -18,11 +18,11 @@ func _ready() -> void:
 	if has_node("InteractPrompt"):
 		interact_prompt = get_node("InteractPrompt") as Label
 		interact_prompt.visible = false
-		print("Altar: InteractPrompt found and hidden")
+		#print("Altar: InteractPrompt found and hidden")
 	else:
 		print("Altar: WARNING - No InteractPrompt child node found")
 
-	print("Altar: Ready at position " + str(global_position))
+	#print("Altar: Ready at position " + str(global_position))
 
 	# Find the tutorial popup
 	tutorial_popup = get_tree().get_first_node_in_group("TutorialPopup") as TutorialPopup
@@ -30,7 +30,7 @@ func _ready() -> void:
 
 func _on_body_entered(body) -> void:
 	if body in get_tree().get_nodes_in_group("Player"):
-		print("Altar: Player entered altar area")
+		#print("Altar: Player entered altar area")
 		player_is_inside = true
 		current_player = body as Player
 
@@ -58,14 +58,14 @@ func _process(delta) -> void:
 	if player_is_inside and current_player != null:
 		# Check for F key press (interact action)
 		if Input.is_action_just_pressed("interact"):
-			print("Altar: F key pressed, attempting to open shop")
+			#print("Altar: F key pressed, attempting to open shop")
 			_open_shop()
 
 
 func _open_shop() -> void:
 	opened = true
 	if current_player != null:
-		print("Altar: Opening shop via ShopManager...")
+		#print("Altar: Opening shop via ShopManager...")
 		ShopManager.open_shop(current_player)
 	else:
 		print("Altar: ERROR - Cannot open shop: current_player is null")

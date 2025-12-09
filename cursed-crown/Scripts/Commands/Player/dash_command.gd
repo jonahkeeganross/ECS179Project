@@ -13,7 +13,7 @@ func execute(character: Character) -> Status:
 	var _cur_vel_norm = character.velocity.normalized()
 	character.velocity =  _cur_vel_norm * _dash_length * _mult
 
-	print("DONE")
+	#print("DONE")
 	#character.sprite.flip_h = false
 	#character.change_facing(Character.Facing.RIGHT)
 	return Status.DONE

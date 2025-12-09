@@ -38,5 +38,5 @@ func _process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body is Player: 
 		BUS.emit_signal("queue_dialogue",dialogue)
-		print("ENTERED")
+		#print("ENTERED")
 	
