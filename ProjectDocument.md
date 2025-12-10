@@ -140,12 +140,35 @@ Alterred the camera to fit the tutorial with a bit more restriction, nothing cra
 
 
 
+
 ## Alexandr Volkov
 ### Main Roles: Game Logic
 
-Designed all systems and wired together different components to ensure they worked well. Made the original plans for how the game should be structured as well as steady state machines used in different components. 
+Designed all systems and wired together different components to ensure they worked well. Made the original plans for how the game should be structured as well as steady state machines used in different components. Also took in the role of producer as we didn't have one. 
 
-The beginning. This Role started off with me making a very simple diagram for how the game should be. I made a lot of them in lucidchart to visually comprehend the interconnectedness. Once this was done, I created core assets of the game so that the reset of my team could start contributing. I used a lot of the mechanics from the first exercise as well as organization because I felt that our game has resembling assets and it would be a good starting point. The following was the original design plan though it got changed over time.  
+ This Role started off with me making a very simple diagram for how the game should be. I made a lot of them in lucidchart to visually comprehend the interconnectedness. Once this was done, I created core assets of the game so that the rest of my team could start contributing. I used a lot of the mechanics from the first exercise as well as organization because I felt that our game has resembling assets and it would be a good starting point. In my documentation I will provide the original plans, the final plans with changes, and finally the steady state machines that I used. 
+ 
+**In the following section I will walk through the original plan that we had. WE DID NOT GO WITH THIS PLAN IN THE END, BUT THIS WAS PART OF MY DESIGN PROCESS** 
+
+![alt text](Alex_document/OriginalPlan/BaseDes.png)
+
+
+This diagram was the ideal plan. I was hoping that this would be the organization because I felt that having a common game root that wired together the Camera, Player, BUS and Levels would be the best system. When a player loads into the game, the root would load the player and pass in a reference into the level manager as well as the camera. 
+To simplify things, I figured I would add a bus so that weirdly wired components would be able to communicate amongst each other. It has helped me in past games I've made so I figured it wouldn't be a bad idea. 
+
+![alt text](Alex_document/OriginalPlan/CameraDes.png)
+
+This section shows how the camera would be wired. I planned to have the player passed into the camera, but also have the camera be its own component and independent from the player and the levels. This way cuscene animations could be added and the camera wouldn't need to recenter when switching levels. 
+
+![alt text](Alex_document/OriginalPlan/LevelManDes.png)
+
+The level manager would be the actual scene that loads in. I was planning on passing in all the important parts such as player, camera, bus information and the projectile manager so that upon loading, the level would be able to connect and reference information of all of those parts. In particular I was thinking that the level manager would need to get the player position for figuring out what room they are in.
+
+![alt text](Alex_document/OriginalPlan/PlayerDes.png)
+
+This image doesn't require a lot of explaining. I simply wanted the player to be able to call the camera directly or through calls wired through the game root to update the hud details such as health or stamina. 
+
+
 
 
 
