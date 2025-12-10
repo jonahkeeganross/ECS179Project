@@ -24,6 +24,14 @@ extends CharacterBody2D
 
 @onready var between_timer:Timer = $InbetweenTimer
 @onready var spawnBoss: AudioStreamPlayer2D = $spawn
+@onready var attack_1: AudioStreamPlayer2D = $attack1
+@onready var attack_2: AudioStreamPlayer2D = $attack2
+@onready var attack_3: AudioStreamPlayer2D = $attack3
+@onready var death: AudioStreamPlayer2D = $death
+
+@export var crown_scene: PackedScene
+
+
 
 enum State {IDLE, CHASE, ATTACK, DEAD, BOUND, SPAWNING,STG2}
 
@@ -73,6 +81,9 @@ func _ready() -> void:
 	sheild.visible = false
 	_sprite.modulate = Color(1.0, 1.0, 1.0, 0.0)
 	sheild.modulate = Color(1.0, 1.0, 1.0, 0.0)
+	
+	
+	
 	state = State.BOUND
 	pause_tree()
 	animation_tree["parameters/conditions/spawn"] = false
@@ -411,6 +422,9 @@ func take_damage(damage:int):
 		_dead = true
 		state = State.DEAD
 		velocity = Vector2.ZERO
+		
+		spawn_crown()
+		
 		set_animation("dead")
 		
 	#print((float(health) / float(total_health)))
@@ -485,9 +499,10 @@ func set_animation(new_anim:StringName):
 			animation_tree["parameters/conditions/is_walking"] = false
 			animation_tree["parameters/conditions/boss_attack"] = false
 			animation_tree["parameters/conditions/sp_attack2"] = false
+			death.play()
 			
 			await get_tree().create_timer(1.2).timeout
-			get_tree().change_scene_to_file("res://Scenes/EndScreen.tscn")
+			queue_free()
 
 			
 		"spawn":
@@ -521,6 +536,7 @@ func set_animation(new_anim:StringName):
 			animation_tree["parameters/conditions/is_walking"] = false
 			animation_tree["parameters/conditions/boss_attack"] = true
 			animation_tree["parameters/conditions/sp_attack2"] = false
+			attack_1.play()
 		"attack2":
 			animation_tree["parameters/conditions/spawn"] = false
 			animation_tree["parameters/conditions/boss_sp_attack1"] = true
@@ -528,6 +544,7 @@ func set_animation(new_anim:StringName):
 			animation_tree["parameters/conditions/is_walking"] = false
 			animation_tree["parameters/conditions/boss_attack"] = false
 			animation_tree["parameters/conditions/sp_attack2"] = false
+			attack_2.play()
 		"attack3":
 			animation_tree["parameters/conditions/spawn"] = false
 			animation_tree["parameters/conditions/boss_sp_attack1"] = false
@@ -535,6 +552,7 @@ func set_animation(new_anim:StringName):
 			animation_tree["parameters/conditions/is_walking"] = false
 			animation_tree["parameters/conditions/boss_attack"] = false
 			animation_tree["parameters/conditions/sp_attack2"] = true
+			attack_3.play()
 			
 			
 func SpiralCW(pos: Vector2):
@@ -784,3 +802,9 @@ func emit_random_balls():
 func despawn():
 	visible = false
 	queue_free()
+
+
+func spawn_crown():
+	var crown = crown_scene.instantiate()
+	crown.global_position = global_position
+	get_parent().add_child(crown) 

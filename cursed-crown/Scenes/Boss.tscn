@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://b52v66pdkqaop"]
+[gd_scene load_steps=66 format=3 uid="uid://b52v66pdkqaop"]
 
 [ext_resource type="Texture2D" uid="uid://dgnp5hbnjq862" path="res://Assets/boss/bossWalk.png" id="1_j5nlm"]
 [ext_resource type="Script" uid="uid://bbd2220mtsoi7" path="res://Scripts/boss_script.gd" id="1_ouxnj"]
@@ -10,6 +10,11 @@
 [ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scripts/hurt_box.gd" id="8_0gjka"]
 [ext_resource type="Script" uid="uid://cm3efw3g1fq3r" path="res://Scripts/hitbox.gd" id="9_iy1o6"]
 [ext_resource type="AudioStream" uid="uid://dju1gqpca7e60" path="res://Assets/audio/sfx/spawn.mp3" id="10_cnrqi"]
+[ext_resource type="AudioStream" uid="uid://cxqcmhplhe5oc" path="res://Assets/audio/sfx/attack1.mp3" id="11_gj2j4"]
+[ext_resource type="AudioStream" uid="uid://cptoseja62v1r" path="res://Assets/audio/sfx/attack2.mp3" id="12_sbogr"]
+[ext_resource type="AudioStream" uid="uid://dw0al3glvkdsn" path="res://Assets/audio/sfx/punch.mp3" id="13_ly62n"]
+[ext_resource type="AudioStream" uid="uid://5ctjtgbaf355" path="res://Assets/audio/sfx/bossDeath.mp3" id="14_ohr08"]
+[ext_resource type="PackedScene" uid="uid://51e76pmmthik" path="res://Scenes/Crown.tscn" id="15_sbogr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnrqi"]
 size = Vector2(36, 85)
@@ -936,6 +941,7 @@ size = Vector2(28, 68)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_ouxnj")
+crown_scene = ExtResource("15_sbogr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
@@ -1039,3 +1045,17 @@ shape = SubResource("RectangleShape2D_avs7u")
 
 [node name="spawn" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("10_cnrqi")
+
+[node name="attack1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_gj2j4")
+volume_db = -3.0
+
+[node name="attack2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_sbogr")
+
+[node name="attack3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_ly62n")
+
+[node name="death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_ohr08")
+volume_db = 2.0
