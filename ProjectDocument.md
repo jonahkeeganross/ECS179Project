@@ -144,9 +144,9 @@ Alterred the camera to fit the tutorial with a bit more restriction, nothing cra
 ## Alexandr Volkov
 ### Main Roles: Game Logic
 
-Designed all systems and wired together different components to ensure they worked well. Made the original plans for how the game should be structured as well as steady state machines used in different components. Also took in the role of producer as we didn't have one. 
+Designed all systems and wired together different components to ensure they worked well. Made the original plans for how the game should be structured as well as finite state machines used in different components. Also took in the role of producer as we didn't have one. 
 
- This Role started off with me making a very simple diagram for how the game should be. I made a lot of them in lucidchart to visually comprehend the interconnectedness. Once this was done, I created core assets of the game so that the rest of my team could start contributing. I used a lot of the mechanics from the first exercise as well as organization because I felt that our game has resembling assets and it would be a good starting point. In my documentation I will provide the original plans, the final plans with changes, and finally the steady state machines that I used. 
+ This Role started off with me making a very simple diagram for how the game should be. I made a lot of them in lucidchart to visually comprehend the interconnectedness. Once this was done, I created core assets of the game so that the rest of my team could start contributing. I used a lot of the mechanics from the first exercise as well as organization because I felt that our game has resembling componetns and it would be a good starting point. In my documentation I will provide the original plans, the final plans with changes, and finally the finite state machines that I used. 
  
 ---
 
