@@ -18,8 +18,8 @@ func _process(delta: float) -> void:
 	
 func _emit():
 	print("EM<IT")
-	for i in range(10):
-		await get_tree().create_timer(0.1).timeout
+	for i in range(20):
+		#await get_tree().create_timer(0.1).timeout
 		#var new_projectile = projectile.instantiate() as FireBall
 		var projectile_list: Array[ProjectileInfo] = []
 		var projectile_info = ProjectileInfo.new(

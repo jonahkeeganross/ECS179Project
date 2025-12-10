@@ -4466,6 +4466,7 @@ position = Vector2(376, -1160)
 script = ExtResource("42_v76b2")
 
 [node name="Sprite2D" parent="." instance=ExtResource("41_8jv1o")]
+script = null
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(-128, -55)
