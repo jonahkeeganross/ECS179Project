@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://4sa4qp3i534k"]
+
+[ext_resource type="Script" uid="uid://cifo5l4xasrt" path="res://Scripts/win_screen.gd" id="1_d8xbi"]
+[ext_resource type="Texture2D" uid="uid://dblbxxgotetxs" path="res://Assets/screens/winScreen.jpg" id="2_82r0j"]
+[ext_resource type="PackedScene" uid="uid://ba6doc00ey7xv" path="res://Scenes/StartScreen.tscn" id="2_fy21p"]
+
+[node name="WinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_d8xbi")
+start_screen_scene = ExtResource("2_fy21p")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -14.0
+offset_top = -81.0
+offset_right = 1170.0
+offset_bottom = 733.0
+texture = ExtResource("2_82r0j")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="FadeRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -30.0
+offset_top = -23.0
+offset_right = 1211.0
+offset_bottom = 692.0
+color = Color(0, 0, 0, 1)
