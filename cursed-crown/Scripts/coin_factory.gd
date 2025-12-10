@@ -19,7 +19,6 @@ func spawn_coins(num: int) -> void:
 	for i in range(num):
 		var new_coin = coin.instantiate()
 		new_coin.global_position = spawning_pos
-		#print(next_animations)
 		new_coin.get_node("AnimationPlayer").play(next_animations[i])
 		add_child(new_coin)
 

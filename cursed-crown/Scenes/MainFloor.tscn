@@ -1,7 +1,7 @@
 [gd_scene load_steps=96 format=4 uid="uid://dvv2hjnsm3aoa"]
 
-[ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scripts/FirstLevelRoomController.gd" id="1_65fbj"]
-[ext_resource type="Script" uid="uid://cuc2lqqtqwejw" path="res://altar.gd" id="1_altar"]
+[ext_resource type="Script" uid="uid://eokmoa1hsxbk" path="res://Scripts/RoomController.gd" id="1_65fbj"]
+[ext_resource type="Script" uid="uid://cuc2lqqtqwejw" path="res://Scripts/altar.gd" id="1_altar"]
 [ext_resource type="Texture2D" uid="uid://df0d7c313xyvx" path="res://Assets/tilesets 1 - temp/tilesheet_complete.png" id="1_ctg82"]
 [ext_resource type="Texture2D" uid="uid://b7m5b66fxgpjo" path="res://Assets/tileset/Dungeon_Tileset.png" id="1_ymu4p"]
 [ext_resource type="Texture2D" uid="uid://coij7ger2puva" path="res://Assets/tileset/dungeon props/torch_strip.png" id="3_my8h3"]
@@ -41,7 +41,7 @@
 [ext_resource type="Texture2D" uid="uid://c3agnqt8aaear" path="res://Assets/tileset/dungeon props/peaks/peaks_1.png" id="43_w6mf8"]
 [ext_resource type="Script" uid="uid://x2j4816p8fcq" path="res://Scripts/test_emitter2.gd" id="46_v5cdc"]
 [ext_resource type="PackedScene" uid="uid://dllwuw4l28f1p" path="res://Scenes/BgmDungeon.tscn" id="48_v5cdc"]
-[ext_resource type="Script" uid="uid://bgjg0synrcvp1" path="res://spawn_center.gd" id="49_80668"]
+[ext_resource type="Script" uid="uid://bgjg0synrcvp1" path="res://Scripts/spawn_center.gd" id="49_80668"]
 [ext_resource type="PackedScene" uid="uid://bju8bt6iv6dyw" path="res://Scenes/Skeleton.tscn" id="50_hy581"]
 [ext_resource type="PackedScene" uid="uid://cut8xugsri52a" path="res://Scenes/vampire.tscn" id="51_gre53"]
 [ext_resource type="Script" uid="uid://cyl6s6lmj4t1r" path="res://Scripts/Room.gd" id="57_2gv1e"]
@@ -3638,7 +3638,6 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-400.69788, 334.51013, 
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("enemy_spawner")]
 script = ExtResource("1_65fbj")
-is_tutorial = null
 enemy_spawner = NodePath("EnemySpawner")
 
 [node name="Floor_1_Base" type="TileMapLayer" parent="."]

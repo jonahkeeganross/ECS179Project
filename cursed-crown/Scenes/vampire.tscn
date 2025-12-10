@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://nfct7qrdc54s" path="res://Assets/vampire/enemies-vampire_death.png" id="4_xf5bl"]
 [ext_resource type="Texture2D" uid="uid://8pbnsovhayh1" path="res://Assets/vampire/enemies-vampire_take_damage.png" id="5_ekqqj"]
 [ext_resource type="Texture2D" uid="uid://b5uaouiqpb3o" path="res://Assets/vampire/enemies-vampire_movement.png" id="6_ltbgj"]
-[ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scenes/hurt_box.gd" id="7_2tffl"]
+[ext_resource type="Script" uid="uid://ce2t2valtx5g2" path="res://Scripts/hurt_box.gd" id="7_2tffl"]
 [ext_resource type="AudioStream" uid="uid://ctre8ebc5bncl" path="res://Assets/audio/sfx/vampireAttack.mp3" id="9_xf5bl"]
 [ext_resource type="AudioStream" uid="uid://drd2cth4050al" path="res://Assets/audio/sfx/vampire_death.mp3" id="10_ekqqj"]
 

@@ -10,6 +10,8 @@ var _has_activated = false
 
 var test1:String = "There seems to be a skeleton guarding the castle, use your
 attacks to take it out!
+
+Press Space to Exit
 "
 #var test2:String = "
 #Dwelling and speedily ignorant any steepest. Admiration instrument

@@ -68,9 +68,7 @@ func _process(_delta):
 		if coin_spawned == false:
 			chance_coin()
 			coin_spawned = true
-		
-		await get_tree().create_timer(1).timeout
-		
+				
 		return
 	if Facing.LEFT == facing:
 		scale.y = 1.0
@@ -187,8 +185,10 @@ func process_knockback(delta:float):
 		
 func chance_coin() -> void:
 	var coin_spawner = coin_factory.instantiate()
-	coin_spawner.spawning_pos = global_position
-	add_child(coin_spawner)
+	var spawning_pos = global_position
+	get_parent().add_child(coin_spawner)
+	coin_spawner.global_position = spawning_pos
+	coin_spawner.spawning_pos = spawning_pos
 	if randf_range(0, 1) < coin_drop_chance:
 		coin_spawner.spawn_coins(1)
 		

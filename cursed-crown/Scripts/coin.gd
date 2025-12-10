@@ -16,7 +16,6 @@ func _physics_process(delta: float) -> void:
 		BUS.player_coins_changed.emit(player.total_coins)
 		queue_free()
 		
-		
 	else:
 		global_position = lerp(global_position, player.global_position, 0.2)
 	
