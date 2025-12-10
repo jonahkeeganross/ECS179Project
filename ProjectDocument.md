@@ -148,7 +148,9 @@ Designed all systems and wired together different components to ensure they work
 
  This Role started off with me making a very simple diagram for how the game should be. I made a lot of them in lucidchart to visually comprehend the interconnectedness. Once this was done, I created core assets of the game so that the rest of my team could start contributing. I used a lot of the mechanics from the first exercise as well as organization because I felt that our game has resembling assets and it would be a good starting point. In my documentation I will provide the original plans, the final plans with changes, and finally the steady state machines that I used. 
  
-**In the following section I will walk through the original plan that we had. WE DID NOT GO WITH THIS PLAN IN THE END, BUT THIS WAS PART OF MY DESIGN PROCESS** 
+---
+
+#### **In the following section I will walk through the original plan that we had. WE DID NOT GO WITH THIS PLAN IN THE END, BUT THIS WAS PART OF MY DESIGN PROCESS** 
 
 ![alt text](Alex_document/OriginalPlan/BaseDes.png)
 
@@ -169,7 +171,52 @@ The level manager would be the actual scene that loads in. I was planning on pas
 This image doesn't require a lot of explaining. I simply wanted the player to be able to call the camera directly or through calls wired through the game root to update the hud details such as health or stamina. 
 
 
+---
+#### **This section goes over the final design. I will explain how the components work more in depth here because this is what we ended up with** 
 
+For the final design we ended up changing a lot from the original plans. This was due to time constraints and misscommunications, but it ended up working out in the end. I believe the original plans are better for modularity, and for more complicated systems but our current organization works for only having a tutorial and one level. 
+
+![alt text](Alex_document/FinalDesign/BaseDes.png)
+
+This image shows the full design. Rather than having a main tree that wires all the components, we ended up going with a per level wiring. The idea is the same, but there needs to be a player per level-scene as well as a pre-level camera. Switching levels is as easy as looking at the tree and swithcing the scene to the corresponding level, but has shortcomings. I implemented a BUS that wires all the parts that might be referenced deep within the project to make it easier so that we wouldn't have to propogate references, but I actually think this was poor design on my behalf. This should have also been done through signals per level rather than a BUS. In reguards to this point, this is one of the complications that came with swithching the full tree as data would not be tranferrable.  For the sake of gameplay mechanics and delivering a finished product we went with this, but if we had more time I think we would need to reorganize so that the levels would be separate from players. Final note, we originally planned for a second level, but that was not included because of time constraints. 
+
+![alt text](Alex_document/FinalDesign/PlayerDes.png)
+
+This diagram shows the simple interactive components of player. The player only needed to reference the camera in order to convey damage was taken or stamina was used. The rest of the player interactions will be indicated in the SSM secion. 
+
+
+![alt text](Alex_document/FinalDesign/CameraDes.png)
+
+Our camera implementation was pretty similar to the original plan. The only difference was that I used a bus to communicate changes in the player info (stamina and health). I should have simply exposed endpoints per level-scene, but it worked out. 
+
+![alt text](Alex_document/FinalDesign/DungeonManagerDes.png)
+
+Our dungeonmanager is techincally the main level script, but I visually wanted to seperate it because it had other details and was different in the tutorial as opposed to the first level. When a player would enter a certain room, the dungeon manager would check what room it was and then for that corresponding room activate all the enemies as well as resume their physics processes. 
+
+![alt text](Alex_document/FinalDesign/ProjManagerDes.png)
+
+The final big component that that interacted with everything else was the projectile manager. This was the component responsible for shooting projectiles from enemies. I thought this was going to be used for player projectiles as well (so that I could have a common pooling system), but that was beyond our scope. The way it works right now is the BUS exposes endpoints that anybody can call which will spawn projectiles of a certain type. My design was once again lacking because of the reliance on the BUS; It works, but signals should have been managed inside the level. 
+
+
+Future plans: I believe that for the scope of the project this was not a bad idea. It is however not the proper design for making a game greater that could have multiple levels. Part of this issue is my fault for not strictly enforcing the original format, but as game design I decided that in order to have a working game this aspect can be overlooked. I have learned a fair bit from making this design and believe that in the future I can make a better design.  
+
+#### **This section will go over the different FSM that were used. These show my plans for how players and enemies would attack** 
+
+![alt text](Alex_document/FMS/PlayerFMS.png)
+
+This diagram shows the final design for the player. I will not go too in depth as I believe the diagram explains most of the interactions. It is greatly different from the original especially because we decided to add stuns to enemies as well as i-frames when hit and when dashing. The rest of the design alligns with what was originally planned. I was hoping to add knockback when getting hit by an enemy, but ran out of time for this. 
+
+![alt text](Alex_document/FMS/SkeletonFMS.png)
+
+This diagram is the skeleton SSM. Upon activation the skeleton would be able to go through the cycle. It would chase the player until close enough to one of the two sides of the player. I worked on both enemies so I will explain how these work later on in the **other contributions** section. 
+
+![alt text](Alex_document/FMS/VampireFMS.png)
+
+The vampire SSM is very similar to the skeleton one with the key difference being the attack mechanic. Apart from playing the animation it would call projectile manager to spawn a fireball. 
+
+![alt text](Alex_document/FMS/BossFMS.png)
+
+This is the final SSM I want to display. The boss SSM is similar to the other ones, but has a couple more interactions as it is more core to the game. One such interaction is what the boss does when it is dead. The other is the second stage. I will go more in depth in the **other contributions** section.
 
 
 ### Sub-Roles
