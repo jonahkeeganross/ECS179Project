@@ -134,3 +134,21 @@ Worked on building a coin and coin factory scene which included animation of the
 Alterred the camera to fit the tutorial with a bit more restriction, nothing crazy just removed horizontal player tracking and limited the camera to stop at the top and bottom boundaries of the level to make it flow with the tutorial
 
 - [Tutorial Camera Logic](https://github.com/jonahkeeganross/ECS179Project/blob/ac16c4c707ecaef25aeb805c9da923355c6306de/cursed-crown/Scripts/tutorialCameraController.gd#L24)
+
+
+
+
+
+
+## Alexandr Volkov
+### Main Roles: Game Logic
+
+Designed all systems and wired together different components to ensure they worked well. Made the original plans for how the game should be structured as well as steady state machines used in different components. 
+
+The beginning. This Role started off with me making a very simple diagram for how the game should be. I made a lot of them in lucidchart to visually comprehend the interconnectedness. Once this was done, I created core assets of the game so that the reset of my team could start contributing. I used a lot of the mechanics from the first exercise as well as organization because I felt that our game has resembling assets and it would be a good starting point. The following was the original design plan though it got changed over time.  
+
+
+
+### Sub-Roles
+
+## Other Contributions
