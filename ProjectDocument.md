@@ -172,13 +172,13 @@ This image doesn't require a lot of explaining. I simply wanted the player to be
 
 
 ---
-#### **This section goes over the final design. I will explain how the components work more in depth here because this is what we ended up with** 
+#### **This section goes over the final design** 
 
 For the final design we ended up changing a lot from the original plans. This was due to time constraints and misscommunications, but it ended up working out in the end. I believe the original plans are better for modularity, and for more complicated systems but our current organization works for only having a tutorial and one level. 
 
 ![alt text](Alex_document/FinalDesign/BaseDes.png)
 
-This image shows the full design. Rather than having a main tree that wires all the components, we ended up going with a per level wiring. The idea is the same, but there needs to be a player per level-scene as well as a pre-level camera. Switching levels is as easy as looking at the tree and switching the scene to the corresponding level, but has shortcomings. I implemented a BUS that wires all the parts that might be referenced deep within the project to make it easier so that we wouldn't have to propogate references, but I actually think this was poor design on my behalf. This should have also been done through signals per level rather than a BUS. In reguards to this point, this is one of the complications that came with swithching the full tree as data would not be tranferrable.  For the sake of gameplay mechanics and delivering a finished product we went with this, but if we had more time I think we would need to reorganize so that the levels would be separate from players. Final note, we originally planned for a second level, but that was not included because of time constraints. 
+This image shows the full design. Rather than having a main tree that wires all the components, we ended up going with a per level wiring. The idea is the same, but there needs to be a player per level-scene as well as a pre-level camera. Switching levels is as easy as looking at the tree and switching the scene to the corresponding level, but has shortcomings. I implemented a BUS that wires all the parts that might be referenced deep within the project to make it easier so that we wouldn't have to propogate references, but I actually think this was poor design on my behalf. This should have also been done through signals per level rather than a BUS. In reguards to this point, this is one of the complications that came with switching the full tree as data would not be tranferrable.  For the sake of gameplay mechanics and delivering a finished product we went with this, but if we had more time I think we would need to reorganize so that the levels would be separate from players. Final note, we originally planned for a second level, but that was not included because of time constraints. 
 
 ![alt text](Alex_document/FinalDesign/PlayerDes.png)
 
@@ -208,17 +208,112 @@ This diagram shows the final design for the player. I will not go too in depth a
 
 ![alt text](Alex_document/FMS/SkeletonFMS.png)
 
-This diagram is the skeleton SSM. Upon activation the skeleton would be able to go through the cycle. It would chase the player until close enough to one of the two sides of the player. I worked on both enemies so I will explain how these work later on in the **other contributions** section. 
+This diagram is the skeleton FSM. Upon activation the skeleton would be able to go through the cycle. It would chase the player until close enough to one of the two sides of the player. I worked on both enemies so I will explain how these work later on in the **other contributions** section. 
 
 ![alt text](Alex_document/FMS/VampireFMS.png)
 
-The vampire SSM is very similar to the skeleton one with the key difference being the attack mechanic. Apart from playing the animation it would call projectile manager to spawn a fireball. 
+The vampire FSM is very similar to the skeleton one with the key difference being the attack mechanic. Apart from playing the animation it would call projectile manager to spawn a fireball. 
 
 ![alt text](Alex_document/FMS/BossFMS.png)
 
-This is the final SSM I want to display. The boss SSM is similar to the other ones, but has a couple more interactions as it is more core to the game. One such interaction is what the boss does when it is dead. The other is the second stage. I will go more in depth in the **other contributions** section.
+This is the final FSM I want to display. The boss FSM is similar to the other ones, but has a couple more interactions as it is more core to the game. One such interaction is what the boss does when it is dead. The other is the second stage. I will go more in depth in the **other contributions** section.
 
 
-### Sub-Roles
+### Sub-Roles: Performance Optimization
+
+My role as performance optimizer was not the most difficult. A lot of the members contributed assets/code that were not very hard to render and for that reason we did not have lag. I did however do small changes and monitor various aspects throughout. The following graphs will be my analysis on the final product as well as one aspect that I intentionally had to check to make sure the rendering would not be too bad. I analysed the frame time, the memory count, as well as object count of the full game and here is what I found.
+
+
+#### Frame time
+I will mainly refer to the physics frame time of 16.66 ms as this is what defines player movement. If process time or script time were to go beyond this point, the physics process would slow down and have visible effects in the actual game. 
+
+Frame time was not a great issue for us, but my greatest concern was the projectiles because I noticed a lot of them had thier own processes, and had to be spawned in one instance. For such reasons I monitored the different effects of the number of projectiles and the frame rate. 
+
+This first example shows what the upper limit is, and something that we avoided throughout the game. 
+![alt text](Alex_document/PerformanceOptimization/60Lasers.png)
+![alt text](Alex_document/PerformanceOptimization/60LasersGraph.png)
+
+As is shown in these two graphs, spawning 60 lasers (they are on top of each other) would overshoot the physics limit of 16.66 ms and would likely lead to lag. For such reasons we tested other cases and ended up finding that 20 lasers at once is the goldilocks number. Whats to note is that the main spike comes from the actual spawn and it settles afterwards even though there is tweening. This is what it looks like with 20 lasers in the final results:
+
+![alt text](Alex_document/PerformanceOptimization/HighSpike.png)
+![alt text](Alex_document/PerformanceOptimization/HighSpikeGraph.png)
+
+Though not as visible as the previous example, there is a spike when the lasers spawn (Left side of the graph). The spike however does not go over the physics process and is practically invisible to the player. 
+
+Apart from this, There is only one other place where the framerate would drop and that is due to loading into a level. During this particular instance, there would be noticable lag for about a frame or two, and then it settled. This is expected behavior and once again did not ruin the user experience. 
+
+
+
+#### Memory Profiling 
+The memory profiling was also not an issue. The main thing I was looking for was for memory leaks where objects would not get deleted (in particular projectiles) and could cause the user experience to be ruined. I monitored the memory multiple times as I playtested the game and it averaged about the same amount
+
+![alt text](Alex_document/PerformanceOptimization/MemoryGraphs.png)
+ 
+The following graph shows the memory through a single run of the game which included opening chests, buying upgrades, killing enemies and fighting the boss. The first significant spike here is the memory increase due to loading into the first level. This is expected as a lot more assets are loaded. The other mini-spike is when fighting enemies as projectiles are spawned. These are however deleted and as is visible, the end memory remains more or less the same. There is a slight increase and that I attribute this to caching, but not an acutal issue as there is no cumulative growth.  
+
+#### Object Count
+The final imporant aspect of my role was ensuring that object count was not increasing significantly. As opposed to memory, this section deals with singular objects and having to account for the various processes inside of them. My understanding of object count is that too many of them and the CPU has to keep track of them all meaning that it could result in gameplay-slowdown. 
+
+The following is a graph on the object count. 
+![alt text](Alex_document/PerformanceOptimization/ObjectAndResourceGraphs.png)
+
+This graph shows the object count of a full run through our game. The first spike indicates the scene loading and is expected. The rest of the time, the object count stabalizes. The only time that it fluctuates is during projectiles spawning, and even still, that is not too much. Since there is no monotonic climb, I concluded that there are no issues with objects and freeing them 
+
+#### Further Contributions And Takeaways
+Apart from noting these graphs through our development process, I also did a couple small changes that I believed would speed the game up. One of these was turning off the physics process and the process calls in the enemies before they are activated. I figured that doing so would mean less calls to nodes that aren't functional and a lot better down the line. Upon entering the room, the room is now responsible for that aspect. The rest of the changes were minor, but I made sure to keep an eye out for them. 
+
+If I had more time, I would have attempted to implement object pooling. Rather than rendering a new object every time (specifically the projectiles), It would have helped to render them and then make them invisible for reuse (for a certain amount of time). I would do this if I were to continue working and it wouldn't be that big of a change. The thing is, I made the projectile system ONE system specifically so that these aspects could be monitored for pooling, with performace optimization in mind. 
+
+
+If there are any takeaways from this role, I believe that this role has really taught me how to manage three important aspects that could slow down games. I plan on continuing making games whether lua, unity, or godot, and for bigger scale projects, this understanding is crucial. 
+
+
 
 ## Other Contributions
+Since we did not have a full team my contributions I had some overlap with what other people did. I will write a short description for each. 
+
+The first aspect I contributed to was the player. I fully designed the player mechanics and the system that would be used. Originally we went with a command system for moving, but that quickly changed as it was easier to have the character controll all those aspects. I did everything for the character apart from the animations and the arrow launching. This includes mapping the damage boxes to the attacks, ensuring that the enemies would be knocked back upon getting hit, making the animation tree, and finally the dash mechanic. The QOL change I added was the player blinking to indicate invincibility. I added this at the end and think it looks pretty well done. 
+
+- [Player script](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/player.gd)
+
+**For this section I did use a significant portion of the dash effect from a youtube video. I wasn't sure how to do it myself, and for that reason I used it as a starting point, but built off of it. **
+- [Referenced dash video!](https://www.youtube.com/watch?v=fp_XugQvOKU)
+
+
+The next aspect that I made was the camera. There is not much to be said, but the camera mechanics (such as the lerp) was me. 
+
+- [Camera Script](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/camera_controller.gd)
+
+Part of the camera was the HUD and this was also what I worked on. I first made two simple progress bars that can be referenced by the BUS and then connected them to the player. I am pretty proud of how it turned out especially how the health bar progresses (there are two stacked on top of each other). The other part of the hud was the popup text when interacting with the different characters. It is a simple script that allows any object to pause all physics_ticks for the player while a textbox has text appear letter by letter. 
+
+- [HUD](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/HUD.gd)
+- [Text_Box](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/dialogue_controller.gd)
+
+Apart from the camera I also was in chararge of the enemy mechanics. I set up the enemy animation trees to accurately represent what the enemies are doing at any given point. I followed the FSM (referecned above) and made it so it has various states that it can switch to. The other important mechanic I worked on was the knockback. I made it so that if the damage_box of the player connected, the enemies would enter a stunned state and get pushed back. They would also have their animation canceled (I though this was pretty sweet). Jonah helped me out with the core pathfinding, but I added the more specific pathfinding for QOL
+
+For skeletons, I made sure that the skeletons target the closest side of the player rather than the player. We didn't have 4-way attacks and this way we would be able to have the skeletons attempt to attack the player. Without this, the skeletons would often position themselves above the player and not be a worthy enemy. 
+
+- [Skeleton Script](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/skeleton.gd)
+
+For the vampires I didn't have to change much of the mechanics. Jonah implemented the attack/chase sceme, and I tuned it into the FSM so that it felt good with the animations and the overall game. I also connected the animations to my projectile system
+
+
+- [Vampire Script](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/vampire.gd)
+
+The projectile system was the other system that I think I implemented relitively well. I made it so that projectiles can have a list of commands and can move in any way shape and form. The code is not the cleanest, but I am proud of what it can do. With this system I was able to spawn lasers after a certain delay, make the lasers change orientation, make fireballs target player, and make fireballs explode out and in. Below I will provide references to both the projectile manager and the different parts 
+
+
+- [Projectile Manager](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/DamageManager/projectile_manager.gd)
+- [Fireball](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/DamageManager/Projectiles/fireball.gd)
+- [Laser](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/DamageManager/Projectiles/lazer.gd)
+- [BigLaser](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/DamageManager/Projectiles/biglaser.gd)
+
+Though there are many small changes I made apart from these, the biggest I would have to argue is the boss fight. The full fight was designed and implemented by myself. I was quite limited by the animations simply because we weren't able to get intese animations with the boss. For this reason I made the boss fight very focused on dodging projectiles. I made a bunch of cool patterns that demonstrated the extent of the projectile system. 
+
+To do the boss I started off by creating a FSM and then applying implementing simple movement. The issue with this was that the player was able to kite too easily so I also added teleportation (within gameplay bounds). Every render, the boss calculates a number and depending on the number, the boss takes certain actions.This should have been changed to tick based, but I did not have time. The attacks are completely random but once the boss looses half its health, the chance increases and it becomes invunerable and requires you to kill the minions. I have to admit the code was not the most organized for this part, but it works well and is a fun boss fight. 
+
+- [BossScript](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/DamageManager/Projectiles/lazer.gd)
+
+**One thing to note was that I used AI to create the image for the shield. AI was not used ANYWHERE else. We were low on time and I wanted a shield like image.**
+
+- [AI USE!](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Assets/boss/bossShield.png)

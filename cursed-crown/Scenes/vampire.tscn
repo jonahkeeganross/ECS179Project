@@ -472,6 +472,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(-66, 81)
 
 [node name="Vampire" type="CharacterBody2D"]
+position = Vector2(3, -1)
 collision_layer = 2
 collision_mask = 0
 motion_mode = 1
