@@ -36,7 +36,7 @@ We decided to include these sections in our individual contributions sections fo
 
 # Team Member Contributions
 
-## Jonah Ross
+## Jonah Ross - Github: jonahkeeganross
 
 ### Main Role: Level and World Designer
 
