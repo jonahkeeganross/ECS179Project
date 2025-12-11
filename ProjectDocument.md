@@ -1,15 +1,12 @@
 # The title of your game
 
 ## Summary
-
-**A paragraph-length pitch for your game.**
+Cursed Crown is a classic top-down roguelike dungeon crawler where you play as a soldier trapped in a seemingly endless haunted fortress on a quest to retrieve the mysterious royal crown. Explore the rooms of the dungeon floor cutting through skeletons and vampires, collecting coins to buy damage, health, and stamina upgrades at altars. Master the three combat attacks in your arsenal and make your way through your enemies and power up before facing the final boss. Defeat the boss, the crown's current bearer, or die and be sent back to the start.
 
 ## Project Resources
 
-[Web-playable version of your game.](https://itch.io/)  
-[Trailor](https://youtube.com)  
-[Press Kit](https://dopresskit.com/)  
-[Proposal: make your own copy of the linked doc.](https://docs.google.com/document/d/1qwWCpMwKJGOLQ-rRJt8G8zisCa2XHFhv6zSWars0eWM/edit?usp=sharing)
+[Web-playable version](https://moesterer.itch.io/cursed-crown)
+[Proposal](https://docs.google.com/document/d/1v7Ztfo5egws3jY5RqUr8fIXjQZbynqJY_c1s5bQNXek/edit?tab=t.0#heading=h.i3tv2mxf7h7z)
 
 ## Gameplay Explanation
 
@@ -39,9 +36,7 @@ The most effective tactic available to beat the game is as follows:
 
 # External Code, Ideas, and Structure
 
-If your project contains code that: 1) your team did not write, and 2) does not fit cleanly into a role, please document it in this section. Please include the author of the code, where to find the code, and note which scripts, folders, or other files that comprise the external contribution. Additionally, include the license for the external code that permits you to use it. You do not need to include the license for code provided by the instruction team.
-
-If you used tutorials or other intellectual guidance to create aspects of your project, include reference to that information as well.
+We decided to include these sections in our individual contributions sections for better clarity and distribution.
 
 # Team Member Contributions
 
