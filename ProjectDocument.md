@@ -86,7 +86,7 @@ Alterred the camera to fit the tutorial with a bit more restriction, nothing cra
 
 ---
 
-## Alexandr Volkov
+## Alexandr Volkov (shavolkov)
 ### Main Roles: Game Logic
 
 Designed all systems and wired together different components to ensure they worked well. Made the original plans for how the game should be structured as well as finite state machines used in different components. Also took in the role of producer as we didn't have one. 
