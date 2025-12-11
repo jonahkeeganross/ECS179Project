@@ -1,4 +1,4 @@
-# The title of your game
+# Cursed Crown
 
 ## Summary
 Cursed Crown is a classic top-down roguelike dungeon crawler where you play as a soldier trapped in a seemingly endless haunted fortress on a quest to retrieve the mysterious royal crown. Explore the rooms of the dungeon floor cutting through skeletons and vampires, collecting coins to buy damage, health, and stamina upgrades at altars. Master the three combat attacks in your arsenal and make your way through your enemies and power up before facing the final boss. Defeat the boss, the crown's current bearer, or die and be sent back to the start.
