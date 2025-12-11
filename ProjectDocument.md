@@ -10,8 +10,6 @@ Cursed Crown is a classic top-down roguelike dungeon crawler where you play as a
 
 ## Gameplay Explanation
 
-**In this section, explain how the game should be played. Treat this as a manual within a game. Explaining the button mappings and the most optimal gameplay strategy is encouraged.**
-
 Cursed Crown follows the same structure as many other Rougelike style games where you spawn into the floor, explore the structure of the floor and find the boss all while collecting upgrades/currency to spend on upgrades.
 
 The tutorial already goes through the basic button mappings which are:
@@ -32,55 +30,11 @@ The most effective tactic available to beat the game is as follows:
 - Explore the entire floor before going to fight the boss, which will allow you to get all the coins possible and get full health and hopefully some stamina and damage upgrades for the boss
 - For the boss fight, focus on hitting it with arrows when it is standing still. If you get too close with a melee attack it can catch you off guard with a fast attack. When it starts attack with lasers, just focus on dodging the attacks until it stops, to which you will start attacking wiht arrows again. Follow this pattern until defeated
 
-**Add it here if you did work that should be factored into your grade but does not fit easily into the proscribed roles! Please include links to resources and descriptions of game-related material that does not fit into roles here.**
-
 # External Code, Ideas, and Structure
 
 We decided to include these sections in our individual contributions sections for better clarity and distribution.
 
 # Team Member Contributions
-
-This section be repeated once for each team member. Each team member should provide their name and GitHub user information.
-
-The general structures is
-
-```
-Team Member 1
-  Main Role
-    Documentation for main role.
-  Sub-Role
-    Documentation for Sub-Role
-  Other contribtions
-    Documentation for contributions to the project outside of the main and sub roles.
-
-Team Member 2
-  Main Role
-    Documentation for main role.
-  Sub-Role
-    Documentation for Sub-Role
-  Other contribtions
-    Documentation for contributions to the project outside of the main and sub roles.
-...
-```
-
-For each team member, you shoudl work of your role and sub-role in terms of the content of the course. Please look at the role sections below for specific instructions for each role.
-
-Below is a template for you to highlight items of your work. These provide the evidence needed for your work to be evaluated. Try to have at least four such descriptions. They will be assessed on the quality of the underlying system and how they are linked to course content.
-
-_Short Description_ - Long description of your work item that includes how it is relevant to topics discussed in class. [link to evidence in your repository](https://github.com/dr-jam/ECS189L/edit/project-description/ProjectDocumentTemplate.md)
-
-Here is an example:  
-_Procedural Terrain_ - The game's background consists of procedurally generated terrain produced with Perlin noise. The game can modify this terrain at run-time via a call to its script methods. The intent is to allow the player to modify the terrain. This system is based on the component design pattern and the procedural content generation portions of the course. [The PCG terrain generation script](https://github.com/dr-jam/CameraControlExercise/blob/513b927e87fc686fe627bf7d4ff6ff841cf34e9f/Obscura/Assets/Scripts/TerrainGenerator.cs#L6).
-
-You should replay any **bold text** with your relevant information. Liberally use the template when necessary and appropriate.
-
-Add addition contributions int he Other Contributions section.
-
-## Main Roles
-
-## Sub-Roles
-
-## Other Contributions
 
 ## Jonah Ross
 
@@ -130,11 +84,7 @@ Alterred the camera to fit the tutorial with a bit more restriction, nothing cra
 
 - [Tutorial Camera Logic](https://github.com/jonahkeeganross/ECS179Project/blob/ac16c4c707ecaef25aeb805c9da923355c6306de/cursed-crown/Scripts/tutorialCameraController.gd#L24)
 
-
-
-
-
-
+---
 
 ## Alexandr Volkov
 ### Main Roles: Game Logic
@@ -314,7 +264,7 @@ To do the boss I started off by creating a FSM and then applying implementing si
 - [AI USE!](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Assets/boss/bossShield.png)
 
 
-## Madeleine Oesterer
+## Madeleine Oesterer - git username: moesterer
 ### Main Role: Visuals and Animations
 
 ### Asset Credits
