@@ -304,6 +304,23 @@ The ShopUI component (ShopUI.gd:1) represents the most complex part of the shop 
 
 The UI utilizes CanvasLayer with PROCESS_MODE_ALWAYS to ensure it functions correctly even when the game is paused, providing a smooth user experience.
 
+**Shop Interface Visual Design**
+
+![Altar Shop Interface](zeying_image/截屏2025-12-10%20下午10.00.18.png)
+
+The shop interface features a polished dark fantasy aesthetic that seamlessly integrates with the game's visual language. The UI design includes:
+
+- **Themed Header**: The "ALTAR SHOP" title with decorative star elements establishes the mystical atmosphere
+- **Currency Display**: Prominent diamond-shaped shard counter showing the player's current purchasing power
+- **Item Listing**: Three clearly labeled purchase options with keyboard shortcuts [1], [2], [3] for quick access:
+  - Health Potion (1 Shard): Instant health restoration for tactical recovery
+  - Damage Upgrade (3 Shards): Permanent power increase for improved combat effectiveness
+  - Stamina Upgrade (2 Shards): Enhanced stamina pool for more frequent special attacks
+- **Clear Pricing**: Each item displays its cost in Shards, allowing players to quickly assess affordability
+- **Intuitive Controls**: ESC key binding for shop closure, enabling quick exits during intense gameplay moments
+
+The interface uses a dark purple and gold color scheme that echoes the cursed royal crown narrative, with subtle star motifs reinforcing the magical altar theme. The button layout prioritizes readability and quick decision-making, essential for a roguelike game where every resource decision impacts survival.
+
 **3. Shop Manager Singleton**
 
 To manage shop instances globally and prevent duplication, I created the ShopManager autoload singleton (ShopManager.gd:1). This component:
