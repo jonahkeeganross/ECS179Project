@@ -263,6 +263,151 @@ To do the boss I started off by creating a FSM and then applying implementing si
 
 - [AI USE!](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Assets/boss/bossShield.png)
 
+---
+
+## Zeying Li - Github: QPZMphantom
+
+### Main Role: System Engineer
+
+As the system engineer, I was responsible for designing and implementing the entire shop system that serves as the core economic and progression mechanic in Cursed Crown. The shop system allows players to spend coins collected from defeated enemies to purchase upgrades at altars scattered throughout the dungeon. This system required careful integration with multiple game components including the player stats, UI, economy, and tutorial systems.
+
+#### Shop System Architecture and Implementation
+
+The shop system was built using a modular three-component architecture to ensure maintainability and clean separation of concerns:
+
+**1. Altar Detection and Interaction System**
+
+I started by creating the Altar scene and its corresponding script (altar.gd:1), which handles player proximity detection and shop activation. The implementation process involved:
+
+- Implementing Area2D collision detection to identify when the player enters the altar's interaction zone
+- Creating a visual feedback system with an "InteractPrompt" label that appears when players are near an altar
+- Adding input handling to detect the F key press for shop interaction
+- Integrating with the tutorial system to automatically show the altar tutorial popup on the player's first encounter
+
+The altar script maintains state tracking for whether the player is in range and stores a reference to the current player, enabling seamless shop opening when the interact key is pressed.
+
+**2. Shop User Interface Development**
+
+The ShopUI component (ShopUI.gd:1) represents the most complex part of the shop system, featuring a complete UI for browsing and purchasing items. The development process included:
+
+- Designing a pause-menu style interface that freezes gameplay while the shop is open
+- Implementing three purchasable items:
+  - **Health Potion** (1 Shard): Restores 30 health points, capped at maximum health
+  - **Damage Upgrade** (3 Shards): Permanently increases attack damage by 5 points
+  - **Stamina Upgrade** (2 Shards): Permanently increases maximum stamina by 20 points
+- Creating dynamic button states that automatically disable purchases when:
+  - The player doesn't have enough currency
+  - Health is already at maximum (for health potions)
+- Building a real-time coin display that updates after each purchase
+- Adding keyboard shortcuts (1, 2, 3) for quick item purchases and ESC to close the shop
+- Implementing proper signal emission for item purchases to notify other systems
+
+The UI utilizes CanvasLayer with PROCESS_MODE_ALWAYS to ensure it functions correctly even when the game is paused, providing a smooth user experience.
+
+**3. Shop Manager Singleton**
+
+To manage shop instances globally and prevent duplication, I created the ShopManager autoload singleton (ShopManager.gd:1). This component:
+
+- Implements lazy initialization using the get_or_create_shop_ui() pattern
+- Ensures only one shop UI instance exists throughout the game session
+- Provides a clean API for altars to open the shop interface
+- Manages the shop UI scene lifecycle
+
+#### Integration with Game Systems
+
+The shop system required deep integration with multiple existing game components:
+
+- **Player Stats Integration**: Connected purchases to player health, stamina, and damage systems through direct player property modification
+- **Economy System**: Integrated with the coin collection system and the BUS signal system to emit coin change events
+- **Tutorial System**: Added first-time tutorial popup functionality when players first encounter an altar
+- **UI/HUD Updates**: Ensured all HUD elements update in real-time to reflect purchases (health bar, stamina bar, coin counter)
+
+#### Technical Challenges and Solutions
+
+During development, I encountered and solved several technical challenges:
+
+1. **Pause System Coordination**: Initially, the shop UI didn't respond to input when the game was paused. I solved this by setting `process_mode = PROCESS_MODE_ALWAYS` on the CanvasLayer.
+
+2. **Button State Management**: Created a centralized `update_button_states()` function that runs after every purchase to ensure buttons accurately reflect affordability and availability.
+
+3. **Player Reference Passing**: Developed a clean reference-passing system where altars pass the player instance to the ShopManager, which then forwards it to the ShopUI for stat modifications.
+
+The complete shop system consists of:
+- [Altar Script](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/altar.gd)
+- [Shop UI Script](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/ShopUI.gd)
+- [Shop Manager Script](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/ShopManager.gd)
+
+### Sub-Role: Game Testing
+
+As the game testing specialist, my responsibilities extended beyond just playing the game to conducting comprehensive user testing and gathering feedback from diverse player groups.
+
+#### Organized Testing Sessions
+
+I actively participated in discussion sections and used these opportunities to recruit playtesters for our game. This involved:
+
+- Attending weekly discussion sections and promoting the game to classmates
+- Recruiting diverse groups of players with varying gaming experience levels
+- Observing players during their first playthroughs to identify usability issues
+- Collecting verbal and written feedback on game mechanics, difficulty, and overall experience
+
+#### Personal Testing and Quality Assurance
+
+Beyond organized testing sessions, I conducted extensive personal testing throughout the development cycle:
+
+- **Functionality Testing**: Verified that all game systems worked correctly together, particularly the shop system integration with player stats
+- **Balance Testing**: Tested item pricing to ensure proper game balance and progression pacing
+- **Edge Case Testing**: Attempted to break the game through unusual input sequences and state transitions
+- **Cross-System Testing**: Verified that the shop, combat, and progression systems worked harmoniously
+
+The feedback gathered through these testing efforts directly influenced several design decisions, including shop item pricing adjustments and the addition of keyboard shortcuts for faster purchasing.
+
+### Other Contributions
+
+Beyond my primary roles, I made several significant contributions to enhance the game's visual polish and fix critical bugs.
+
+#### Projectile Visual Effects
+
+I developed enhanced visual effects for the VoidBall projectile system to create a more engaging combat experience:
+
+- Created a procedurally generated purple circular texture for void projectiles using Godot's Image API
+- Implemented smooth fade-in and fade-out animations using Tween for professional-looking projectile spawning and despawning
+- Designed the visual appearance with a mystical purple color (#c026c3) that fits the game's dark fantasy aesthetic
+- Added alpha gradient effects to create a glowing, ethereal appearance
+
+The VoidBall projectile system features dynamic properties including adjustable speed, acceleration, rotation velocity, and lifetime, creating visually interesting attack patterns for enemies.
+
+[VoidBall Script](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/DamageManager/Projectiles/voidball.gd)
+
+#### Dialogue System Enhancement - Typewriter Effect
+
+I enhanced the dialogue system by implementing a typewriter text effect that significantly improved the presentation and readability of in-game dialogue:
+
+- Implemented character-by-character text display in the dialogue controller (dialogue_controller.gd:42-51)
+- Added timer-based text rendering that reveals each character sequentially instead of displaying entire sentences at once
+- Created a more engaging and dramatic dialogue presentation that gives players time to read and absorb information
+- Implemented skip functionality allowing players to press spacebar to instantly display the full text if they prefer faster reading
+
+This enhancement transformed the dialogue from instant text dumps into a more polished, professional presentation that better suited the game's atmospheric storytelling.
+
+[Dialogue Controller Script](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/dialogue_controller.gd)
+
+#### Critical Bug Fix: Ranged Attack Collision
+
+I identified and fixed a critical bug where the player's ranged arrow attacks would pass through walls and obstacles without dealing damage to enemies. This bug significantly impacted gameplay as the arrow attack was designed to be the primary strategy for the boss fight.
+
+The fix involved:
+
+- Adding proper collision detection to the arrow projectile (arrow.gd:14-24)
+- Implementing body_entered signal handling to detect collisions with all physics bodies
+- Adding player exclusion logic to prevent self-damage
+- Ensuring arrows call the take_damage() method on enemies they hit
+- Implementing proper projectile cleanup by calling queue_free() upon any collision, preventing arrows from passing through walls
+
+This fix transformed the arrow from a non-functional mechanic into a viable and essential combat tool, particularly for the boss encounter where ranged attacks are critical to the player's success.
+
+[Arrow Script](https://github.com/jonahkeeganross/ECS179Project/blob/main/cursed-crown/Scripts/arrow.gd)
+
+---
 
 ## Madeleine Oesterer - git username: moesterer
 ### Main Role: Visuals and Animations
